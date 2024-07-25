@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 const Footer = () => {
+  const { pathname } = useLocation();
+  const isRoomPath = pathname.startsWith("/room");
   return (
-    <div className="min-h-[40vh] bg-black text-white flex flex-col">
+    <div
+      className={`min-h-[40vh] bg-black text-white flex flex-col ${isRoomPath && "hidden"}`}
+    >
       <div className="flex justify-between p-10 max-lg:flex-col flex-1">
         <div>
           <div className="hover:text-neutral-300">
@@ -69,13 +73,13 @@ const Footer = () => {
           <div className="flex flex-col">
             <Link
               className="hover:text-neutral-300 line-clamp-1"
-              to="/create-room"
+              to="/room/create"
             >
               Create a Room
             </Link>
             <Link
               className="hover:text-neutral-300 line-clamp-1"
-              to="/join-room"
+              to="/room/join"
             >
               Join a Room
             </Link>

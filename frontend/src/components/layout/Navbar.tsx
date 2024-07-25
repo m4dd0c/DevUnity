@@ -6,7 +6,10 @@ function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   return (
     <div
-      className={cn("fixed top-3 inset-x-0 max-w-2xl mx-auto z-50", className)}
+      className={cn(
+        "fixed top-3 inset-x-0 max-w-2xl mx-auto z-[99999999]",
+        className,
+      )}
     >
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
@@ -20,16 +23,16 @@ function Navbar({ className }: { className?: string }) {
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Room">
-          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
+          <div className="text-sm grid grid-cols-2 gap-10 p-4 max-sm:flex max-sm:flex-col max-sm:px-1 max-sm:gap-0 max-sm:space-y-10">
             <ProductItem
               title="Create Room"
-              href="/create-room"
+              href="/room/create"
               src="https://assets.aceternity.com/demos/algochurn.webp"
               description="Kickstart a Project by Creating a Room."
             />
             <ProductItem
               title="Join Room"
-              href="/join-room"
+              href="/room/join"
               src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
               description="Join Room and sky rocket Development journey."
             />
