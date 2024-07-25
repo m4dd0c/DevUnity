@@ -7,7 +7,7 @@ function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "fixed top-3 inset-x-0 max-w-2xl mx-auto z-[99999999]",
+        "fixed top-3 inset-x-0 max-w-2xl mx-auto z-[99999]",
         className,
       )}
     >
@@ -27,13 +27,13 @@ function Navbar({ className }: { className?: string }) {
             <ProductItem
               title="Create Room"
               href="/room/create"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
+              src="/assets/navbar/create-room.png"
               description="Kickstart a Project by Creating a Room."
             />
             <ProductItem
               title="Join Room"
               href="/room/join"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
+              src="/assets/navbar/join-room.png"
               description="Join Room and sky rocket Development journey."
             />
           </div>
