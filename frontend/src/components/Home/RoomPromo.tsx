@@ -1,24 +1,7 @@
 import { Link } from "react-router-dom";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
+import { words } from "../../constants";
 function RoomPromo() {
-  const words = [
-    {
-      text: "Utilize",
-    },
-    {
-      text: "the",
-    },
-    {
-      text: "Power",
-    },
-    {
-      text: "of",
-    },
-    {
-      text: "Collabrite.",
-      className: "text-blue-500 dark:text-blue-500",
-    },
-  ];
   return (
     <div
       className="flex flex-col items-center justify-center h-[40rem]"

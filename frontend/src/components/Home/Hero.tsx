@@ -2,6 +2,7 @@ import HeroGlobe from "./HeroGlobe";
 import { HeroHighlight, Highlight } from "../ui/hero-highlight";
 import { motion } from "framer-motion";
 import { IconMouse } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -29,6 +30,13 @@ const Hero = () => {
             <Highlight className="text-black dark:text-white">
               Collaborite
             </Highlight>
+            <br />
+            <Link
+              className="text-lg bg-indigo-500 py-2 px-4 font-normal"
+              to="/room/id"
+            >
+              Playground
+            </Link>
           </motion.h1>
           <HeroGlobe />
         </div>

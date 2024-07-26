@@ -10,10 +10,14 @@ const Footer = () => {
       <div className="flex justify-between p-10 max-lg:flex-col flex-1">
         <div>
           <div className="hover:text-neutral-300">
-            <Link className="flex justify-start items-center" to="/#hero">
+            <HashLink
+              smooth
+              className="flex justify-start items-center"
+              to="/#hero"
+            >
               <img src="/assets/logo.png" alt="logo" height={80} width={80} />
               <h1 className="font-bold text-2xl underline">Collabrite</h1>
-            </Link>
+            </HashLink>
           </div>
           <div>
             <p className="text-sm ml-6">

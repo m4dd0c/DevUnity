@@ -1,6 +1,6 @@
+import { team } from "../../constants";
 import Heading from "../layout/Heading";
 import { StickyScroll } from "../ui/sticky-scroll-reveal";
-import team from "./teamConstants";
 
 function Team() {
   return (

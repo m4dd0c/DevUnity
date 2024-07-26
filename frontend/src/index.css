@@ -16,6 +16,11 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+/*fixing cursor position*/
+.ace_content * {
+  font-family: monospace;
+  font-variant-ligatures: no-common-ligatures;
+}
 
 /* Hide scrollbar for IE, Edge and Firefox */
 body {

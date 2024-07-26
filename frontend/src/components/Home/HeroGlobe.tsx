@@ -1,5 +1,5 @@
+import { globeConfig, sampleArcs } from "../../constants";
 import { World } from "../ui/globe";
-import { globeConfig, sampleArcs } from "./GlobeConfig";
 
 function HeroGlobe() {
   return (

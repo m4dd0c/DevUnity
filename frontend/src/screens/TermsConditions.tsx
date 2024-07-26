@@ -117,11 +117,9 @@ const TermsConditions = () => {
           </h2>
           <ul className="list-disc list-inside text-lg mb-4">
             <li>.js</li>
-            <li>.md</li>
             <li>.cpp</li>
             <li>.py</li>
             <li>.c</li>
-            <li>.java</li>
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">

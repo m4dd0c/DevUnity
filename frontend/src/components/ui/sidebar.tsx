@@ -1,8 +1,14 @@
 import { cn } from "../../utils/cn";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import {
+  IconCopy,
+  IconMenu2,
+  IconPlayerPlayFilled,
+  IconX,
+} from "@tabler/icons-react";
+import { handleCopy, runCode } from "../../utils/playground/utils";
 
 interface Links {
   label: string;
@@ -118,7 +124,18 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="flex justify-end z-20 w-full">
+        <div className="flex gap-4 items-center justify-end z-20 w-full">
+          <IconPlayerPlayFilled
+            title="run code"
+            className="text-indigo-500 h-5 w-5 flex-shrink-0"
+            //TODO: run code
+            onClick={runCode}
+          />
+          <IconCopy
+            title="copy roomId"
+            className="text-indigo-500 h-5 w-5 flex-shrink-0"
+            onClick={handleCopy}
+          />
           <IconMenu2
             className="text-neutral-800 dark:text-neutral-200"
             onClick={() => setOpen(!open)}
@@ -164,9 +181,13 @@ export const SidebarLink = ({
   props?: any;
 }) => {
   const { open, animate } = useSidebar();
+  const { id } = useParams();
+  let path = null;
+  if (!link.href.startsWith("/")) path = `/room/${id}/${link.href}`;
+
   return (
     <Link
-      to={link.href}
+      to={path ?? link.href}
       className={cn(
         "flex items-center justify-start gap-2  group/sidebar py-2",
         className,

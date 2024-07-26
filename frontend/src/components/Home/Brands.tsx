@@ -1,25 +1,7 @@
 import Heading from "../layout/Heading";
-import { brands } from "./brands";
+import BrandCard from "../Cards/BrandCard";
+import { brands } from "../../constants";
 
-const BrandCard = ({
-  img,
-  label,
-  pure = false,
-}: {
-  img: string;
-  label: string;
-  pure?: boolean;
-}) => {
-  return (
-    <img
-      src={img}
-      alt={label}
-      height={100}
-      width={100}
-      className={`${!pure && "invert"}`}
-    />
-  );
-};
 const Brands = () => {
   return (
     <div className="mt-10" id="brands">

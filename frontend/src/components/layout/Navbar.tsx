@@ -2,12 +2,19 @@ import { useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "../../utils/cn";
 
-function Navbar({ className }: { className?: string }) {
+function Navbar({
+  className,
+  isRoomPath,
+}: {
+  className?: string;
+  isRoomPath: boolean;
+}) {
   const [active, setActive] = useState<string | null>(null);
+
   return (
     <div
       className={cn(
-        "fixed top-3 inset-x-0 max-w-2xl mx-auto z-[99999]",
+        `${isRoomPath ? "hidden" : "fixed"} top-3 inset-x-0 max-w-2xl mx-auto z-[99999]`,
         className,
       )}
     >
