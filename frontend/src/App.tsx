@@ -17,7 +17,7 @@ import CreateRoom from "./screens/CreateRoom";
 import JoinRoom from "./screens/JoinRoom";
 import Describe from "./screens/Room/Describe";
 import Description from "./screens/Room/Description";
-
+import "./prism.css";
 function App() {
   return (
     <Router>

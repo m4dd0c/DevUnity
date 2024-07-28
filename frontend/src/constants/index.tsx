@@ -15,6 +15,43 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 
+// dummyMdx
+export const mdx = `<div class="votecell post-layout--left">
+<div class="js-voting-container d-flex jc-center fd-column ai-center gs4 fc-black-300" data-post-id="54191488" data-referrer="RelatedQuestions_Inline">&nbsp;</div>
+</div>
+<div class="answercell post-layout--right">
+<div class="s-prose js-post-body" itemprop="text">
+<p>TS/TSX files work <a href="https://github.com/expo/expo/blob/master/CHANGELOG.md#-breaking-changes-2" rel="noreferrer">out of the box with expo v31</a>&nbsp;but you'll probably want to include</p>
+<p><strong>Package TypeScript types</strong></p>
+<p><code>yarn add @types/expo @types/react @types/react-native -D</code></p>
+<p><strong>Custom tsconfig.json</strong></p>
+<p>Create&nbsp;<code>tsconfig.json</code>&nbsp;in the root directory next to&nbsp;<code>package.json</code>. It enforces strict mode and includes&nbsp;<code>App.tsx</code>&nbsp;(to replace&nbsp;<code>App.js</code>) and "custom_types" directory to add types for npm packages that don't include them.</p>
+<pre class="language-javascript"><code>// Defaults from https://blogs.msdn.microsoft.com/typescript/2018/08/27/typescript-and-babel-7/
+// Added "jsx": "react-native".
+// Added ["App.tsx", "custom_types"] to "include".
+{
+  "compilerOptions": {
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    // Output react-native code.
+    "jsx": "react-native",
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    // Enable strictest settings like strictNullChecks &amp; noImplicitAny.
+    "strict": true,
+    // Disallow features that require cross-file information for emit.
+    "isolatedModules": true,
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true
+  },
+  "include": ["src", "App.tsx", "custom_types"]
+}</code></pre>
+</div>
+</div>`;
+
+// dummy chat
 export const dummyChat = [
   {
     avatar: "https://assets.aceternity.com/manu.png",

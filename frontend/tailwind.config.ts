@@ -5,6 +5,8 @@ import defaultTheme from "tailwindcss/defaultTheme";
 import colors from "tailwindcss/colors";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 import svgToDataUri from "mini-svg-data-uri";
+import typography from "@tailwindcss/typography";
+
 export default {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -90,6 +92,7 @@ export default {
     },
   },
   plugins: [
+    typography,
     addVariablesForColors,
     function ({ matchUtilities, theme }) {
       matchUtilities(
