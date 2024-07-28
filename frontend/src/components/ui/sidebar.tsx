@@ -9,10 +9,11 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { handleCopy, runCode } from "../../utils/playground/utils";
+import RenderModal from "./renderModal";
 
 interface Links {
   label: string;
-  href: string;
+  href?: string;
   icon: React.JSX.Element | React.ReactNode;
 }
 
@@ -174,37 +175,91 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  onClick,
   ...props
 }: {
   link: Links;
   className?: string;
+  onClick?: () => any;
   props?: any;
 }) => {
   const { open, animate } = useSidebar();
+
+  // forming new aboslute links
   const { id } = useParams();
   let path = null;
-  if (!link.href.startsWith("/")) path = `/room/${id}/${link.href}`;
 
-  return (
-    <Link
-      to={path ?? link.href}
-      className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
-        className,
-      )}
-      {...props}
-    >
-      {link.icon}
+  // forming new absolute path
+  if (link.href) {
+    if (!link.href.startsWith("/")) path = `/room/${id}/${link.href}`;
+  }
 
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+  if (
+    !onClick &&
+    !link.href &&
+    (link.label === "Chat" ||
+      link.label === "Users" ||
+      link.label === "Language")
+  ) {
+    return (
+      <RenderModal
+        icon={link.icon}
+        label={link.label}
+        animate={animate}
+        open={open}
+      />
+    );
+  } else {
+    return onClick ? (
+      <button
+        onClick={onClick}
+        className={cn(
+          "flex items-center justify-start gap-2  group/sidebar py-2",
+          className,
+        )}
+        {...props}
       >
-        {link.label}
-      </motion.span>
-    </Link>
-  );
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: animate
+              ? open
+                ? "inline-block"
+                : "none"
+              : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        >
+          {link.label}
+        </motion.span>
+      </button>
+    ) : (
+      <Link
+        to={path ?? link.href!}
+        className={cn(
+          "flex items-center justify-start gap-2  group/sidebar py-2",
+          className,
+        )}
+        {...props}
+      >
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: animate
+              ? open
+                ? "inline-block"
+                : "none"
+              : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        >
+          {link.label}
+        </motion.span>
+      </Link>
+    );
+  }
 };

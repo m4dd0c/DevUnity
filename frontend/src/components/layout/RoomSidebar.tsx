@@ -27,26 +27,20 @@ function RoomSidebar({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <SidebarLink
+              onClick={runCode}
               link={{
                 label: "Run (ctrl+r)",
-                href: "#run",
                 icon: (
-                  <IconPlayerPlayFilled
-                    className="text-indigo-500 h-5 w-5 flex-shrink-0"
-                    onClick={runCode} // TODO: edit this later
-                  />
+                  <IconPlayerPlayFilled className="text-indigo-500 h-5 w-5 flex-shrink-0" />
                 ),
               }}
             />
             <SidebarLink
+              onClick={handleCopy}
               link={{
                 label: "Copy RoomId",
-                href: "#copy",
                 icon: (
-                  <IconCopy
-                    className="text-indigo-500 h-5 w-5 flex-shrink-0"
-                    onClick={handleCopy}
-                  />
+                  <IconCopy className="text-indigo-500 h-5 w-5 flex-shrink-0" />
                 ),
               }}
             />

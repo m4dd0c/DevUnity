@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="p-[2px] rounded-lg transition duration-300 group/input"
+        className="w-full p-[2px] rounded-lg transition duration-300 group/input"
       >
         <input
           type={type}
@@ -45,7 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
            disabled:cursor-not-allowed disabled:opacity-50
            dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
            group-hover/input:shadow-none transition duration-400
-           ${transparent ? "bg-[rgba(0,0,0,0.3)]" : "bg-zinc-800"}`,
+           ${transparent ? "bg-[rgba(0,0,0,0.5)]" : "bg-zinc-800"}`,
             className,
           )}
           ref={ref}

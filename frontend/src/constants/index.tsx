@@ -15,6 +15,129 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 
+export const dummyChat = [
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Manish Suthar",
+    admin: true,
+    message: "Hii Guys...",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Nitesh Suthar",
+    admin: false,
+    message: "Hii Little Brother.\nHow have you been doing?",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Manish Suthar",
+    admin: true,
+    message:
+      "Yess... big brother Im totally fine.\nCongratulations on getting into google.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Nitesh Suthar",
+    admin: false,
+    message: "Thank you.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "John Doe",
+    admin: false,
+    message: "We didn't know. We have google employee here.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Nitesh Suthar",
+    admin: false,
+    message: "Ahhh man... stop fucking around.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Tsumiyoki",
+    admin: false,
+    message:
+      "Woah Woah Woah! can someone tell me whats going on here!? I also want to join the thing giving me fomo. Please :<",
+  },
+  {
+    name: "Takuya",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+    message:
+      "Hi Guys don't forget to buy my new wallpapers. They really help me as an indie developer.",
+  },
+  {
+    name: "John Doe",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+    message: "Why does everyone ask me If I'm some kinda programmer.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "John Doe",
+    admin: false,
+    message: "We didn't know. We have google employee here.",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Nitesh Suthar",
+    admin: false,
+    message: "Ahhh man...I say stop fucking around!",
+  },
+  {
+    avatar: "https://assets.aceternity.com/manu.png",
+    name: "Manish Suthar",
+    admin: true,
+    message: "What the big plan, tell me already.",
+  },
+  {
+    name: "Takuya",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+    message:
+      "Hi Guys don't forget to buy my new wallpapers. They really help me as an indie developer.",
+  },
+  {
+    name: "John Doe",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+    message: "Why does everyone ask me If I'm some kinda programmer.",
+  },
+];
+
+export const dummyUsers = [
+  {
+    name: "Manish Suthar",
+    admin: true,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+  {
+    name: "Nitesh Suthar",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+  {
+    name: "John Doe",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+  {
+    name: "Manu Arora",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+  {
+    name: "Tsumiyoki",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+  {
+    name: "Takuya",
+    admin: false,
+    avatar: "https://assets.aceternity.com/manu.png",
+  },
+];
 // supported languages - DashboardHeader
 export const langs = [
   {
@@ -64,21 +187,18 @@ export const links = [
   },
   {
     label: "Chat",
-    href: "#chat",
     icon: (
       <IconMessageCircle className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
     label: "Users",
-    href: "#users",
     icon: (
       <IconUsers className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
     label: "Language",
-    href: "#languages",
     icon: (
       <IconCode className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
