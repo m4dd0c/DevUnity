@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 export const connectDB = async () => {
   try {
-    const connection = await mongoose.connect("mongodb://0.0.0.0/27017", {
+    if (!process.env.MONGO_URI) return false;
+    await mongoose.connect(process.env.MONGO_URI, {
       dbName: "Collabrite",
     });
-    console.log("Connect to DB!");
+    console.log("Connected to DB!");
   } catch (error) {
     console.log("Error connecting to DB", error);
   }

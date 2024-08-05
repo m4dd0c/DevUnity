@@ -2,8 +2,8 @@ import express from "express";
 import cors, { CorsOptions } from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-import dotenv from "dotenv";
-dotenv.config();
+import { setupRoutes } from "./routes";
+import error from "./middleware/error";
 
 const corsOptions: CorsOptions = {
   origin: "*",
@@ -17,6 +17,9 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 
+setupRoutes();
+
 app.get("/", (req, res) => {
   res.send("Server is working...");
 });
+app.use(error);

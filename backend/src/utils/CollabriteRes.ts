@@ -11,6 +11,28 @@ class CollabriteRes {
     this.message = message || "ok";
     this.data = data || {};
   }
+  authenticate(token: string) {
+    this.res.cookie("token", token, {
+      // setting cookie expiry of 30 days
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      // prevent cookie being accessed from client-side, xss protection
+      // httpOnly: true,
+      // to process req in https manner mitm protection
+      // secure: true,
+      // csrf protection (setting sameSite:none requires secure:true)
+      // sameSite: "none",
+    });
+    this.send();
+  }
+  deauthenticate() {
+    this.res.status(200).cookie("", {
+      expires: Date.now(),
+      // httpOnly: true,
+      // secure: true,
+      // sameSite: "none",
+    });
+    this.send();
+  }
   send() {
     if (!this.status)
       return this.res
