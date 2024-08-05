@@ -284,16 +284,14 @@ export const resetPassword = catchAsync(
     new CollabriteRes(res, 200, "Password Reset successfully.").send();
   },
 );
-export const getMe = catchAsync(
+export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const { userId } = req.params;
+    if (!userId)
+      return next(new CollabriteError(400, "Please provide a userId."));
+    const user = await User.findById(userId);
     if (!user)
-      return next(
-        new CollabriteError(
-          401,
-          "It seems like you are unauthenticated, Please login.",
-        ),
-      );
+      return next(new CollabriteError(500, "No user found w/ this id."));
     const clientUser = new UserDTO(user).translate();
     new CollabriteRes(res, 200, "", clientUser).send();
   },
@@ -418,5 +416,36 @@ export const deleteMe = catchAsync(
         ),
       );
     new CollabriteRes(res, 200).send();
+  },
+);
+export const search = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { page, size } = req.query;
+    let { query } = req.params;
+    if (!page) page = "1";
+    if (!size) size = "10";
+
+    const skipAmount =
+      (parseInt(page as string) - 1) * parseInt(size as string);
+    // forming query
+    const searchQuery = query
+      ? {
+          $or: [
+            { username: { $regex: new RegExp(query, "i") } },
+            { name: { $regex: new RegExp(query, "i") } },
+          ],
+        }
+      : {};
+    // delete user and his rooms
+    const users = await User.find(searchQuery)
+      .skip(skipAmount)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(size as string));
+
+    if (!users)
+      return next(new CollabriteError(500, "No user found w/ this query."));
+    const totalDocuments = await User.countDocuments(searchQuery);
+    const isNext = totalDocuments > skipAmount + users.length;
+    new CollabriteRes(res, 200, undefined, { isNext, users }).send();
   },
 );

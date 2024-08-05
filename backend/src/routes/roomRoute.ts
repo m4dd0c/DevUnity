@@ -18,7 +18,7 @@ router
   .put(authenticated, updateRoom)
   .delete(authenticated, deleteRoom);
 
-router.route("/all/:ownerId").get(authenticated, allRooms);
+router.route("/all/:ownerId").get(allRooms);
 router.route("/single/:roomId").get(authenticated, getRoom);
 
 export default router;

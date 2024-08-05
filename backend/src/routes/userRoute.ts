@@ -7,11 +7,12 @@ import {
   changePassword,
   forgetPassword,
   resetPassword,
-  getMe,
+  getUser,
   editMe,
   usernameAvailability,
   contact,
   deleteMe,
+  search,
 } from "../controller/userController";
 import imageInterceptor from "../middleware/multer";
 
@@ -24,9 +25,10 @@ router.route("/verify/:token").get(verify);
 router.route("/password/change").put(authenticated, changePassword);
 router.route("/password/forget").put(forgetPassword);
 router.route("/password/reset/:token").put(resetPassword);
+router.route("/:userId").get(getUser);
+router.route("/search/:query").get(search);
 router
   .route("/me")
-  .get(authenticated, getMe)
   .put(authenticated, imageInterceptor, editMe)
   .delete(authenticated, deleteMe);
 router.route("/contact").post(contact);

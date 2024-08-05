@@ -77,8 +77,11 @@ export const getRoom = catchAsync(
       return next(
         new CollabriteError(400, "No such room available with this id."),
       );
+    if (!room.participents.includes(user._id)) {
+      room = await Room.findById(roomId).select("-project.code");
+    }
     // if user is room owner then sending password field as well
-    if (user._id.toString() === room.admin.toString()) {
+    else if (user._id.toString() === room.admin.toString()) {
       room = await Room.findById(roomId).select("+password");
     }
     if (!room)
@@ -198,14 +201,6 @@ export const updateRoom = catchAsync(
 );
 export const allRooms = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
-    if (!user)
-      return next(
-        new CollabriteError(
-          401,
-          "It seems like you are unauthenticated. Please login.",
-        ),
-      );
     const { ownerId } = req.params;
     if (!ownerId)
       return next(
