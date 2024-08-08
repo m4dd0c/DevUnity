@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "../../utils/cn";
+import { Link } from "react-router-dom";
 
 function Navbar({
   className,
   isRoomPath,
+  auth,
 }: {
   className?: string;
   isRoomPath: boolean;
+  auth: boolean;
 }) {
   const [active, setActive] = useState<string | null>(null);
 
+  const pathname = window.location.pathname;
+  const authPath = pathname.startsWith("/auth");
   return (
     <div
       className={cn(
@@ -29,6 +34,9 @@ function Navbar({
             <HoveredLink href="/#room-promo">Room Promo</HoveredLink>
           </div>
         </MenuItem>
+        <Link to={"/search"} className="dark:text-white">
+          Search
+        </Link>
         <MenuItem setActive={setActive} active={active} item="Room">
           <div className="text-sm grid grid-cols-2 gap-10 p-4 max-sm:flex max-sm:flex-col max-sm:px-1 max-sm:gap-0 max-sm:space-y-10">
             <ProductItem
@@ -55,6 +63,19 @@ function Navbar({
             </HoveredLink>
           </div>
         </MenuItem>
+        {auth ? (
+          <MenuItem setActive={setActive} active={active} item="Profile">
+            <div className="flex flex-col space-y-4 text-sm">
+              <HoveredLink href="/user/:userId">Account</HoveredLink>
+              <HoveredLink href="/password/change">Change password</HoveredLink>
+              <HoveredLink href="/user/:userId/danger">Danger zone</HoveredLink>
+            </div>
+          </MenuItem>
+        ) : (
+          <h1 className={`${authPath ? "text-cyan-500" : "text-indigo-500"}`}>
+            <Link to="/auth/signin">Signin</Link>
+          </h1>
+        )}
       </Menu>
     </div>
   );

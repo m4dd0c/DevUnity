@@ -2,7 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 const Footer = () => {
   const { pathname } = useLocation();
-  const isRoomPath = pathname.startsWith("/room");
+  const isRoomPath =
+    pathname.startsWith("/room") || pathname.startsWith("/user");
   return (
     <div
       className={`min-h-[40vh] bg-black text-white flex flex-col ${isRoomPath && "hidden"}`}

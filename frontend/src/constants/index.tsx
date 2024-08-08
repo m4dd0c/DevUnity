@@ -3,7 +3,10 @@ import {
   IconCode,
   IconCurrencyDollar,
   IconEaseInOut,
+  IconEdit,
+  IconKey,
   IconTerminal2,
+  IconTrash,
 } from "@tabler/icons-react";
 
 import {
@@ -14,6 +17,114 @@ import {
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
+
+// users
+export const users = [
+  {
+    name: "Takuya Matsumaya",
+    username: "craftzdog",
+    bio: "Hello, I'm an indie app developer based in Japan! Hello, I'm an indie app developer based in Japan!",
+    createdAt: "June, 13",
+    location: "Osaka, Japan",
+    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    name: "Hiroshi Tanaka",
+    username: "hiro_dev",
+    bio: "Passionate about coding and open source.",
+    createdAt: "May, 22",
+    location: "Tokyo, Japan",
+    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
+  },
+  {
+    name: "Aiko Nakamura",
+    username: "aiko_n",
+    bio: "Full-stack developer and tech enthusiast.",
+    createdAt: "April, 10",
+    location: "Kyoto, Japan",
+    avatar: "https://randomuser.me/api/portraits/women/1.jpg",
+  },
+  {
+    name: "Kenji Watanabe",
+    username: "kenji_w",
+    bio: "Mobile app developer with a love for design.",
+    createdAt: "March, 5",
+    location: "Sapporo, Japan",
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+  },
+  {
+    name: "Yuki Takahashi",
+    username: "yuki_t",
+    bio: "Freelance developer and digital nomad.",
+    createdAt: "February, 18",
+    location: "Fukuoka, Japan",
+    avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+  },
+];
+
+// projects
+export const projects = [
+  {
+    title: "Stripe",
+    description:
+      "A technology company that builds economic infrastructure for the internet.",
+    link: "https://stripe.com",
+  },
+  {
+    title: "Netflix",
+    description:
+      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+    link: "https://netflix.com",
+  },
+  {
+    title: "Google",
+    description:
+      "A multinational technology company that specializes in Internet-related services and products.",
+    link: "https://google.com",
+  },
+  {
+    title: "Meta",
+    description:
+      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+    link: "https://meta.com",
+  },
+  {
+    title: "Amazon",
+    description:
+      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
+    link: "https://amazon.com",
+  },
+  {
+    title: "Microsoft",
+    description:
+      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+    link: "https://microsoft.com",
+  },
+  {
+    title: "Stripe",
+    description:
+      "A technology company that builds economic infrastructure for the internet.",
+    link: "https://stripe.com",
+  },
+  {
+    title: "Netflix",
+    description:
+      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+    link: "https://netflix.com",
+  },
+  {
+    title: "Google",
+    description:
+      "A multinational technology company that specializes in Internet-related services and products.",
+    link: "https://google.com",
+  },
+  {
+    title: "Meta",
+    description:
+      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+    link: "https://meta.com",
+  },
+];
 
 // dummyMdx
 export const mdx = `<div class="votecell post-layout--left">
@@ -198,7 +309,30 @@ export const langs = [
     value: "js",
   },
 ];
-
+// user setting links
+export const userSettingsLinks = [
+  {
+    label: "Edit Profile",
+    href: "edit",
+    icon: (
+      <IconEdit className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "Change Password",
+    href: "/password/change",
+    icon: (
+      <IconKey className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
+    label: "Danger Zone",
+    href: "delete",
+    icon: (
+      <IconTrash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+];
 // links - RoomSidebar
 export const links = [
   {

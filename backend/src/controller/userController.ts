@@ -298,7 +298,7 @@ export const getUser = catchAsync(
 );
 export const editMe = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { username, name } = req.body;
+    const { username, name, location, portfolio, bio } = req.body;
     const avatar = req.file || null;
     if (!username && !name && !avatar)
       return next(
@@ -349,6 +349,9 @@ export const editMe = catchAsync(
       user.username = username;
     }
     if (name) user.name = name;
+    if (location) user.location = location;
+    if (portfolio) user.portfolio = portfolio;
+    if (bio) user.bio = bio;
     await user.save();
     const clientUser = new UserDTO(user);
     new CollabriteRes(res, 200, "Profile updated.", clientUser).send();

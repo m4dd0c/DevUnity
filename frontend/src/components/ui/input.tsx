@@ -5,9 +5,10 @@ import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   transparent?: boolean;
+  useCyan?: boolean;
 }
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, transparent, ...props }, ref) => {
+  ({ className, type, useCyan = false, transparent, ...props }, ref) => {
     const radius = 100; // change this to increase the rdaius of the hover effect
     const [visible, setVisible] = React.useState(false);
 
@@ -26,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           background: useMotionTemplate`
         radial-gradient(
           ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
-          var(--blue-500),
+          var(${useCyan ? "--cyan-500" : "--blue-500"}),
           transparent 80%
         )
       `,

@@ -12,6 +12,8 @@ const Header = () => {
   } else {
     isRoomPath = false;
   }
+  // TODO: get real info later
+  const auth = true;
   return (
     <>
       <div
@@ -28,7 +30,7 @@ const Header = () => {
           </HashLink>
         </div>
       </div>
-      <Navbar isRoomPath={isRoomPath} />
+      <Navbar isRoomPath={isRoomPath} auth={auth} />
     </>
   );
 };

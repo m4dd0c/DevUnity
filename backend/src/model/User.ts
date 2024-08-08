@@ -47,6 +47,20 @@ const userSchema = new Schema<IUser>(
       minlength: 8,
       maxlength: 100,
     },
+    portfolio: {
+      type: String,
+      minlength: [10, "Portfolio must include at least 10 characters."],
+      maxlength: [50, "Portfolio must include at most 50 characters."],
+    },
+    location: {
+      type: String,
+      minlength: [5, "Location must contain at least 5 characters."],
+      maxlength: [50, "Location must contain at most 50 characters."],
+    },
+    bio: {
+      type: String,
+      maxlength: [125, "Bio must contain at most 125 characters."],
+    },
     resetPassword: {
       token: {
         type: String,

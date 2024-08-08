@@ -18,7 +18,7 @@ const NotFound = () => {
         <div className="my-4">
           <GradientBorderButton>
             <HashLink to="/#hero" smooth={true}>
-              Back Home in
+              back to Home
             </HashLink>
           </GradientBorderButton>
         </div>

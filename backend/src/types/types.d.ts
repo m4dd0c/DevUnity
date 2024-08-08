@@ -26,6 +26,9 @@ interface IUser extends Document {
   username: string;
   name?: string;
   password: string;
+  location: string;
+  portfolio: string;
+  bio: string;
   resetPassword: {
     token: string | null;
     expiresAt: NativeDate | null;
