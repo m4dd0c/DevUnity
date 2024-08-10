@@ -1,17 +1,44 @@
 import React from "react";
-import { BottomGradient, LabelInputContainer } from "../../components/ui/misc";
+import { LabelInputContainer } from "../../components/ui/misc";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { IconSend2 } from "@tabler/icons-react";
 import { Spotlight } from "../../components/ui/Spotlight";
+import AceButton from "../../components/ui/AceButton";
+import { z } from "zod";
+import { ForgetPasswordSchema } from "../../lib/schemas/auth.schema";
+import { useMutation } from "@tanstack/react-query";
+import { forgetPasswordAction } from "../../lib/actions/userAction";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function ForgetPassword() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const onSubmit = (data: z.infer<typeof ForgetPasswordSchema>) => {
+    mutate(data);
   };
+  const { mutate, isPending } = useMutation({
+    mutationFn: forgetPasswordAction,
+    onSuccess: (res) => {
+      if (res) {
+        // show toaster TODO:
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ForgetPasswordSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
   return (
-    <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
@@ -22,20 +49,25 @@ function ForgetPassword() {
         </h1>
         <form
           className="my-8 max-w-md mx-auto text-white "
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="projectmayhem@fc.com" type="text" />
+            <Input
+              {...register("email")}
+              id="email"
+              placeholder="projectmayhem@fc.com"
+              type="text"
+            />
+            {errors.email && (
+              <span className="text-red-500 text-sm">
+                {errors.email.message}
+              </span>
+            )}
           </LabelInputContainer>
-          <button
-            className="flex justify-center items-center bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] my-2"
-            type="submit"
-          >
-            <h1>Send&nbsp;</h1>
-            <IconSend2 size={15} />
-            <BottomGradient />
-          </button>
+          <AceButton icon={<IconSend2 size={15} />} isLoading={isPending}>
+            Send
+          </AceButton>
           <small>
             A password reset link will be sent to your email address.
             <br /> Use that to retrieve your account.

@@ -1,15 +1,21 @@
-import { BottomGradient, LabelInputContainer } from "../../components/ui/misc";
+import { LabelInputContainer } from "../../components/ui/misc";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { Spotlight } from "../../components/ui/Spotlight";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { deleteAccountAction } from "../../lib/actions/userAction";
+import { DeleteAccountSchema } from "../../lib/schemas/auth.schema";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import AceButton from "../../components/ui/AceButton";
 
-function DangerZone() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
+function DangerZone({ username }: { username: string | null }) {
+  const nav = useNavigate();
+
   const [inputs, setInputs] = useState({ verify: "", confirm: "" });
   const [disabled, setDisabled] = useState(true);
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,13 +24,46 @@ function DangerZone() {
       //TODO : make it dynamic later
       if (
         newInputs.verify.toLowerCase() === "yes" &&
-        newInputs.confirm.toLowerCase() === "delete/@m4dd0c"
+        newInputs.confirm.toLowerCase() === `delete/@${username}`
       )
         setDisabled(false);
       else setDisabled(true);
       return newInputs;
     });
   };
+
+  const onSubmit = (data: z.infer<typeof DeleteAccountSchema>) => {
+    // TODO: make it dynamic later
+    if (data.verify === "yes" && data.confirm === "delete/@m4dd0c") mutate();
+    else return;
+  };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteAccountAction,
+    onSuccess: (res) => {
+      if (res) {
+        nav("/auth/signin");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(DeleteAccountSchema),
+    defaultValues: {
+      verify: "",
+      confirm: "",
+    },
+  });
+
+  if (!username) nav("/");
+
   return (
     <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
@@ -37,39 +76,62 @@ function DangerZone() {
         </h1>
         <form
           className="my-8 max-w-md mx-auto text-white "
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="verify">Are you sure?</Label>
             <Input
+              {...register("verify")}
               id="verify"
-              name="verify"
-              onChange={handleInput}
               value={inputs.verify}
+              onChange={handleInput}
+              name="verify"
               placeholder='Type "yes" to continue'
               type="text"
             />
+            {errors.verify && (
+              <span className="text-red-500 text-sm">
+                {errors.verify.message}
+              </span>
+            )}
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="confirm">Enter "delete/@m4dd0c" to continue</Label>
+            <Label htmlFor="confirm">
+              Enter "delete/@{username}" to continue
+            </Label>
             <Input
+              {...register("confirm")}
               id="confirm"
+              value={inputs.confirm}
               onChange={handleInput}
               name="confirm"
-              value={inputs.confirm}
               placeholder="eg: delete/@m4dd0c"
               type="text"
             />
+            {errors.verify && (
+              <span className="text-red-500 text-sm">
+                {errors.verify.message}
+              </span>
+            )}
           </LabelInputContainer>
-          <button
-            className="flex justify-center items-center bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] my-2 disabled:text-gray-500 text-red-500"
-            type="submit"
-            disabled={disabled}
+          <AceButton
+            icon={
+              <IconTrash
+                color={disabled || isPending ? "gray" : "red"}
+                size={15}
+              />
+            }
+            isLoading={isPending}
+            disabled={isPending || disabled}
           >
-            <h1>Delete Account&nbsp;</h1>
-            <IconTrash color={disabled ? "gray" : "red"} size={15} />
-            <BottomGradient />
-          </button>
+            <span
+              className={
+                disabled || isPending ? "text-gray-500" : "text-red-500"
+              }
+            >
+              Delete
+            </span>
+          </AceButton>
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
         </form>
       </div>

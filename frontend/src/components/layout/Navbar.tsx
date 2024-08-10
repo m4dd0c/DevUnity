@@ -1,21 +1,46 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "../../utils/cn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IconLoader, IconLogout } from "@tabler/icons-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { logoutAction } from "../../lib/actions/userAction";
+import { KEYS } from "../../lib/utils";
 
 function Navbar({
   className,
+  userId,
   isRoomPath,
   auth,
+  setAuth,
 }: {
   className?: string;
+  userId: string | null;
   isRoomPath: boolean;
   auth: boolean;
+  setAuth: Dispatch<SetStateAction<boolean>>;
 }) {
   const [active, setActive] = useState<string | null>(null);
 
   const pathname = window.location.pathname;
   const authPath = pathname.startsWith("/auth");
+
+  const queryClient = useQueryClient();
+  const nav = useNavigate();
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: logoutAction,
+    // eslint-disable-next-line
+    onSuccess: (_) => {
+      console.log("logged out");
+      setAuth(false);
+      queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
+      nav("/");
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
   return (
     <div
       className={cn(
@@ -63,12 +88,28 @@ function Navbar({
             </HoveredLink>
           </div>
         </MenuItem>
-        {auth ? (
+        {auth && userId ? (
           <MenuItem setActive={setActive} active={active} item="Profile">
             <div className="flex flex-col space-y-4 text-sm">
-              <HoveredLink href="/user/:userId">Account</HoveredLink>
+              <HoveredLink href={`/user/${userId}`}>Account</HoveredLink>
               <HoveredLink href="/password/change">Change password</HoveredLink>
-              <HoveredLink href="/user/:userId/danger">Danger zone</HoveredLink>
+              <HoveredLink href={`/user/${userId}/danger`}>
+                Danger zone
+              </HoveredLink>
+
+              <button
+                onClick={() => mutate()}
+                disabled={isPending}
+                className="border-none text-left flex items-center gap-1 cursor-pointer dark:text-white"
+              >
+                <h1>Logout</h1>
+
+                {isPending ? (
+                  <IconLoader size={15} className="animate-spin" />
+                ) : (
+                  <IconLogout size={15} />
+                )}
+              </button>
             </div>
           </MenuItem>
         ) : (

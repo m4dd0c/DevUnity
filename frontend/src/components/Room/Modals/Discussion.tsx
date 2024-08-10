@@ -4,7 +4,7 @@ interface IChat {
   admin: boolean;
   message: string;
 }
-const Chat = ({ chat }: { chat: IChat[] }) => {
+const Discussion = ({ chat }: { chat: IChat[] }) => {
   // TODO: do something about the "me" thing...
   const me = "Manish Suthar";
   return (
@@ -31,4 +31,4 @@ const Chat = ({ chat }: { chat: IChat[] }) => {
   );
 };
 
-export default Chat;
+export default Discussion;

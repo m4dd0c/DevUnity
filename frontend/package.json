@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-label": "^2.1.0",
     "@react-three/drei": "^9.109.1",
     "@react-three/fiber": "^8.16.8",
     "@tabler/icons-react": "^3.11.0",
     "@tailwindcss/typography": "^0.5.13",
+    "@tanstack/react-query": "^5.51.23",
+    "@tanstack/react-query-devtools": "^5.51.23",
     "@tinymce/tinymce-react": "^5.1.1",
     "ace-builds": "^1.35.4",
+    "axios": "^1.7.3",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
     "framer-motion": "^11.3.8",
@@ -26,14 +30,18 @@
     "react": "^18.3.1",
     "react-ace": "^12.0.0",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.2",
     "react-router-dom": "^6.25.1",
     "react-router-hash-link": "^2.4.3",
     "react-scroll": "^1.9.0",
     "tailwind-merge": "^2.4.0",
     "three": "^0.166.1",
-    "three-globe": "^2.31.1"
+    "three-globe": "^2.31.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.51.15",
+    "@types/axios": "^0.9.36",
     "@types/prismjs": "^1.26.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

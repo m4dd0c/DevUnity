@@ -12,12 +12,16 @@ class UserDTO {
       name: this.user.name,
       username: this.user.username,
       email: this.user.email,
+      portfolio: this.user.portfolio,
+      bio: this.user.bio,
+      location: this.user.location,
       verification: {
         verified: this.user.verification.verified,
       },
       avatar: {
         secure_url: this.user.avatar.secure_url,
       },
+      createdAt: this.user.createdAt,
     };
     return user;
   }

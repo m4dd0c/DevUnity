@@ -1,0 +1,12 @@
+{
+  "name": "collabrite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev-fe": "cd frontend; npm run dev",
+    "dev-be": "cd backend; npm run dev",
+    "dev": "concurrently \"npm run dev-fe\" \"npm run dev-be\""
+  },
+  "author": "m4dd0c",
+  "license": "ISC"
+}

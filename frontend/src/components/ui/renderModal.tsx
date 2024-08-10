@@ -1,5 +1,5 @@
 import React from "react";
-import ChatModal from "../Room/Modals/ChatModal";
+import DiscussionModal from "../Room/Modals/DiscussionModal";
 import UsersModal from "../Room/Modals/UsersModal";
 import LanguageModal from "../Room/Modals/LanguageModal";
 
@@ -16,9 +16,14 @@ const RenderModal = ({
 }) => {
   let Component = <h1>Nothing to show here</h1>;
   switch (label) {
-    case "Chat":
+    case "Discussion":
       Component = (
-        <ChatModal icon={icon} label={label} animate={animate} open={open} />
+        <DiscussionModal
+          icon={icon}
+          label={label}
+          animate={animate}
+          open={open}
+        />
       );
       break;
     case "Users":

@@ -1,14 +1,55 @@
-import { BottomGradient, LabelInputContainer } from "../../components/ui/misc";
+import { LabelInputContainer } from "../../components/ui/misc";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { Spotlight } from "../../components/ui/Spotlight";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import AceButton from "../../components/ui/AceButton";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { ChangePasswordSchema } from "../../lib/schemas/auth.schema";
+import { ChangePasswordAction } from "../../lib/actions/userAction";
 
 function ChangePassword() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const onSubmit = (data: z.infer<typeof ChangePasswordSchema>) => {
+    if (data.newPassword !== data.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: "New password and confirm password must match.",
+      });
+      return;
+    }
+    mutate({
+      newPassword: data.newPassword,
+      currentPassword: data.currentPassword,
+    });
   };
+  const nav = useNavigate();
+  const { mutate, isPending } = useMutation({
+    mutationFn: ChangePasswordAction,
+    onSuccess: (res) => {
+      if (res) {
+        nav("/");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+  const {
+    handleSubmit,
+    setError,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ChangePasswordSchema),
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
   return (
     <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
@@ -21,34 +62,55 @@ function ChangePassword() {
         </h1>
         <form
           className="my-8 max-w-md mx-auto text-white "
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="currPassword">Current Password</Label>
-            <Input id="currPassword" placeholder="••••••••" type="password" />
+            <Input
+              {...register("currentPassword")}
+              id="currPassword"
+              placeholder="••••••••"
+              type="password"
+            />
+            {errors.currentPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.currentPassword.message}
+              </span>
+            )}
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="newPassword">New Password</Label>
-            <Input id="newPassword" placeholder="••••••••" type="password" />
+            <Input
+              {...register("newPassword")}
+              id="newPassword"
+              placeholder="••••••••"
+              type="password"
+            />
+            {errors.newPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.newPassword.message}
+              </span>
+            )}
           </LabelInputContainer>
           <LabelInputContainer className="mb-2">
             <Label htmlFor="confirmPassword">Confirm Password</Label>
+
             <Input
+              {...register("confirmPassword")}
               id="confirmPassword"
               placeholder="••••••••"
               type="password"
             />
+            {errors.confirmPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.confirmPassword.message}
+              </span>
+            )}
           </LabelInputContainer>
           <small className="text-indigo-500">
             <Link to={"/password/forget"}>Forget password?</Link>
           </small>
-          <button
-            className="flex justify-center items-center bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] my-2"
-            type="submit"
-          >
-            Change
-            <BottomGradient />
-          </button>
+          <AceButton isLoading={isPending}>Change Password</AceButton>
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
         </form>
       </div>

@@ -27,10 +27,35 @@ import Signup from "./screens/user/Signup";
 import ChangePassword from "./screens/user/ChangePassword";
 import DangerZone from "./screens/user/DangerZone";
 import SearchUsers from "./screens/Search";
+import Verify from "./screens/user/Verify";
+import { useQuery } from "@tanstack/react-query";
+import { getMeAction } from "./lib/actions/userAction";
+import { KEYS } from "./lib/utils";
+import { useEffect, useState } from "react";
+
 function App() {
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState<IUser | null>(null);
+  const { refetch, data } = useQuery({
+    queryFn: getMeAction,
+    queryKey: [KEYS.GET_ME],
+  });
+  // getting auth
+  useEffect(() => {
+    if (data) {
+      if (data.data) {
+        setUser(data.data);
+        setAuth(true);
+      }
+    }
+  }, [data]);
+  // getting data onload
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <Router>
-      <Header />
+      <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
@@ -42,7 +67,6 @@ function App() {
 
           <Route path=":id">
             <Route path="" element={<Playground />} />
-            {/* TODO: May gonna change them according to backend later */}
             <Route path="description" element={<Description />} />
             <Route path="describe" element={<Describe />} />
           </Route>
@@ -51,16 +75,20 @@ function App() {
         <Route path="/search" element={<SearchUsers />} />
 
         <Route path="/user">
+          <Route path="verify" element={<Verify />} />
           <Route path=":userId">
             <Route path="" element={<Profile />} />
-            <Route path="edit" element={<EditProfile />} />
-            <Route path="danger" element={<DangerZone />} />
+            <Route path="edit" element={<EditProfile user={user} />} />
+            <Route
+              path="danger"
+              element={<DangerZone username={user && user.username} />}
+            />
           </Route>
         </Route>
 
         <Route path="/password">
           <Route path="forget" element={<ForgetPassword />} />
-          <Route path="reset" element={<ResetPassword />} />
+          <Route path="reset/:token" element={<ResetPassword />} />
           <Route path="change" element={<ChangePassword />} />
         </Route>
 

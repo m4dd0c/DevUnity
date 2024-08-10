@@ -6,7 +6,7 @@ import { setupRoutes } from "./routes";
 import error from "./middleware/error";
 
 const corsOptions: CorsOptions = {
-  origin: "*",
+  origin: true,
   credentials: true,
   methods: ["GET", "POST", "DELETE", "PUT"],
 };

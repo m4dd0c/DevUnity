@@ -15,7 +15,7 @@ import {
   verificationHTMLCreator,
 } from "../utils/mailer.html";
 
-export const login = catchAsync(
+export const signin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { input, password } = req.body;
     if (!input || !password)
@@ -56,12 +56,11 @@ export const login = catchAsync(
           "It's an issue from our side. Please try again later.",
         ),
       );
-    const clientUser = new UserDTO(user).translate();
     new CollabriteRes(
       res,
       200,
       "Loggedin Successfully.",
-      clientUser,
+      user._id,
     ).authenticate(token);
   },
 );
@@ -96,27 +95,9 @@ export const signup = catchAsync(
       return next(
         new CollabriteError(400, "Email already in use, try to login."),
       );
-    // check avatar image provided
-    const image = req.file || null;
-    let cloud = null;
-    if (image) {
-      // getting image datauri
-      // since cloudinary doesnt support buffer.
-      const imageUri = getDataUri(image);
-      // add avatar image
-      // TODO: setup cloudinary
-      cloud = await cloudinary.v2.uploader.upload(imageUri.content!, {
-        folder: "Collabrite",
-      });
-      if (!cloud)
-        return next(
-          new CollabriteError(400, "Couldn't upload image, try again later."),
-        );
-    }
     const verificationToken = uuidv4();
     const verificationHTML = verificationHTMLCreator({
       token: verificationToken,
-      avatar: cloud?.secure_url,
     });
     // create User document
     const user = await User.create({
@@ -125,8 +106,8 @@ export const signup = catchAsync(
       email,
       password,
       avatar: {
-        secure_url: cloud ? cloud.secure_url : null,
-        public_id: cloud ? cloud.public_id : null,
+        secure_url: null,
+        public_id: null,
       },
       verification: {
         verified: false,
@@ -148,14 +129,12 @@ export const signup = catchAsync(
           "It's an issue from our side. Please try again later.",
         ),
       );
-    // creating user data transfer object.
-    const clientUser = new UserDTO(user).translate();
     // sending response
     new CollabriteRes(
       res,
       201,
       "Signup Successfully, Please verify your account within 15 minutes.",
-      clientUser,
+      user._id,
     ).authenticate(token);
   },
 );
@@ -167,7 +146,7 @@ export const verify = catchAsync(
         new CollabriteError(400, "Token not found, Please try again."),
       );
     // checking if token is available and not expired
-    const isIdeal = User.findOne({
+    const isIdeal = await User.findOne({
       "verification.token": token,
       "verification.expiresAt": { $gte: Date.now() },
     });
@@ -192,7 +171,7 @@ export const verify = catchAsync(
     if (!updateUser)
       return next(new CollabriteError(500, "Internal server error"));
 
-    new CollabriteRes(res, 302, "Verified Successfully").send();
+    new CollabriteRes(res, 200, "Verified Successfully", true).send();
   },
 );
 export const changePassword = catchAsync(
@@ -218,7 +197,7 @@ export const changePassword = catchAsync(
       );
     user.password = newPassword;
     await user.save();
-    new CollabriteRes(res, 200, "Password changed").send();
+    new CollabriteRes(res, 200, "Password changed", true).send();
   },
 );
 export const forgetPassword = catchAsync(
@@ -258,6 +237,7 @@ export const forgetPassword = catchAsync(
       res,
       200,
       "Reset password link send to you, Please check your email.",
+      true,
     ).send();
   },
 );
@@ -281,7 +261,7 @@ export const resetPassword = catchAsync(
     user.resetPassword.expiresAt = null;
     user.password = newPassword;
     await user.save();
-    new CollabriteRes(res, 200, "Password Reset successfully.").send();
+    new CollabriteRes(res, 200, "Password Reset successfully.", true).send();
   },
 );
 export const getUser = catchAsync(
@@ -293,7 +273,27 @@ export const getUser = catchAsync(
     if (!user)
       return next(new CollabriteError(500, "No user found w/ this id."));
     const clientUser = new UserDTO(user).translate();
-    new CollabriteRes(res, 200, "", clientUser).send();
+    new CollabriteRes(res, 200, undefined, clientUser).send();
+  },
+);
+export const getMe = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const _user = req.user;
+    if (!_user)
+      return next(
+        new CollabriteError(
+          401,
+          "It seems like you are unauthenticated. Please login.",
+        ),
+      );
+    // TODO: later fix it
+    // const user = await User.findById(_user._id).populate({
+    //   path: "rooms",
+    //   model: Room,
+    //   select: "project.description project.language project.title _id",
+    // });
+    const clientUser = new UserDTO(_user).translate();
+    new CollabriteRes(res, 200, undefined, clientUser).send();
   },
 );
 export const editMe = catchAsync(
@@ -353,18 +353,17 @@ export const editMe = catchAsync(
     if (portfolio) user.portfolio = portfolio;
     if (bio) user.bio = bio;
     await user.save();
-    const clientUser = new UserDTO(user);
-    new CollabriteRes(res, 200, "Profile updated.", clientUser).send();
+    new CollabriteRes(res, 200, "Profile updated.", true).send();
   },
 );
 export const usernameAvailability = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { username } = req.query;
+    const { username } = req.body;
     const validation = new UsernameValidation(username as string);
     if (!validation.isValid())
       return next(new CollabriteError(400, "Username validation failed."));
     const isAvailable = await validation.isAvailable();
-    new CollabriteRes(res, 200, "", isAvailable ? true : false).send();
+    new CollabriteRes(res, 200, undefined, isAvailable).send();
   },
 );
 export const contact = catchAsync(
@@ -396,7 +395,7 @@ export const contact = catchAsync(
           "Couldn't send email, Please try again later.",
         ),
       );
-    new CollabriteRes(res, 200, "Mail sent.").send();
+    new CollabriteRes(res, 200, "Mail sent.", true).send();
   },
 );
 export const deleteMe = catchAsync(
@@ -418,7 +417,12 @@ export const deleteMe = catchAsync(
           "Account couldn't be deleted for some internal server issue, Please try again later.",
         ),
       );
-    new CollabriteRes(res, 200).send();
+    new CollabriteRes(
+      res,
+      200,
+      "Account deleted along with owner's rooms.",
+      true,
+    ).send();
   },
 );
 export const search = catchAsync(
@@ -450,5 +454,10 @@ export const search = catchAsync(
     const totalDocuments = await User.countDocuments(searchQuery);
     const isNext = totalDocuments > skipAmount + users.length;
     new CollabriteRes(res, 200, undefined, { isNext, users }).send();
+  },
+);
+export const logout = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    new CollabriteRes(res, 200, "Logout Successful").deauthenticate();
   },
 );

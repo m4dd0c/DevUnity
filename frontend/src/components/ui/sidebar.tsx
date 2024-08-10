@@ -197,7 +197,7 @@ export const SidebarLink = ({
   if (
     !onClick &&
     !link.href &&
-    (link.label === "Chat" ||
+    (link.label === "Discussion" ||
       link.label === "Users" ||
       link.label === "Language")
   ) {

@@ -1,8 +1,17 @@
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { HashLink } from "react-router-hash-link";
+import { Dispatch, SetStateAction } from "react";
 
-const Header = () => {
+const Header = ({
+  auth,
+  userId,
+  setAuth,
+}: {
+  auth: boolean;
+  setAuth: Dispatch<SetStateAction<boolean>>;
+  userId: string | null;
+}) => {
   const { pathname } = useLocation();
   // Regular expression to match /room/:id and /room/:id/<anything> but not /room/join or /room/create, with optional trailing slash
   const roomIdPattern = /^\/room\/(?!join$)(?!create$)([\w-]+)(\/.*)?$/;
@@ -12,8 +21,6 @@ const Header = () => {
   } else {
     isRoomPath = false;
   }
-  // TODO: get real info later
-  const auth = true;
   return (
     <>
       <div
@@ -30,7 +37,12 @@ const Header = () => {
           </HashLink>
         </div>
       </div>
-      <Navbar isRoomPath={isRoomPath} auth={auth} />
+      <Navbar
+        userId={userId}
+        isRoomPath={isRoomPath}
+        auth={auth}
+        setAuth={setAuth}
+      />
     </>
   );
 };

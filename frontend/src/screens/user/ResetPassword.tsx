@@ -1,14 +1,57 @@
-import React from "react";
-import { BottomGradient, LabelInputContainer } from "../../components/ui/misc";
+import { LabelInputContainer } from "../../components/ui/misc";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { Spotlight } from "../../components/ui/Spotlight";
+import { z } from "zod";
+import { ResetPasswordSchema } from "../../lib/schemas/auth.schema";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resetPasswordAction } from "../../lib/actions/userAction";
+import AceButton from "../../components/ui/AceButton";
 
 function ResetPassword() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const nav = useNavigate();
+  const { token } = useParams();
+
+  const onSubmit = (data: z.infer<typeof ResetPasswordSchema>) => {
+    if (!token) return;
+    if (data.confirmPassword !== data.newPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: "Both new password and confirm password must match.",
+      });
+      return;
+    }
+    mutate({ token, newPassword: data.newPassword });
   };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: resetPasswordAction,
+    onSuccess: (res) => {
+      if (res) {
+        nav("/auth/signin");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const {
+    handleSubmit,
+    setError,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(ResetPasswordSchema),
+    defaultValues: {
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
+
   return (
     <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
@@ -21,27 +64,37 @@ function ResetPassword() {
         </h1>
         <form
           className="my-8 max-w-md mx-auto text-white "
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="newPassword">New Password</Label>
-            <Input id="newPassword" placeholder="••••••••" type="password" />
+            <Input
+              {...register("newPassword")}
+              id="newPassword"
+              placeholder="••••••••"
+              type="password"
+            />
+            {errors.newPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.newPassword.message}
+              </span>
+            )}
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="confirmPassword">Confirm Password</Label>
             <Input
+              {...register("confirmPassword")}
               id="confirmPassword"
               placeholder="••••••••"
               type="password"
             />
+            {errors.confirmPassword && (
+              <span className="text-red-500 text-sm">
+                {errors.confirmPassword.message}
+              </span>
+            )}
           </LabelInputContainer>
-          <button
-            className="flex justify-center items-center bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] my-2"
-            type="submit"
-          >
-            Reset
-            <BottomGradient />
-          </button>
+          <AceButton isLoading={isPending}>Reset</AceButton>
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
         </form>
       </div>

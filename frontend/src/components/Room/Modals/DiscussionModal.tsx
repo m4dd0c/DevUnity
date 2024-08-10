@@ -9,9 +9,9 @@ import { motion } from "framer-motion";
 import { dummyChat } from "../../../constants";
 import { IconSend } from "@tabler/icons-react";
 import { Input } from "../../ui/input";
-import Chat from "./Chat";
+import Discussion from "./Discussion";
 
-function ChatModal({
+function DiscussionModal({
   animate,
   open,
   icon,
@@ -43,11 +43,11 @@ function ChatModal({
       <ModalBody>
         <ModalContent className="p-4">
           <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-            Chat
+            Discussion
           </h4>
           <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[60vh]">
             <div className="flex flex-1 justify-center items-center">
-              <Chat chat={dummyChat} />
+              <Discussion chat={dummyChat} />
             </div>
           </div>
         </ModalContent>
@@ -61,4 +61,4 @@ function ChatModal({
     </Modal>
   );
 }
-export default ChatModal;
+export default DiscussionModal;

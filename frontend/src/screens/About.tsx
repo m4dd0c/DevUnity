@@ -41,7 +41,8 @@ const About = () => {
           <p className="text-lg mb-4">
             Our primary mission is to empower developers and students by
             providing a real-time collaborative coding environment, coupled with
-            chat functionality, enabling seamless communication and teamwork.
+            discussion functionality, enabling seamless communication and
+            teamwork.
           </p>
           <p className="text-lg mb-4">
             At Collabrite, we believe in the power of collaboration and
