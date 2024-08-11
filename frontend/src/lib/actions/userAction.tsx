@@ -7,12 +7,20 @@ import {
 } from "../schemas/auth.schema";
 import { axiosInstance } from "..";
 
-export const checkAvailabilityAction = async (username: string) => {
+export const checkAvailabilityAction = async ({
+  username,
+  userId,
+}: {
+  username: string;
+  userId?: string;
+}) => {
   try {
-    const { data }: { data: IData<boolean> } = await axiosInstance.post(
-      "/user/username/available",
-      { username },
-    );
+    const url = userId
+      ? `/user/username/available?userId=${userId}`
+      : "/user/username/available";
+    const { data }: { data: IData<boolean> } = await axiosInstance.post(url, {
+      username,
+    });
     return data;
   } catch (error) {
     console.log(error);

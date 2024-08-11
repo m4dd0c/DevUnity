@@ -1,14 +1,19 @@
 import * as React from "react";
 import { cn } from "../../utils/cn";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
+import { IconLoader } from "@tabler/icons-react";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   transparent?: boolean;
   useCyan?: boolean;
+  isLoading?: boolean;
 }
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, useCyan = false, transparent, ...props }, ref) => {
+  (
+    { className, type, useCyan = false, transparent, isLoading, ...props },
+    ref,
+  ) => {
     const radius = 100; // change this to increase the rdaius of the hover effect
     const [visible, setVisible] = React.useState(false);
 
@@ -35,7 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="w-full p-[2px] rounded-lg transition duration-300 group/input"
+        className={`w-full p-[2px] rounded-lg transition duration-300 group/input ${isLoading && "relative"}`}
       >
         <input
           type={type}
@@ -52,6 +57,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
+        {isLoading && (
+          <div className="absolute top-1/2 right-4 -translate-y-1/2">
+            <IconLoader size={15} className="animate-spin" color="white" />
+          </div>
+        )}
       </motion.div>
     );
   },

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import fallback_pp from "/assets/fallback_pp.jpg";
 import {
   IconCalendarMonth,
   IconLink,
@@ -50,10 +51,10 @@ const Profile = () => {
               src={
                 user && user?.avatar?.secure_url
                   ? user.avatar.secure_url
-                  : "/assets/team/manish.jpg"
+                  : fallback_pp
               }
               alt="user"
-              className="object-cover rounded-full h-56 w-56 border-2 border-gray-800"
+              className="object-cover rounded-full h-56 w-56"
             />
           </div>
           <div className="w-full">

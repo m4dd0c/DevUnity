@@ -55,7 +55,7 @@ function SignupForm() {
       const error = isValidUsername(input.username);
       if (error) setError("username", { type: "manual", message: error });
       else clearErrors("username");
-      usernameMutate(data.username);
+      usernameMutate({ username: data.username });
       if (errors.username) return;
     }
     // sending submit request
@@ -99,7 +99,7 @@ function SignupForm() {
         else {
           clearErrors("username"); // Clear previous errors if validation passes
           // checking username availability
-          usernameMutate(input.username);
+          usernameMutate({ username: input.username });
         }
       }
     }, delay);

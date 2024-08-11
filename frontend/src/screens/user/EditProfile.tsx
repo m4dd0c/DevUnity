@@ -4,6 +4,7 @@ import { Label } from "../../components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { Textarea } from "../../components/ui/textarea";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import fallback_pp from "/assets/fallback_pp.jpg";
 import {
   checkAvailabilityAction,
   editAccountAction,
@@ -23,11 +24,12 @@ function EditProfile({ user }: { user: IUser | null }) {
       const error = isValidUsername(username);
       if (error) setError("username", { type: "manual", message: error });
       else clearErrors("username");
-      usernameMutation(data.username);
+      if (user) usernameMutation({ username: data.username, userId: user._id });
       if (errors.username) return;
     }
     // sending submit request
     // formdata creation
+    console.log(data);
     const formData = new FormData();
     formData.set("username", data.username);
     formData.set("name", data.name);
@@ -41,7 +43,7 @@ function EditProfile({ user }: { user: IUser | null }) {
     mutate(formData);
   };
   const queryClient = useQueryClient();
-  const { isPending: isLoading, mutate } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationFn: editAccountAction,
     onSuccess: (res) => {
       //TODO: show toast
@@ -75,9 +77,7 @@ function EditProfile({ user }: { user: IUser | null }) {
   const [username, setUsername] = useState(user ? user.username : "");
   const [image, setImage] = useState<File | null>(null);
   const [imagePrev, setImagePrev] = useState<string | ArrayBuffer | null>(
-    user && user.avatar.secure_url
-      ? user.avatar.secure_url
-      : "/assets/team/manish.jpg",
+    user && user.avatar.secure_url ? user.avatar.secure_url : fallback_pp,
   );
 
   // image handler
@@ -91,7 +91,7 @@ function EditProfile({ user }: { user: IUser | null }) {
     };
     fileReader.readAsDataURL(file);
   };
-  const { mutate: usernameMutation } = useMutation({
+  const { mutate: usernameMutation, isPending: isLoading } = useMutation({
     mutationFn: checkAvailabilityAction,
     onSuccess: (res) => {
       if (res) {
@@ -115,14 +115,14 @@ function EditProfile({ user }: { user: IUser | null }) {
           setError("username", { type: "manual", message: error });
         } else {
           clearErrors("username");
-          usernameMutation(username);
+          if (user) usernameMutation({ username, userId: user._id });
         }
       }
     }, delay);
     return () => {
       clearTimeout(debounce);
     };
-  }, [username, clearErrors, setError, usernameMutation]);
+  }, [username, clearErrors, setError, usernameMutation, user]);
 
   if (!user) nav("/");
   return (
@@ -150,12 +150,14 @@ function EditProfile({ user }: { user: IUser | null }) {
         <div className="w-full max-md:w-11/12 gap-2 flex items-center justify-between mb-4 mx-auto">
           <AceButton
             className="block bg-gradient-to-br relative group/btn from-indigo-500 dark:from-indigo-700 dark:to-purple-700 to-purple-500 dark:bg-purple-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--purple-800)_inset,0px_-1px_0px_0px_var(--purple-800)_inset]"
-            isLoading={isLoading}
+            isLoading={isPending}
             type="submit"
           >
             Save
           </AceButton>
-          <AceButton onClick={() => nav(-1)}>Cancel</AceButton>
+          <AceButton onClick={() => nav(-1)} disabled={isPending}>
+            Cancel
+          </AceButton>
         </div>
         <div className="max-md:w-11/12 w-full mx-auto">
           <LabelInputContainer className="mb-4">
@@ -181,6 +183,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="m4dd0c"
               type="text"
+              isLoading={isLoading}
             />
             {
               <div className="text-red-500 text-sm min-h-5">

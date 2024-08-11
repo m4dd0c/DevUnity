@@ -48,12 +48,10 @@ const userSchema = new Schema<IUser>(
     },
     portfolio: {
       type: String,
-      minlength: [10, "Portfolio must include at least 10 characters."],
       maxlength: [50, "Portfolio must include at most 50 characters."],
     },
     location: {
       type: String,
-      minlength: [5, "Location must contain at least 5 characters."],
       maxlength: [50, "Location must contain at most 50 characters."],
     },
     bio: {

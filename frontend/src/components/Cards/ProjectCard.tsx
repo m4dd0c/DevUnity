@@ -1,4 +1,5 @@
 import { IconPointFilled, IconRotateClockwise2 } from "@tabler/icons-react";
+import fallback_pp from "/assets/fallback_pp.jpg";
 import { Link } from "react-router-dom";
 
 const ProjectCard = ({ project }: { project: any }) => {
@@ -10,7 +11,7 @@ const ProjectCard = ({ project }: { project: any }) => {
           <img
             alt="logo"
             className="h-6 w-6 max-md:h-[1.7rem] max-md:w-[1.7rem] rounded-md shadow-input shadow-gray-400 object-cover"
-            src={project.avatar ? project.avatar : "/assets/team/emily.jpg"}
+            src={project.avatar ? project.avatar : fallback_pp}
           />
         </div>
         <div className="flex gap-2 items-center">

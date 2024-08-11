@@ -348,20 +348,29 @@ export const editMe = catchAsync(
         );
       user.username = username;
     }
-    if (name) user.name = name;
-    if (location) user.location = location;
-    if (portfolio) user.portfolio = portfolio;
-    if (bio) user.bio = bio;
+    user.name = name;
+    user.location = location;
+    user.portfolio = portfolio;
+    user.bio = bio;
     await user.save();
     new CollabriteRes(res, 200, "Profile updated.", true).send();
   },
 );
 export const usernameAvailability = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.query;
     const { username } = req.body;
     const validation = new UsernameValidation(username as string);
     if (!validation.isValid())
       return next(new CollabriteError(400, "Username validation failed."));
+    if (userId) {
+      const user = await User.findById(userId);
+      if (!user)
+        return new CollabriteRes(res, 401, "url is manipulated.", false).send();
+      if (user.username === username) {
+        new CollabriteRes(res, 200, undefined, true).send();
+      }
+    }
     const isAvailable = await validation.isAvailable();
     new CollabriteRes(res, 200, undefined, isAvailable).send();
   },

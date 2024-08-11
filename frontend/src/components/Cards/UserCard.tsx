@@ -1,4 +1,5 @@
 import { IconCalendarMonth, IconMapPin } from "@tabler/icons-react";
+import fallback_pp from "/assets/fallback_pp.jpg";
 
 const UserCard = ({ user }: { user: any }) => {
   return (
@@ -7,7 +8,7 @@ const UserCard = ({ user }: { user: any }) => {
         <img
           alt="logo"
           className="h-16 w-16 max-md:h-12 max-md:w-12 rounded-full object-cover"
-          src={user.avatar ? user.avatar : "/assets/team/emily.jpg"}
+          src={user.avatar ? user.avatar : fallback_pp}
         />
       </div>
       <div>
