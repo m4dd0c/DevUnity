@@ -220,3 +220,34 @@ export const allRooms = catchAsync(
     new CollabriteRes(res, 200, undefined, rooms).send();
   },
 );
+export const searchRoom = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { page, size } = req.query;
+    let { query } = req.params;
+    if (!page) page = "1";
+    if (!size) size = "10";
+
+    const skipAmount =
+      (parseInt(page as string) - 1) * parseInt(size as string);
+    // forming query
+    const searchQuery = query
+      ? {
+          $or: [
+            { "project.title": { $regex: new RegExp(query, "i") } },
+            { "project.slogan": { $regex: new RegExp(query, "i") } },
+            { "project.lang": { $regex: new RegExp(query, "i") } },
+          ],
+        }
+      : {};
+    const rooms = await Room.find(searchQuery)
+      .skip(skipAmount)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(size as string));
+
+    if (!rooms)
+      return next(new CollabriteError(500, "No user found w/ this query."));
+    const totalDocuments = await Room.countDocuments(searchQuery);
+    const isNext = totalDocuments > skipAmount + rooms.length;
+    new CollabriteRes(res, 200, undefined, { isNext, rooms }).send();
+  },
+);

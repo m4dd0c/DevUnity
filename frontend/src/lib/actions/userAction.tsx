@@ -68,10 +68,10 @@ export const getMeAction = async () => {
     console.log(error);
   }
 };
-export const getUserAction = async (username: string) => {
+export const getUserAction = async (userId: string) => {
   try {
     const { data }: { data: IData<IUser> } = await axiosInstance.get(
-      `/user/profile/${username}`,
+      `/user/profile/${userId}`,
     );
     return data;
   } catch (error) {
@@ -158,6 +158,25 @@ export const logoutAction = async () => {
   try {
     const { data }: { data: IData<boolean> } =
       await axiosInstance.get("/user/logout");
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const searchUsersAction = async ({
+  query,
+  page = 1,
+  size = 10,
+}: {
+  query: string;
+  page: number;
+  size: number;
+}) => {
+  try {
+    const { data }: { data: IData<ISearchUser> } = await axiosInstance.get(
+      `/user/search/${query}?page=${page}&size=${size}`,
+    );
     return data;
   } catch (error) {
     console.log(error);

@@ -434,7 +434,7 @@ export const deleteMe = catchAsync(
     ).send();
   },
 );
-export const search = catchAsync(
+export const searchUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let { page, size } = req.query;
     let { query } = req.params;
@@ -452,7 +452,6 @@ export const search = catchAsync(
           ],
         }
       : {};
-    // delete user and his rooms
     const users = await User.find(searchQuery)
       .skip(skipAmount)
       .sort({ createdAt: -1 })

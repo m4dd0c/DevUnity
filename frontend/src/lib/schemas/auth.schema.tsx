@@ -38,3 +38,7 @@ export const ContactMeSchema = z.object({
   email: z.string().min(5).max(100).email(),
   message: z.string().max(2000),
 });
+
+export const SearchSchema = z.object({
+  input: z.string().min(1).max(100),
+});

@@ -12,7 +12,7 @@ import {
   usernameAvailability,
   contact,
   deleteMe,
-  search,
+  searchUser,
   getMe,
   logout,
 } from "../controller/userController";
@@ -29,7 +29,7 @@ router.route("/password/change").put(authenticated, changePassword);
 router.route("/password/forget").put(forgetPassword);
 router.route("/password/reset/:token").put(resetPassword);
 router.route("/profile/:userId").get(getUser);
-router.route("/search/:query").get(search);
+router.route("/search/:query").get(searchUser);
 router
   .route("/me")
   .get(authenticated, getMe)

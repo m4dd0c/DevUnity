@@ -6,6 +6,7 @@ import {
   deleteRoom,
   allRooms,
   updateRoom,
+  searchRoom,
 } from "../controller/roomController";
 import { authenticated } from "../middleware/authenticated";
 
@@ -17,6 +18,8 @@ router
   .post(authenticated, createRoom)
   .put(authenticated, updateRoom)
   .delete(authenticated, deleteRoom);
+
+router.route("/search/:query").get(searchRoom);
 
 router.route("/all/:ownerId").get(allRooms);
 router.route("/single/:roomId").get(authenticated, getRoom);
