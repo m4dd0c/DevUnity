@@ -211,6 +211,7 @@ export const SidebarLink = ({
   ) {
     return (
       <RenderModal
+        roomId={roomId as string}
         icon={link.icon}
         label={link.label}
         animate={animate}

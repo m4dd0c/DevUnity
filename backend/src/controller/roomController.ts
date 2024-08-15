@@ -86,11 +86,18 @@ export const getRoom = catchAsync(
         ),
       );
 
-    let room = await Room.findOne({ roomId }).populate({
-      model: User,
-      path: "admin",
-      select: "_id username avatar.secure_url",
-    });
+    let room = await Room.findOne({ roomId })
+      .populate({
+        model: User,
+        path: "admin",
+        select: "_id username avatar.secure_url",
+      })
+      .populate({
+        model: User,
+        path: "participents",
+        select: "_id username avatar.secure_url",
+      });
+
     if (!room)
       return next(
         new CollabriteError(400, "No such room available with this id."),
@@ -104,6 +111,11 @@ export const getRoom = catchAsync(
           model: User,
           path: "admin",
           select: "_id username avatar.secure_url",
+        })
+        .populate({
+          model: User,
+          path: "participents",
+          select: "_id username avatar.secure_url",
         });
     } else if (mode === "rwx") {
       // responding with whole data
@@ -114,14 +126,26 @@ export const getRoom = catchAsync(
             model: User,
             path: "admin",
             select: "_id username avatar.secure_url",
+          })
+          .populate({
+            model: User,
+            path: "participents",
+            select: "_id username avatar.secure_url",
           });
       }
       if (user._id.toString() === room.admin.toString()) {
-        room = await Room.findOne({ roomId }).select("+password").populate({
-          model: User,
-          path: "admin",
-          select: "_id username avatar.secure_url",
-        });
+        room = await Room.findOne({ roomId })
+          .select("+password")
+          .populate({
+            model: User,
+            path: "admin",
+            select: "_id username avatar.secure_url",
+          })
+          .populate({
+            model: User,
+            path: "participents",
+            select: "_id username avatar.secure_url",
+          });
       }
     } else {
       return new CollabriteError(400, "It seems like the url is infected.");
@@ -258,11 +282,17 @@ export const allRooms = catchAsync(
           "Please provide ownerId to get his/her all rooms.",
         ),
       );
-    const rooms = await Room.find({ admin: ownerId }).populate({
-      model: User,
-      path: "admin",
-      select: "_id username avatar.secure_url",
-    });
+    const rooms = await Room.find({ admin: ownerId })
+      .populate({
+        model: User,
+        path: "admin",
+        select: "_id username avatar.secure_url",
+      })
+      .populate({
+        model: User,
+        path: "participents",
+        select: "_id username avatar.secure_url",
+      });
     if (!rooms)
       return next(
         new CollabriteError(
@@ -306,6 +336,11 @@ export const searchRoom = catchAsync(
       .populate({
         model: User,
         path: "admin",
+        select: "_id username avatar.secure_url",
+      })
+      .populate({
+        model: User,
+        path: "participents",
         select: "_id username avatar.secure_url",
       })
       .skip(skipAmount)

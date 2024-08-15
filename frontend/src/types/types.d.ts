@@ -9,7 +9,7 @@ interface ISearchUser {
   isNext: boolean;
   users: IUser[];
 }
-interface IPopulatedUsersProject {
+interface IPopulatedRoom {
   _id: string;
   admin: string;
   roomId: string;
@@ -23,7 +23,7 @@ interface IPopulatedUsersProject {
 }
 interface IUser {
   _id: string;
-  rooms: IPopulatedUsersProject[];
+  rooms: IPopulatedRoom[];
   email: string;
   username: string;
   name?: string;
@@ -40,7 +40,7 @@ interface ISearchRoom {
   isNext: boolean;
   rooms: IRoom[];
 }
-interface IPopulatedRoomsAdmin {
+interface IPopulatedUser {
   _id: string;
   username: string;
   avatar: { secure_url?: string | null };
@@ -49,8 +49,8 @@ interface IRoom {
   _id: string;
   roomId: string;
   password?: string;
-  admin: IPopulatedRoomsAdmin;
-  participents: string[];
+  admin: IPopulatedUser;
+  participents: IPopulatedUser[];
   discussion: string;
   project: {
     title: string;

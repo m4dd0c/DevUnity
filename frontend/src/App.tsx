@@ -65,7 +65,7 @@ function App() {
           <Route path="create" element={<CreateRoom />} />
 
           <Route path=":roomId">
-            <Route path="" element={<Playground />} />
+            <Route path="" element={<Playground user={user} />} />
             <Route path="about" element={<Describe user={user} />} />
           </Route>
         </Route>

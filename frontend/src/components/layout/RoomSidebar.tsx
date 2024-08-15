@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import fallback_pp from "/assets/fallback_pp.jpg";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import { IconCopy, IconPlayerPlayFilled } from "@tabler/icons-react";
 import { cn } from "../../utils/cn";
@@ -6,16 +7,31 @@ import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
 import { handleCopy, runCode } from "../../utils/playground/utils";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getRoomAction } from "../../lib/actions/roomAction";
+import { KEYS } from "../../lib/utils";
 
 function RoomSidebar({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { roomId } = useParams();
 
+  const {
+    data: room,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryFn: async () => await getRoomAction({ roomId, query: "r" }),
+    queryKey: [KEYS.GET_ROOM, roomId],
+  });
   useEffect(() => {
+    if (isLoading) setLoading(isLoading);
     if (!roomId) setLoading(true);
-    else setLoading(false);
-  }, [setLoading, roomId]);
+    else {
+      refetch();
+      setLoading(false);
+    }
+  }, [setLoading, roomId, isLoading, refetch]);
 
   return loading ? (
     <h1>loading...</h1>
@@ -55,15 +71,14 @@ function RoomSidebar({ children }: { children: React.ReactNode }) {
                 ),
               }}
             />
-            {/* TODO: add dynamic values */}
             <SidebarLink
               link={{
-                label: "Manu Arora",
-                href: "#",
+                label: room?.data.admin.username || "Collabrite",
+                href: `/user/${room?.data.admin._id || "/"}`,
                 icon: (
                   <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
+                    src={room?.data.admin.avatar.secure_url || fallback_pp}
+                    className="h-7 w-7 flex-shrink-0 rounded-full object-cover"
                     width={50}
                     height={50}
                     alt="Avatar"

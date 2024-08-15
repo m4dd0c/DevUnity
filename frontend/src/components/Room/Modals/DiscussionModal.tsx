@@ -10,18 +10,34 @@ import { dummyChat } from "../../../constants";
 import { IconSend } from "@tabler/icons-react";
 import { Input } from "../../ui/input";
 import Discussion from "./Discussion";
+import { useQuery } from "@tanstack/react-query";
+import { getRoomAction } from "../../../lib/actions/roomAction";
+import { KEYS } from "../../../lib/utils";
+import { useEffect } from "react";
 
 function DiscussionModal({
   animate,
   open,
   icon,
+  roomId,
   label,
 }: {
   animate: boolean;
+  roomId?: string;
   open: boolean;
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
+  const { data: room, refetch } = useQuery({
+    queryFn: async () => await getRoomAction({ roomId, query: "r" }),
+    queryKey: [KEYS.GET_ROOM, roomId],
+  });
+  // TODO: fetch users and loggedin user if participent then only show send message button and input
+
+  // refetching when roomid changes or arrives late
+  useEffect(() => {
+    if (roomId) refetch();
+  }, [refetch, roomId]);
   return (
     <Modal>
       <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">

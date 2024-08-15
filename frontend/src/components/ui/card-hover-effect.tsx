@@ -9,7 +9,7 @@ export const HoverEffect = ({
   items,
   className,
 }: {
-  items: IPopulatedUsersProject[];
+  items: IPopulatedRoom[];
   className?: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

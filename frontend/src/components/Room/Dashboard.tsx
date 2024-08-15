@@ -10,7 +10,7 @@ ace.config.set(
   "basePath",
   "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/",
 );
-const Dashboard = () => {
+const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   const [aceLoaded, setAceLoaded] = useState(false);
   const initialValue = `function () {
   console.log('Collabrite is the best...');
