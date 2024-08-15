@@ -1,5 +1,5 @@
 import { cn } from "../../utils/cn";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -173,33 +173,41 @@ export const MobileSidebar = ({
 };
 
 export const SidebarLink = ({
+  roomId,
   link,
   className,
   onClick,
   ...props
 }: {
   link: Links;
+  roomId?: string;
   className?: string;
   onClick?: () => any;
   props?: any;
 }) => {
   const { open, animate } = useSidebar();
 
-  // forming new aboslute links
-  const { id } = useParams();
+  // creating path
   let path = null;
 
-  // forming new absolute path
+  // case 1:
+  // if link.href, and it ain't starting with / then thats an relative path
+  // eg: link.href = describe then converting to /room/roomId/describe
   if (link.href) {
-    if (!link.href.startsWith("/")) path = `/room/${id}/${link.href}`;
+    if (!link.href.startsWith("/")) path = `/room/${roomId}/${link.href}`;
+    // case 2:
+    // if link.href exists and starting with /, then its an absolute path
+    // eg: link.href = '/#hero' then http://localhost:5173/#hero
+    // since it is default behaviour we don't have to do anything for that.
+    else path = link.href;
   }
-
+  // case 3:
+  // if link.href doesnt exist that means we gonna render some modal instead
+  // also checking of onClick exists or not, if onClick exists that means it is some button eg: copy roomId, run code etc.
   if (
     !onClick &&
     !link.href &&
-    (link.label === "Discussion" ||
-      link.label === "Users" ||
-      link.label === "Language")
+    (link.label === "Discussion" || link.label === "Users")
   ) {
     return (
       <RenderModal
@@ -237,7 +245,8 @@ export const SidebarLink = ({
       </button>
     ) : (
       <Link
-        to={path ?? link.href!}
+        // path wont be null as if it is null than we are showing modal for that.
+        to={path!}
         className={cn(
           "flex items-center justify-start gap-2  group/sidebar py-2",
           className,

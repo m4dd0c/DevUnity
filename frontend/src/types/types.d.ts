@@ -1,3 +1,4 @@
+type TFilters = "all" | "owned" | "contributions";
 interface IData<T> {
   data: T;
   message: string;
@@ -7,9 +8,21 @@ interface ISearchUser {
   isNext: boolean;
   users: IUser[];
 }
+interface IPopulatedUsersProject {
+  _id: string;
+  admin: string;
+  roomId: string;
+  project: {
+    title: string;
+    lang: string;
+    explanation: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
 interface IUser {
   _id: string;
-  rooms: string[];
+  rooms: IPopulatedUsersProject[];
   email: string;
   username: string;
   name?: string;
@@ -20,26 +33,36 @@ interface IUser {
   avatar: {
     secure_url?: string | null;
   };
-  createdAt: NativeDate;
+  createdAt: string;
 }
 interface ISearchRoom {
   isNext: boolean;
   rooms: IRoom[];
 }
+interface IPopulatedRoomsAdmin {
+  _id: string;
+  username: string;
+  avatar: { secure_url?: string | null };
+}
 interface IRoom {
   _id: string;
   roomId: string;
   password?: string;
-  admin: string;
+  admin: IPopulatedRoomsAdmin;
   participents: string[];
   discussion: string;
   project: {
     title: string;
-    slogan?: string;
+    explanation?: string;
     description?: string;
     lang: "js" | "ts" | "py" | "cpp" | "c";
     code?: string;
   };
-  createdAt: NativeDate;
-  updatedAt: NativeDate;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface ITabButtons {
+  describeBtn: null | HTMLButtonElement;
+  descriptionBtn: null | HTMLButtonElement;
 }

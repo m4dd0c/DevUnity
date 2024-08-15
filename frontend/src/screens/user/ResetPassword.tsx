@@ -3,7 +3,7 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { Spotlight } from "../../components/ui/Spotlight";
 import { z } from "zod";
-import { ResetPasswordSchema } from "../../lib/schemas/auth.schema";
+import { ResetPasswordSchema } from "../../lib/schemas/user.schema";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";

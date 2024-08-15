@@ -4,7 +4,7 @@ import {
   ForgetPasswordSchema,
   SigninSchema,
   SignupSchema,
-} from "../schemas/auth.schema";
+} from "../schemas/user.schema";
 import { axiosInstance } from "..";
 
 export const checkAvailabilityAction = async ({

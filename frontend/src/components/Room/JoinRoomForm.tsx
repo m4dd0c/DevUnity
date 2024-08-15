@@ -1,13 +1,57 @@
-import React from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { BottomGradient, LabelInputContainer } from "../ui/misc";
+import { LabelInputContainer } from "../ui/misc";
+import AceButton from "../ui/AceButton";
+import { KEYS } from "../../lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { joinRoomAction } from "../../lib/actions/roomAction";
+import { JoinRoomSchema } from "../../lib/schemas/room.schema";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function JoinRoomForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const nav = useNavigate();
+
+  const { isLoading, refetch, isSuccess, isError, data, error } = useQuery({
+    queryFn: async () =>
+      await joinRoomAction({
+        roomId: getValues("roomId"),
+        password: getValues("password"),
+      }),
+    queryKey: [KEYS.JOIN_ROOM],
+    enabled: false,
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    resolver: zodResolver(JoinRoomSchema),
+    defaultValues: {
+      roomId: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = () => {
+    refetch();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (data)
+        return nav(`/room/${data.data}/about`, { state: { query: "rwx" } });
+      else console.error("something went wrong.");
+    }
+    if (isError) {
+      console.log(error);
+    }
+  }, [isSuccess, data, error, isError, nav]);
+
   return (
     <div className="absolute top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-none border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -16,44 +60,41 @@ function JoinRoomForm() {
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
         Join with fellows and dominate the World together.
       </p>
-      <form className="mt-8 mb-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input
-              id="firstname"
-              placeholder="Tyler"
-              type="text"
-              transparent={true}
-            />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input
-              id="lastname"
-              placeholder="Durden"
-              type="text"
-              transparent={true}
-            />
-          </LabelInputContainer>
-        </div>
+      <form className="mt-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="roomId">Room ID</Label>
           <Input
+            {...register("roomId")}
             id="roomId"
             placeholder="Enter room id to join"
             type="text"
             transparent={true}
           />
+          {errors.roomId && (
+            <span className="text-sm text-red-500">
+              {errors.roomId.message}
+            </span>
+          )}
         </LabelInputContainer>
-
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] flex justify-center items-center"
-          type="submit"
-        >
-          Join Room
-          <BottomGradient />
-        </button>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            {...register("password")}
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            transparent={true}
+          />
+          {errors.password && (
+            <span className="text-sm text-red-500">
+              {errors.password.message}
+            </span>
+          )}
+        </LabelInputContainer>
+        <AceButton isLoading={isLoading}>Join Room</AceButton>
+        <small className="mt-2 dark:text-neutral-300">
+          Room admin can join without password.
+        </small>
       </form>
     </div>
   );

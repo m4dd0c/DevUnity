@@ -1,68 +1,114 @@
-import React from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { BottomGradient, LabelInputContainer } from "../ui/misc";
+import { LabelInputContainer } from "../ui/misc";
+import AceButton from "../ui/AceButton";
+import { useMutation } from "@tanstack/react-query";
+import { createRoomAction } from "../../lib/actions/roomAction";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateRoomSchema } from "../../lib/schemas/room.schema";
+import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 function CreateRoomForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
   const genRoomId = () => {
-    console.log("generating roo id");
+    setValue("roomId", crypto.randomUUID(), { shouldValidate: true });
   };
+  const nav = useNavigate();
+  const { mutate, isPending } = useMutation({
+    mutationFn: createRoomAction,
+    onSuccess: (res) => {
+      if (res) nav(`/room/${res.data}`);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const {
+    handleSubmit,
+    setValue,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(CreateRoomSchema),
+    defaultValues: {
+      title: "",
+      password: "",
+      roomId: "",
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof CreateRoomSchema>) => {
+    mutate(data);
+  };
+
   return (
-    <div className="absolute top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-xl border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">
+    <div className="absolute max-lg:top-[55%] top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-xl border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Create A Room
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
         Start by putting your name in.
       </p>
-      <form className="mt-8 mb-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input
-              id="firstname"
-              placeholder="Tyler"
-              type="text"
-              transparent={true}
-            />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input
-              id="lastname"
-              placeholder="Durden"
-              type="text"
-              transparent={true}
-            />
-          </LabelInputContainer>
-        </div>
+      <form className="mt-8 mb-4 max-md:mb-4" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="roomId">Room ID</Label>
           <Input
             id="roomId"
+            {...register("roomId")}
             placeholder="Custom room id"
             type="text"
             transparent={true}
           />
           <small className="text-white">
             Generate a RoomId,{" "}
-            <button className="text-purple-400" onClick={genRoomId}>
+            <button
+              type="button"
+              className="text-purple-400"
+              onClick={genRoomId}
+            >
               Click here
             </button>
           </small>
+          {errors.roomId && (
+            <span className="text-sm text-red-500">
+              {errors.roomId.message}
+            </span>
+          )}
         </LabelInputContainer>
 
-        <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] flex justify-center items-center"
-          type="submit"
-        >
-          Create a Room
-          <BottomGradient />
-        </button>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="title">Title</Label>
+          <Input
+            {...register("title")}
+            id="title"
+            placeholder="eg: Collabrite"
+            type="text"
+            transparent={true}
+          />
+          {errors.title && (
+            <span className="text-sm text-red-500">{errors.title.message}</span>
+          )}
+        </LabelInputContainer>
+
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            {...register("password")}
+            placeholder="••••••••"
+            type="password"
+            transparent={true}
+          />
+          {errors.password && (
+            <span className="text-sm text-red-500">
+              {errors.password.message}
+            </span>
+          )}
+        </LabelInputContainer>
+
+        <AceButton isLoading={isPending}>Create Room</AceButton>
       </form>
     </div>
   );

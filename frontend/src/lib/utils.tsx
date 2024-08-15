@@ -1,3 +1,5 @@
+import { langs } from "../constants";
+
 export const isValidUsername = (username: string) => {
   // Check if the username length is between 1 and 32 characters
   if (username.length < 3 || username.length > 32) {
@@ -70,6 +72,17 @@ export const timeAgo = (dateString: string): string => {
   return "just now";
 };
 
+// get lang color
+export const getLangColor = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result?.color;
+};
+// get lang.value to lang.label
+export const getLangLabel = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result?.label;
+};
+
 // query keys
 export const KEYS = {
   USERNAME_AVAIL: "USERNAME_AVAIL",
@@ -79,5 +92,9 @@ export const KEYS = {
   GET_ME: "GET_ME",
   VERIFY: "VERIFY",
   SEARCH_USERS: "SEARCH_USERS",
+  // rooms
   SEARCH_PROJECTS: "SEARCH_PROJECTS",
+  JOIN_ROOM: "JOIN_ROOM",
+  CREATE_ROOM: "CREATE_ROOM",
+  GET_ROOM: "GET_ROOM",
 };

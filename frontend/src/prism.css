@@ -54,7 +54,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"] {
   color: #f0f6f6;
-  background: #2a4555;
+  background: #a855f7;
   padding: 0.2em 0.3em;
   border-radius: 0.2em;
   box-decoration-break: clone;
@@ -64,7 +64,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #446e69;
+  color: #451669;
 }
 
 .token.punctuation {
@@ -110,7 +110,7 @@ pre[class*="language-"] {
 
 .token.function,
 .token.class-name {
-  color: #78f3e9;
+  color: #451669;
 }
 
 .token.regex,

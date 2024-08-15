@@ -1,6 +1,5 @@
 import {
   IconCloud,
-  IconCode,
   IconCurrencyDollar,
   IconEaseInOut,
   IconEdit,
@@ -14,9 +13,11 @@ import {
   IconBrandTabler,
   IconInfoSquareRounded,
   IconMessageCircle,
-  IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
+
+// filters
+export const filters: TFilters[] = ["all", "owned", "contributions"];
 
 // users
 export const users = [
@@ -254,6 +255,7 @@ export const dummyChat = [
   },
 ];
 
+// participents
 export const dummyUsers = [
   {
     name: "Manish Suthar",
@@ -291,22 +293,27 @@ export const langs = [
   {
     label: "Python",
     value: "py",
+    color: "green",
   },
   {
     label: "C++",
     value: "cpp",
+    color: "pink",
   },
   {
     label: "C language",
     value: "c",
+    color: "brown",
   },
   {
     label: "Typescript",
     value: "ts",
+    color: "blue",
   },
   {
     label: "Javascript",
     value: "js",
+    color: "yellow",
   },
 ];
 // user setting links
@@ -337,14 +344,7 @@ export const userSettingsLinks = [
 export const links = [
   {
     label: "Describe your project",
-    href: "describe",
-    icon: (
-      <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "About the Project",
-    href: "description",
+    href: "about",
     icon: (
       <IconInfoSquareRounded className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
@@ -366,12 +366,6 @@ export const links = [
     label: "Users",
     icon: (
       <IconUsers className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Language",
-    icon: (
-      <IconCode className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {

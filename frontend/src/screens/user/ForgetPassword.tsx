@@ -6,7 +6,7 @@ import { IconSend2 } from "@tabler/icons-react";
 import { Spotlight } from "../../components/ui/Spotlight";
 import AceButton from "../../components/ui/AceButton";
 import { z } from "zod";
-import { ForgetPasswordSchema } from "../../lib/schemas/auth.schema";
+import { ForgetPasswordSchema } from "../../lib/schemas/user.schema";
 import { useMutation } from "@tanstack/react-query";
 import { forgetPasswordAction } from "../../lib/actions/userAction";
 import { useForm } from "react-hook-form";

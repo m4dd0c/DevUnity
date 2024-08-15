@@ -4,7 +4,7 @@ import { LabelInputContainer } from "../ui/misc";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SigninSchema } from "../../lib/schemas/auth.schema";
+import { SigninSchema } from "../../lib/schemas/user.schema";
 import AceButton from "../ui/AceButton";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";

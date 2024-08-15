@@ -1,7 +1,6 @@
 import React from "react";
 import DiscussionModal from "../Room/Modals/DiscussionModal";
 import UsersModal from "../Room/Modals/UsersModal";
-import LanguageModal from "../Room/Modals/LanguageModal";
 
 const RenderModal = ({
   icon,
@@ -29,16 +28,6 @@ const RenderModal = ({
     case "Users":
       Component = (
         <UsersModal icon={icon} label={label} animate={animate} open={open} />
-      );
-      break;
-    case "Language":
-      Component = (
-        <LanguageModal
-          icon={icon}
-          label={label}
-          animate={animate}
-          open={open}
-        />
       );
       break;
     default:

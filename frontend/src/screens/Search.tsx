@@ -29,13 +29,14 @@ const Search = () => {
   // eslint-disable-next-line
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // TODO: add condition to prevent " " blankspace search
     if (type === "Users") fetchUsers();
     if (type === "Projects") fetchProjects();
   };
 
   // query
   const [query, setQuery] = useState("");
-  // const page =
+  // const page TODO: pagination remains
 
   // fetching users
   const {

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconLogin2 } from "@tabler/icons-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { SignupSchema } from "../../lib/schemas/auth.schema";
+import { SignupSchema } from "../../lib/schemas/user.schema";
 import { z } from "zod";
 import { isValidUsername } from "../../lib/utils";
 import { useMutation } from "@tanstack/react-query";

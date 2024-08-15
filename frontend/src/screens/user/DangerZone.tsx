@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { deleteAccountAction } from "../../lib/actions/userAction";
-import { DeleteAccountSchema } from "../../lib/schemas/auth.schema";
+import { DeleteAccountSchema } from "../../lib/schemas/user.schema";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

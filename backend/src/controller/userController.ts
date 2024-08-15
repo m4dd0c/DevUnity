@@ -14,6 +14,7 @@ import {
   resetHTMLCreator,
   verificationHTMLCreator,
 } from "../utils/mailer.html";
+import Room from "../model/Room";
 
 export const signin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -111,7 +112,8 @@ export const signup = catchAsync(
       },
       verification: {
         verified: false,
-        expiresAt: new Date(Date.now() + 15 * 60 * 1000),
+        // 3 days
+        expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         token: verificationToken,
       },
     });
@@ -133,7 +135,7 @@ export const signup = catchAsync(
     new CollabriteRes(
       res,
       201,
-      "Signup Successfully, Please verify your account within 15 minutes.",
+      "Signup Successfully, Please verify your account.",
       user._id,
     ).authenticate(token);
   },
@@ -269,7 +271,12 @@ export const getUser = catchAsync(
     const { userId } = req.params;
     if (!userId)
       return next(new CollabriteError(400, "Please provide a userId."));
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      model: Room,
+      path: "rooms",
+      select:
+        "_id admin roomId updatedAt createdAt project.title project.explanation project.lang",
+    });
     if (!user)
       return next(new CollabriteError(500, "No user found w/ this id."));
     const clientUser = new UserDTO(user).translate();
@@ -287,12 +294,13 @@ export const getMe = catchAsync(
         ),
       );
     // TODO: later fix it
-    // const user = await User.findById(_user._id).populate({
-    //   path: "rooms",
-    //   model: Room,
-    //   select: "project.description project.language project.title _id",
-    // });
-    const clientUser = new UserDTO(_user).translate();
+    const user = await User.findById(_user._id).populate({
+      path: "rooms",
+      model: Room,
+      select:
+        "project.explanation project.lang project.title _id roomId admin createdAt updatedAt",
+    });
+    const clientUser = new UserDTO(user!).translate();
     new CollabriteRes(res, 200, undefined, clientUser).send();
   },
 );
@@ -453,6 +461,12 @@ export const searchUser = catchAsync(
         }
       : {};
     const users = await User.find(searchQuery)
+      .populate({
+        model: Room,
+        path: "rooms",
+        select:
+          "_id roomId admin updatedAt createdAt project.title project.explanation project.lang",
+      })
       .skip(skipAmount)
       .sort({ createdAt: -1 })
       .limit(parseInt(size as string));

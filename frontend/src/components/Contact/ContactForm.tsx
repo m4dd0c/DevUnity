@@ -5,7 +5,7 @@ import { Textarea } from "../ui/textarea";
 import { LabelInputContainer } from "../ui/misc";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ContactMeSchema } from "../../lib/schemas/auth.schema";
+import { ContactMeSchema } from "../../lib/schemas/user.schema";
 import { z } from "zod";
 import { contactMeAction } from "../../lib/actions/userAction";
 import { useMutation } from "@tanstack/react-query";

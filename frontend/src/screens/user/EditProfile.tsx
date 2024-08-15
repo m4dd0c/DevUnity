@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { isValidUsername, KEYS } from "../../lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditAccountSchema } from "../../lib/schemas/auth.schema";
+import { EditAccountSchema } from "../../lib/schemas/user.schema";
 import AceButton from "../../components/ui/AceButton";
 import { z } from "zod";
 
@@ -48,7 +48,9 @@ function EditProfile({ user }: { user: IUser | null }) {
     onSuccess: (res) => {
       //TODO: show toast
       if (res && user) {
-        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
+        queryClient.invalidateQueries({
+          queryKey: [KEYS.GET_ME, KEYS.GET_USER],
+        });
         // invalidate user
         nav(`/user/${user._id}`);
       }

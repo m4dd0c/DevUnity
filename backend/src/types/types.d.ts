@@ -19,9 +19,20 @@ interface IVerification {
   expiresAt: NativeDate;
   token: string;
 }
+interface IPopulatedUsersProject {
+  _id: Types.ObjectId;
+  roomId: string;
+  project: {
+    title: string;
+    explanation: string;
+    lang: "js" | "ts" | "py" | "cpp" | "c";
+  };
+  createdAt: NativeDate;
+  updatedAt: NativeDate;
+}
 interface IUser extends Document {
   _id: Types.ObjectId;
-  rooms: Types.ObjectId[];
+  rooms: Types.ObjectId[] | IPopulatedUsersProject[];
   email: string;
   username: string;
   name?: string;
@@ -52,7 +63,7 @@ interface IRoom extends Document {
   discussion: Types.ObjectId;
   project: {
     title: string;
-    slogan?: string;
+    explanation?: string;
     description?: string;
     lang: "js" | "ts" | "py" | "cpp" | "c";
     code?: string;

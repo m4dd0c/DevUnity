@@ -15,8 +15,7 @@ import PrivacyPolicy from "./screens/PrivacyPolicy";
 import Header from "./components/layout/Header";
 import CreateRoom from "./screens/CreateRoom";
 import JoinRoom from "./screens/JoinRoom";
-import Describe from "./screens/Room/Describe";
-import Description from "./screens/Room/Description";
+import Describe from "./screens/Room/About";
 import "./prism.css";
 import Profile from "./screens/user/Profile";
 import EditProfile from "./screens/user/EditProfile";
@@ -52,7 +51,7 @@ function App() {
   // getting data onload
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
   return (
     <Router>
       <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
@@ -65,10 +64,9 @@ function App() {
           <Route path="join" element={<JoinRoom />} />
           <Route path="create" element={<CreateRoom />} />
 
-          <Route path=":id">
+          <Route path=":roomId">
             <Route path="" element={<Playground />} />
-            <Route path="description" element={<Description />} />
-            <Route path="describe" element={<Describe />} />
+            <Route path="about" element={<Describe user={user} />} />
           </Route>
         </Route>
 
@@ -77,7 +75,7 @@ function App() {
         <Route path="/user">
           <Route path="verify" element={<Verify />} />
           <Route path=":userId">
-            <Route path="" element={<Profile />} />
+            <Route path="" element={<Profile user_id={user?._id} />} />
             <Route path="edit" element={<EditProfile user={user} />} />
             <Route
               path="danger"

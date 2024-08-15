@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import { IconCopy, IconPlayerPlayFilled } from "@tabler/icons-react";
 import { cn } from "../../utils/cn";
 import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
 import { handleCopy, runCode } from "../../utils/playground/utils";
+import { useParams } from "react-router-dom";
 
 function RoomSidebar({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  return (
+  const [loading, setLoading] = useState(true);
+  const { roomId } = useParams();
+
+  useEffect(() => {
+    if (!roomId) setLoading(true);
+    else setLoading(false);
+  }, [setLoading, roomId]);
+
+  return loading ? (
+    <h1>loading...</h1>
+  ) : (
     <div
       className={cn(
         "flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-screen flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
@@ -21,7 +32,7 @@ function RoomSidebar({ children }: { children: React.ReactNode }) {
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink roomId={roomId} key={idx} link={link} />
               ))}
             </div>
           </div>
@@ -44,6 +55,7 @@ function RoomSidebar({ children }: { children: React.ReactNode }) {
                 ),
               }}
             />
+            {/* TODO: add dynamic values */}
             <SidebarLink
               link={{
                 label: "Manu Arora",

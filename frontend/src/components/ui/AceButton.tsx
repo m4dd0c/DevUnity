@@ -17,7 +17,6 @@ const AceButton: React.FC<IAceButton> = ({
   disabled,
   ...props
 }) => {
-  console.log({ disabled, isLoading });
   return (
     <button
       {...props}

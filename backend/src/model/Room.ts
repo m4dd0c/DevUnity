@@ -14,15 +14,14 @@ const roomSchema = new Schema<IRoom>(
         minlength: 3,
         maxlength: 32,
       },
-      slogan: {
+      explanation: {
         type: String,
         trim: true,
-        minlength: 3,
-        maxlength: 32,
+        maxlength: 150,
       },
       description: {
         type: String,
-        maxlength: 3000,
+        maxlength: 5000,
         default: "",
       },
       lang: {
@@ -40,8 +39,8 @@ const roomSchema = new Schema<IRoom>(
     roomId: {
       type: String,
       required: true,
-      minlength: [8, "RoomId must have contain at least 8 character"],
-      maxlength: [100, "RoomId can contain at most 32 character"],
+      minlength: [8, "RoomId must have contain at least 8 characters."],
+      maxlength: [100, "RoomId can contain at most 32 characters."],
       trim: true,
       unique: true,
       lowercase: true,
@@ -66,8 +65,8 @@ const roomSchema = new Schema<IRoom>(
       required: true,
       select: false,
       trim: true,
-      maxlength: [100, "Room password must contain at most 100 numbers."],
-      minlength: [6, "Room password must contain at least 6 numbers."],
+      maxlength: [100, "Room password must contain at most 100 characters."],
+      minlength: [6, "Room password must contain at least 6 characters."],
     },
   },
   { timestamps: true },

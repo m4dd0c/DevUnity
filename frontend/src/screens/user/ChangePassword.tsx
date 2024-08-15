@@ -8,7 +8,7 @@ import AceButton from "../../components/ui/AceButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ChangePasswordSchema } from "../../lib/schemas/auth.schema";
+import { ChangePasswordSchema } from "../../lib/schemas/user.schema";
 import { ChangePasswordAction } from "../../lib/actions/userAction";
 
 function ChangePassword() {

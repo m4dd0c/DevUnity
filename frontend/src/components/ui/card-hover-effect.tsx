@@ -3,16 +3,13 @@ import { cn } from "../../utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getLangColor, getLangLabel, timeAgo } from "../../lib/utils";
 
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: {
-    title: string;
-    description: string;
-    link: string;
-  }[];
+  items: IPopulatedUsersProject[];
   className?: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -26,7 +23,7 @@ export const HoverEffect = ({
     >
       {items.map((item, idx) => (
         <Link
-          to={item?.link}
+          to={`/room/${item.roomId}/about`}
           key={idx}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -51,20 +48,23 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <CardTitle className="text-indigo-500 text-lg">
-              {item.title}
+              {item.project.title}
             </CardTitle>
             <div className="flex gap-2 text-gray-500 my-2 text-sm">
               <div className="flex items-center gap-1" title="language">
-                <IconPointFilled size={25} color="yellow" />
-                <h1>Javascript</h1>
+                <IconPointFilled
+                  size={25}
+                  color={getLangColor(item.project.lang)}
+                />
+                <h1>{getLangLabel(item.project.lang)}</h1>
               </div>
               <div className="flex items-center gap-1" title="updated">
                 <IconRotateClockwise2 size={18} color="#6366f1" />
-                <h1>7 mins</h1>
+                <h1>{timeAgo(item.updatedAt)}</h1>
               </div>
             </div>
             <CardDescription className="line-clamp-6">
-              {item.description}
+              {item.project.explanation}
             </CardDescription>
           </Card>
         </Link>
