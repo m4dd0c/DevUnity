@@ -65,7 +65,11 @@ function ForgetPassword() {
               </span>
             )}
           </LabelInputContainer>
-          <AceButton icon={<IconSend2 size={15} />} isLoading={isPending}>
+          <AceButton
+            type="submit"
+            icon={<IconSend2 size={15} />}
+            isLoading={isPending}
+          >
             Send
           </AceButton>
           <small>

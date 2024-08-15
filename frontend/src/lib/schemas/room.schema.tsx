@@ -20,8 +20,7 @@ export const UpdateRoomSchema = z.object({
 });
 
 export const UpdatePassAndLangSchema = z.object({
-  lang: z.string().min(1).max(15),
-  password: z.string().min(6).max(100),
+  password: z.string().max(100),
 });
 
 export const UpdateRoomCodeSchema = z.object({

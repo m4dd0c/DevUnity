@@ -3,10 +3,12 @@ import { cn } from "../../utils/cn";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 
 export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  useSlate?: boolean;
+}
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, rows = 5, ...props }, ref) => {
+  ({ className, useSlate = false, rows = 5, ...props }, ref) => {
     const radius = 200; // change this to increase the radius of the hover effect
     const [visible, setVisible] = React.useState(false);
 
@@ -39,7 +41,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea
           rows={rows}
           className={cn(
-            `flex w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm resize-none file:bg-transparent file:text-sm file:font-medium 
+            `flex w-full border-none bg-gray-50 ${useSlate ? "dark:bg-slate-800" : "dark:bg-zinc-800"} text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm resize-none file:bg-transparent file:text-sm file:font-medium 
             placeholder:text-neutral-400 dark:placeholder-text-neutral-600 
             focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
             disabled:cursor-not-allowed disabled:opacity-50

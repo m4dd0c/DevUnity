@@ -1,4 +1,5 @@
 type TFilters = "all" | "owned" | "contributions";
+type TLang = "js" | "c" | "cpp" | "ts" | "py";
 interface IData<T> {
   data: T;
   message: string;

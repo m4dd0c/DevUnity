@@ -91,7 +91,9 @@ function JoinRoomForm() {
             </span>
           )}
         </LabelInputContainer>
-        <AceButton isLoading={isLoading}>Join Room</AceButton>
+        <AceButton type="submit" isLoading={isLoading}>
+          Join Room
+        </AceButton>
         <small className="mt-2 dark:text-neutral-300">
           Room admin can join without password.
         </small>

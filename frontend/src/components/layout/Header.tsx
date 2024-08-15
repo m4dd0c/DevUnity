@@ -24,7 +24,7 @@ const Header = ({
   return (
     <>
       <div
-        className={`${isRoomPath && "hidden"} h-[5rem] fixed z-[1] text-white max-sm:hidden`}
+        className={`${isRoomPath && "hidden"} h-[5rem] fixed z-[99999] text-white max-sm:hidden`}
       >
         <div className="flex justify-between items-center">
           <HashLink

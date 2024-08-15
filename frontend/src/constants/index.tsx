@@ -289,7 +289,7 @@ export const dummyUsers = [
   },
 ];
 // supported languages - DashboardHeader
-export const langs = [
+export const langs: { label: string; value: TLang; color: string }[] = [
   {
     label: "Python",
     value: "py",

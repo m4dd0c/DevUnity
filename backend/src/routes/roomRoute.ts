@@ -25,7 +25,7 @@ router.route("/search/:query").get(searchRoom);
 router.route("/all/:ownerId").get(allRooms);
 router.route("/single/:roomId").get(authenticated, getRoom);
 
-router.route("/setting/:roomId").put(authenticated, updatePassAndLang);
+router.route("/settings/:roomId").put(authenticated, updatePassAndLang);
 // router.route('/kick/:roomId/:userId').get(authenticated, kickUser)
 
 export default router;

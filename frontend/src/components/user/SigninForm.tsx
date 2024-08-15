@@ -85,7 +85,11 @@ function SigninForm() {
             Forget Password?{" "}
           </Link>
         </small>
-        <AceButton icon={<IconLogin2 size={15} />} isLoading={isPending}>
+        <AceButton
+          icon={<IconLogin2 size={15} />}
+          isLoading={isPending}
+          type="submit"
+        >
           Sign in
         </AceButton>
         <small className="text-white">

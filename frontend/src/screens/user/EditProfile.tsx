@@ -150,14 +150,10 @@ function EditProfile({ user }: { user: IUser | null }) {
           </label>
         </div>
         <div className="w-full max-md:w-11/12 gap-2 flex items-center justify-between mb-4 mx-auto">
-          <AceButton
-            className="block bg-gradient-to-br relative group/btn from-indigo-500 dark:from-indigo-700 dark:to-purple-700 to-purple-500 dark:bg-purple-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--purple-800)_inset,0px_-1px_0px_0px_var(--purple-800)_inset]"
-            isLoading={isPending}
-            type="submit"
-          >
+          <AceButton isPurple={true} isLoading={isPending} type="submit">
             Save
           </AceButton>
-          <AceButton onClick={() => nav(-1)} disabled={isPending}>
+          <AceButton type="button" onClick={() => nav(-1)} disabled={isPending}>
             Cancel
           </AceButton>
         </div>

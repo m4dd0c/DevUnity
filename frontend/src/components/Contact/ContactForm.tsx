@@ -111,7 +111,11 @@ function ContactForm() {
           )}
         </LabelInputContainer>
 
-        <AceButton icon={<IconSend2 size={15} />} isLoading={isPending}>
+        <AceButton
+          type="submit"
+          icon={<IconSend2 size={15} />}
+          isLoading={isPending}
+        >
           Send
         </AceButton>
       </form>

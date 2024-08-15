@@ -108,7 +108,9 @@ function CreateRoomForm() {
           )}
         </LabelInputContainer>
 
-        <AceButton isLoading={isPending}>Create Room</AceButton>
+        <AceButton isLoading={isPending} type="submit">
+          Create Room
+        </AceButton>
       </form>
     </div>
   );

@@ -196,7 +196,11 @@ function SignupForm() {
             Sign in
           </Link>
         </small>
-        <AceButton icon={<IconLogin2 size={15} />} isLoading={isPending}>
+        <AceButton
+          type="submit"
+          icon={<IconLogin2 size={15} />}
+          isLoading={isPending}
+        >
           Sign up
         </AceButton>
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />

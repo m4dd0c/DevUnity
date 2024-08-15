@@ -115,6 +115,7 @@ function DangerZone({ username }: { username: string | null }) {
             )}
           </LabelInputContainer>
           <AceButton
+            type="submit"
             icon={
               <IconTrash
                 color={disabled || isPending ? "gray" : "red"}

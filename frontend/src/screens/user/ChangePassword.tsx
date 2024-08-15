@@ -110,7 +110,9 @@ function ChangePassword() {
           <small className="text-indigo-500">
             <Link to={"/password/forget"}>Forget password?</Link>
           </small>
-          <AceButton isLoading={isPending}>Change Password</AceButton>
+          <AceButton isLoading={isPending} type="submit">
+            Change Password
+          </AceButton>
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
         </form>
       </div>

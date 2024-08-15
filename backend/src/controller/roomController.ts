@@ -347,12 +347,20 @@ export const updatePassAndLang = catchAsync(
           "Either you're not admin of the room or just room doesn't exist with given id.",
         ),
       );
-    await room.updateOne({
-      password,
-      project: {
-        lang,
-      },
-    });
+    if (lang) {
+      room.project.lang = lang;
+    }
+    if (password) {
+      if (password.trim().length >= 6) {
+        room.password = password;
+      } else {
+        new CollabriteError(
+          401,
+          "Password must contain at least 6 characters.",
+        );
+      }
+    }
+    await room.save();
     new CollabriteRes(res, 200, "Room updated.", true).send();
   },
 );

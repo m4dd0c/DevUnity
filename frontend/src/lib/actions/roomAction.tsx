@@ -4,7 +4,6 @@ import {
   CreateRoomSchema,
   DeleteRoomSchema,
   JoinRoomSchema,
-  UpdatePassAndLangSchema,
   UpdateRoomSchema,
 } from "../schemas/room.schema";
 
@@ -78,9 +77,11 @@ export const updatePasswordAndLangAction = async ({
   formData,
   roomId,
 }: {
-  formData: z.infer<typeof UpdatePassAndLangSchema>;
+  formData: { password: string; lang: TLang };
   roomId: string;
 }) => {
+  if (!formData.lang) formData.lang = "" as any;
+  if (!formData.password) formData.password = "";
   try {
     const { data }: { data: IData<ISearchRoom> } = await axiosInstance.put(
       `/room/settings/${roomId}`,

@@ -108,9 +108,10 @@ export default function DescribeForm({
             <Label htmlFor="explanation">Brief Explanation</Label>
             <Textarea
               {...register("explanation")}
+              useSlate={true}
               id="explanation"
               placeholder="brief explanation about your project. max 150 letters"
-              className="bg-slate-800 font-normal p-4"
+              className="font-normal p-4"
             />
             {errors.explanation && (
               <span className="text-sm text-red-500">
