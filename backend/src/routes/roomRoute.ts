@@ -8,6 +8,7 @@ import {
   updateRoom,
   searchRoom,
   updatePassAndLang,
+  saveCode,
 } from "../controller/roomController";
 import { authenticated } from "../middleware/authenticated";
 
@@ -26,6 +27,8 @@ router.route("/all/:ownerId").get(allRooms);
 router.route("/single/:roomId").get(authenticated, getRoom);
 
 router.route("/settings/:roomId").put(authenticated, updatePassAndLang);
+
+router.route("/save/code/:roomId").put(authenticated, saveCode);
 // router.route('/kick/:roomId/:userId').get(authenticated, kickUser)
 
 export default router;

@@ -4,12 +4,14 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   IconCopy,
+  IconDeviceFloppy,
   IconMenu2,
   IconPlayerPlayFilled,
   IconX,
 } from "@tabler/icons-react";
 import { handleCopy, runCode } from "../../utils/playground/utils";
 import RenderModal from "./renderModal";
+import { useSocket } from "../../context/useSocket";
 
 interface Links {
   label: string;
@@ -76,11 +78,17 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+export const SidebarBody = ({
+  isActiveUser,
+  ...props
+}: { isActiveUser?: boolean } & React.ComponentProps<typeof motion.div>) => {
   return (
     <>
       <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
+      <MobileSidebar
+        isActiveUser={isActiveUser}
+        {...(props as React.ComponentProps<"div">)}
+      />
     </>
   );
 };
@@ -112,11 +120,17 @@ export const DesktopSidebar = ({
 };
 
 export const MobileSidebar = ({
+  isActiveUser,
+  roomId,
   className,
   children,
   ...props
-}: React.ComponentProps<"div">) => {
+}: React.ComponentProps<"div"> & {
+  roomId?: string;
+  isActiveUser?: boolean;
+}) => {
   const { open, setOpen } = useSidebar();
+  const { saveCode } = useSocket();
   return (
     <>
       <div
@@ -126,12 +140,20 @@ export const MobileSidebar = ({
         {...props}
       >
         <div className="flex gap-4 items-center justify-end z-20 w-full">
-          <IconPlayerPlayFilled
-            title="run code"
-            className="text-indigo-500 h-5 w-5 flex-shrink-0"
-            //TODO: run code
-            onClick={runCode}
-          />
+          {isActiveUser && (
+            <>
+              <IconPlayerPlayFilled
+                title="Run code"
+                className="text-indigo-500 h-5 w-5 flex-shrink-0"
+                onClick={runCode}
+              />
+              <IconDeviceFloppy
+                title="Save code"
+                className="text-indigo-500 h-5 w-5 flex-shrink-0"
+                onClick={() => saveCode({ roomId: roomId || "" })}
+              />
+            </>
+          )}
           <IconCopy
             title="copy roomId"
             className="text-indigo-500 h-5 w-5 flex-shrink-0"

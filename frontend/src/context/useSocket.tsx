@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { ev } from "../lib/utils";
+import { useMutation } from "@tanstack/react-query";
+import { saveCodeAction } from "../lib/actions/roomAction";
 
 interface SocketProviderProps {
   children?: React.ReactNode;
@@ -12,6 +14,7 @@ interface ISocketContext {
   setCode: React.Dispatch<React.SetStateAction<string>>;
   joinEvent: ({ roomId, userId }: { roomId: string; userId: string }) => any;
   changeCode: ({ roomId, code }: { roomId: string; code: string }) => any;
+  saveCode: ({ roomId }: { roomId: string }) => any;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -26,6 +29,22 @@ export const useSocket = () => {
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const [socket, setSocket] = useState<Socket>();
   const [code, setCode] = useState("");
+
+  // save code
+  const saveCode = ({ roomId }: { roomId: string }) => {
+    console.log({ roomId });
+    saveCodeMutation({ roomId, code });
+  };
+
+  const { mutate: saveCodeMutation } = useMutation({
+    mutationFn: saveCodeAction,
+    onSuccess: (res) => {
+      console.log(res);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
 
   // joinEvent
   const joinEvent: ISocketContext["joinEvent"] = useCallback(
@@ -66,7 +85,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   return (
     <SocketContext.Provider
-      value={{ joinEvent, changeCode, socket, code, setCode }}
+      value={{ joinEvent, saveCode, changeCode, socket, code, setCode }}
     >
       {children}
     </SocketContext.Provider>

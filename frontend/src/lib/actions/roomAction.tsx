@@ -42,12 +42,9 @@ export const createRoomAction = async (
   }
 };
 
-let count = 0;
 export const joinRoomAction = async (
   formData: z.infer<typeof JoinRoomSchema>,
 ) => {
-  console.log({ count, id: formData.roomId, password: formData.password });
-  ++count;
   try {
     const { data }: { data: IData<string> } = await axiosInstance.get(
       `/room/${formData.roomId}?password=${formData.password}`,
@@ -75,6 +72,27 @@ export const updateRoomAction = async ({
     console.log(error);
   }
 };
+
+// save code action
+export const saveCodeAction = async ({
+  roomId,
+  code,
+}: {
+  code: string;
+  roomId: string;
+}) => {
+  try {
+    console.log({ roomId, code });
+    const { data }: { data: IData<undefined> } = await axiosInstance.put(
+      `/room/save/code/${roomId}`,
+      { code },
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // update password or language or both
 export const updatePasswordAndLangAction = async ({
   formData,

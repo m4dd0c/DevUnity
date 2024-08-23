@@ -16,11 +16,15 @@ function Describe({ user }: { user: IUser | null }) {
   const { roomId } = useParams();
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
-  const query = location?.state?.query || "r";
+  const [query, setQuery] = useState(location?.state?.query || "r");
   const [isActiveUser, setIsActiveUser] = useState(false);
 
   // fetching room data
-  const { data: room, isLoading } = useQuery({
+  const {
+    data: room,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryFn: async () => await getRoomAction({ roomId, query }),
     queryKey: [KEYS.GET_ROOM, roomId],
   });
@@ -77,16 +81,23 @@ function Describe({ user }: { user: IUser | null }) {
     }
   }, [user, nav]);
 
-  // only participents can have rwx mode
+  // only activeUsers can have run and save code
   useEffect(() => {
     if (room && user) {
       if (room.data.activeUsers.includes(user._id)) {
         setIsActiveUser(true);
+        setQuery("rwx");
       } else {
         setIsActiveUser(false);
+        setQuery("r");
       }
     }
-  }, [room, user]);
+  }, [room, user, refetch]);
+
+  // calling refetch everytime query changes
+  useEffect(() => {
+    refetch();
+  }, [query]);
 
   // confirmation before reloading or leaving page
   useEffect(() => {

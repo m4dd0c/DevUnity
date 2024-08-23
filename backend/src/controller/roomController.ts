@@ -75,7 +75,7 @@ export const getRoom = catchAsync(
     const { roomId } = req.params;
     if (!roomId) return next(new CollabriteError(400, "RoomId not found!"));
 
-    let { mode } = req.query;
+    let { query: mode } = req.query;
     if (!mode) mode = "r";
 
     const user = req.user;
@@ -119,8 +119,7 @@ export const getRoom = catchAsync(
           select: "_id username avatar.secure_url",
         });
     } else if (mode === "rwx") {
-      // responding with whole data
-      if (!room.participent.includes(user._id)) {
+      if (!room.activeUsers.includes(user._id)) {
         room = await Room.findOne({ roomId })
           .select("-project.code -discussion")
           .populate({
@@ -133,8 +132,7 @@ export const getRoom = catchAsync(
             path: "participents",
             select: "_id username avatar.secure_url",
           });
-      }
-      if (user._id.toString() === room.admin.toString()) {
+      } else if (user._id.toString() === room.admin._id.toString()) {
         room = await Room.findOne({ roomId })
           .select("+password")
           .populate({
@@ -410,3 +408,32 @@ export const updatePassAndLang = catchAsync(
     new CollabriteRes(res, 200, "Room updated.", true).send();
   },
 );
+export const saveCode = catchAsync(async (req, res, next) => {
+  const { roomId } = req.params;
+  if (!roomId)
+    return next(
+      new CollabriteError(400, "Please provide a roomid to proceed."),
+    );
+
+  const { code } = req.body;
+
+  const user = req.user;
+  if (!user)
+    return next(
+      new CollabriteError(401, "It seems like you'r not authenticated"),
+    );
+
+  const room: IRoom | null = await Room.findOne({ roomId });
+  if (!room)
+    return next(new CollabriteError(400, "Room not found with provided Id."));
+
+  if (!room.activeUsers.includes(user._id))
+    return next(
+      new CollabriteError(401, "You must join the room to save the code."),
+    );
+
+  room.project.code = code;
+  await room.save();
+
+  new CollabriteRes(res, 200).send();
+});

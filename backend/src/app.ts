@@ -12,7 +12,8 @@ const corsOptions: CorsOptions = {
 };
 export const app = express();
 
-app.use(express.json());
+// @ts-ignore
+app.use(express.json({ extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());

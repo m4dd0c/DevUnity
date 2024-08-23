@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RoomSidebar from "../../components/layout/RoomSidebar";
 import Dashboard from "../../components/Room/Dashboard";
 import { useQuery } from "@tanstack/react-query";
@@ -9,30 +9,37 @@ import { useEffect, useState } from "react";
 const Playground = ({ user }: { user: null | IUser }) => {
   const { roomId } = useParams();
   const nav = useNavigate();
-  const [query, setQuery] = useState<"r" | "rwx">("r");
+  const [isActiveUser, setIsActiveUser] = useState(false);
+  const location = useLocation();
+  const [query, setQuery] = useState(location?.state?.query || "r");
 
   // use query for room
-  const { data: room, isLoading } = useQuery({
+  const {
+    data: room,
+    isLoading,
+    refetch,
+  } = useQuery({
     // TODO : fix it according to the loggedin user
     queryFn: async () => await getRoomAction({ roomId, query }),
     queryKey: [KEYS.GET_ROOM, roomId],
   });
 
-  // checking the loggedin user in room
+  // only activeusers can have run and save code
   useEffect(() => {
     if (room && user) {
-      if (
-        room.data.participents.find(
-          (participent) => participent._id === user._id,
-        )
-      ) {
+      if (room.data.activeUsers.includes(user._id)) {
+        setIsActiveUser(true);
         setQuery("rwx");
       } else {
+        setIsActiveUser(false);
         setQuery("r");
       }
     }
-  }, [room, user]);
+  }, [room, user, refetch]);
 
+  useEffect(() => {
+    refetch();
+  }, [query]);
   // if !user then
   useEffect(() => {
     if (!user) {
@@ -55,7 +62,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
   return isLoading ? (
     <h1>loading... </h1>
   ) : (
-    <RoomSidebar room={room?.data} query={query}>
+    <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
       <Dashboard user={user} room={room?.data} />
     </RoomSidebar>
   );

@@ -1,11 +1,16 @@
 import { useState } from "react";
 import fallback_pp from "/assets/fallback_pp.jpg";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
-import { IconCopy, IconPlayerPlayFilled } from "@tabler/icons-react";
+import {
+  IconCopy,
+  IconDeviceFloppy,
+  IconPlayerPlayFilled,
+} from "@tabler/icons-react";
 import { cn } from "../../utils/cn";
 import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
 import { handleCopy, runCode } from "../../utils/playground/utils";
+import { useSocket } from "../../context/useSocket";
 
 function RoomSidebar({
   children,
@@ -17,6 +22,7 @@ function RoomSidebar({
   room: IRoom | undefined;
 }) {
   const [open, setOpen] = useState(false);
+  const { saveCode } = useSocket();
 
   return (
     <div
@@ -26,7 +32,10 @@ function RoomSidebar({
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+        <SidebarBody
+          isActiveUser={isActiveUser}
+          className="justify-between gap-10"
+        >
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -39,15 +48,26 @@ function RoomSidebar({
           </div>
           <div>
             {isActiveUser && (
-              <SidebarLink
-                onClick={runCode}
-                link={{
-                  label: "Run (ctrl+r)",
-                  icon: (
-                    <IconPlayerPlayFilled className="text-indigo-500 h-5 w-5 flex-shrink-0" />
-                  ),
-                }}
-              />
+              <>
+                <SidebarLink
+                  onClick={runCode}
+                  link={{
+                    label: "Run (ctrl+r)",
+                    icon: (
+                      <IconPlayerPlayFilled className="text-indigo-500 h-5 w-5 flex-shrink-0" />
+                    ),
+                  }}
+                />
+                <SidebarLink
+                  onClick={() => saveCode({ roomId: room?.roomId || "" })}
+                  link={{
+                    label: "Save code (ctrl+s)",
+                    icon: (
+                      <IconDeviceFloppy className="text-indigo-500 h-5 w-5 flex-shrink-0" />
+                    ),
+                  }}
+                />
+              </>
             )}
             <SidebarLink
               onClick={handleCopy}

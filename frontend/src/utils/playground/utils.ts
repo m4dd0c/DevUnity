@@ -12,6 +12,8 @@ export const handleCopy = async () => {
   }
 };
 export const runCode = () => {
-  // TODO: complete this later
   alert("code is running...");
+};
+const saveCode = () => {
+  alert("saving the code");
 };

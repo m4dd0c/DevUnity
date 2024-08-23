@@ -24,7 +24,13 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   const onChange = (e: any) => {
     if (!roomId) return;
     changeCode({ roomId, code: e });
+    setCode(e);
   };
+  // TODO: save code to localstorage with debounce
+  // useEffect(() => {
+  //   // saving to localstorage debounce
+  //   localStorage.setItem('code', JSON.stringify({code: e, roomId}))
+  // }, [])
 
   // fix error: define is not defined
   useEffect(() => {
@@ -80,7 +86,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // setting initial code from db;
   useEffect(() => {
     setCode(room?.project.code || "");
-  }, [setCode, room?.project.code]);
+  }, []);
 
   // user not found
   useEffect(() => {

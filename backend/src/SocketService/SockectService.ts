@@ -67,9 +67,9 @@ class SocketService {
           });
         },
       );
+      // code sync starts here
       // code req
       socket.on(ev["f:code_req"], ({ roomId }: { roomId: string }) => {
-        console.log("code req");
         // sending event to everyone except the sender
         socket.to(roomId).emit(ev["b:code_req"], { socketId: socket.id });
       });
@@ -78,19 +78,18 @@ class SocketService {
       socket.on(
         ev["f:code_load"],
         ({ socketId, code }: { socketId: string; code: string }) => {
-          // emitting code to the socket
-          console.log("emitting code change with code", { code });
           // sending code only to the socketId
           io.to(socketId).emit(ev["b:code_change"], { code });
         },
       );
+      // code sync ends here
 
       // room update event
       socket.on(
         ev["f:code_change"],
         ({ roomId, code }: { roomId: string; code: string }) => {
-          // send code to everyone
-          io.to(roomId).emit(ev["b:code_change"], { code });
+          // send code to everyone except self
+          socket.to(roomId).emit(ev["b:code_change"], { code });
         },
       );
 
