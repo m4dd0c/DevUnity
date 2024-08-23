@@ -59,7 +59,8 @@ interface IRoom extends Document {
   roomId: string;
   password: string;
   admin: Types.ObjectId;
-  participents: Types.ObjectI[];
+  participents: Types.ObjectId[];
+  activeUsers: Types.ObjectId[];
   discussion: Types.ObjectId;
   project: {
     title: string;
@@ -80,7 +81,7 @@ interface IDiscussion {
   _id: Types.ObjectId;
   admin: Types.ObjectId;
   room: Types.ObjectId;
-  chat: TMessage[];
+  chat: IMessage[];
   createdAt: NativeDate;
   updatedAt: NativeDate;
 }

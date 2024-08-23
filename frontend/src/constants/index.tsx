@@ -293,7 +293,7 @@ export const langs: { label: string; value: TLang; color: string }[] = [
   {
     label: "Python",
     value: "py",
-    color: "green",
+    color: "yellowgreen",
   },
   {
     label: "C++",

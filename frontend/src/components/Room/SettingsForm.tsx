@@ -5,29 +5,22 @@ import AceButton from "../ui/AceButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdatePassAndLangSchema } from "../../lib/schemas/room.schema";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
-import {
-  getRoomAction,
-  updatePasswordAndLangAction,
-} from "../../lib/actions/roomAction";
-import { useNavigate, useParams } from "react-router-dom";
+import { updatePasswordAndLangAction } from "../../lib/actions/roomAction";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { KEYS } from "../../lib/utils";
 import { langs } from "../../constants";
+import { KEYS } from "../../lib/utils";
 
-const SettingsForm = ({ isAdmin }: { isAdmin?: boolean }) => {
-  const nav = useNavigate();
+const SettingsForm = ({
+  isAdmin,
+  room,
+}: {
+  isAdmin?: boolean;
+  room: IRoom | undefined;
+}) => {
   const { roomId } = useParams();
-
-  const {
-    refetch,
-    isLoading,
-    data: room,
-  } = useQuery({
-    queryFn: async () => await getRoomAction({ roomId, query: "r" }),
-    queryKey: [KEYS.GET_ROOM, roomId],
-  });
 
   const {
     handleSubmit,
@@ -42,19 +35,21 @@ const SettingsForm = ({ isAdmin }: { isAdmin?: boolean }) => {
     },
   });
 
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: updatePasswordAndLangAction,
     onSuccess: (res) => {
-      if (res) nav(`/room/${roomId}/about`);
+      if (res) {
+        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM, roomId] });
+        tabButtons?.descriptionBtn?.click();
+      }
     },
     onError: (err) => {
       console.error(err);
     },
   });
 
-  const [language, setLanguage] = useState<TLang>(
-    room?.data.project.lang || "js",
-  );
+  const [language, setLanguage] = useState<TLang>(room?.project.lang || "js");
 
   const onSubmit = (data: z.infer<typeof UpdatePassAndLangSchema>) => {
     console.log(data);
@@ -77,22 +72,29 @@ const SettingsForm = ({ isAdmin }: { isAdmin?: boolean }) => {
       }
     }
   };
+  const [tabButtons, setTabButtons] = useState<ITabButtons>({
+    describeBtn: null,
+    descriptionBtn: null,
+  });
+  useEffect(() => {
+    const descriptionBtn = document.querySelector(
+      "#tab-button-0",
+    ) as HTMLButtonElement;
+    const describeBtn = document.querySelector(
+      "#tab-button-1",
+    ) as HTMLButtonElement;
+    setTabButtons({ descriptionBtn, describeBtn });
+  }, []);
 
-  // if not admin then nav back about
+  // if isNotAdmin then redirecting to playground
   useEffect(() => {
     if (!isAdmin) {
-      nav(`/room/${roomId}/about`);
+      console.log("nout admin describe form go back now");
+      tabButtons?.descriptionBtn?.click();
     }
-  }, [nav, isAdmin, roomId]);
+  }, [isAdmin, roomId, tabButtons?.descriptionBtn]);
 
-  // roomid
-  useEffect(() => {
-    if (roomId) refetch();
-  }, [roomId, refetch]);
-
-  return isLoading ? (
-    <h1>Loading...</h1>
-  ) : (
+  return (
     <>
       <p className="text-sm font-normal">
         Change your room password and language.

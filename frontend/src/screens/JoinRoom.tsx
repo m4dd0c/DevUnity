@@ -1,7 +1,7 @@
 import JoinRoomForm from "../components/Room/JoinRoomForm";
 import { BackgroundGradientAnimation } from "../components/ui/background-gradient-animation";
 
-function JoinRoom() {
+function JoinRoom({ user }: { user: IUser | null }) {
   return (
     <div>
       <BackgroundGradientAnimation>
@@ -11,7 +11,7 @@ function JoinRoom() {
           </p>
         </div>
       </BackgroundGradientAnimation>
-      <JoinRoomForm />
+      <JoinRoomForm user={user} />
     </div>
   );
 }

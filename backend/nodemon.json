@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": ".ts,.js",
   "ignore": [],
-  "exec": "npx kill-port 4000; npx ts-node ./src/server.ts"
+  "exec": "npx ts-node ./src/server.ts"
 }

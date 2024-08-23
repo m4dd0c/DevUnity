@@ -51,6 +51,7 @@ interface IRoom {
   password?: string;
   admin: IPopulatedUser;
   participents: IPopulatedUser[];
+  activeUsers: string[]; // activeUsers' ids
   discussion: string;
   project: {
     title: string;
@@ -66,4 +67,17 @@ interface IRoom {
 interface ITabButtons {
   describeBtn: null | HTMLButtonElement;
   descriptionBtn: null | HTMLButtonElement;
+}
+
+interface IMessage {
+  message: string;
+  sender: IPopulatedUser;
+}
+interface IDiscussion {
+  _id: string;
+  admin: string;
+  room: string;
+  chat: IMessage[];
+  createdAt: string;
+  updatedAt: string;
 }

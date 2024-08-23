@@ -34,6 +34,7 @@
     "react-router-dom": "^6.25.1",
     "react-router-hash-link": "^2.4.3",
     "react-scroll": "^1.9.0",
+    "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.4.0",
     "three": "^0.166.1",
     "three-globe": "^2.31.1",

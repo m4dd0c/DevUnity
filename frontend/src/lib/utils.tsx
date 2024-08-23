@@ -30,6 +30,7 @@ export const isValidUsername = (username: string) => {
 
 // format date chatgpt
 export const formatDate = (dateString: string): string => {
+  if (!dateString) return "";
   const date = new Date(dateString);
 
   const options: Intl.DateTimeFormatOptions = {
@@ -44,6 +45,7 @@ export const formatDate = (dateString: string): string => {
 
 // timeAgo chatgpt
 export const timeAgo = (dateString: string): string => {
+  if (!dateString) return "";
   const date = new Date(dateString);
   const now = new Date();
 
@@ -62,10 +64,11 @@ export const timeAgo = (dateString: string): string => {
   for (const [unit, value] of Object.entries(intervals)) {
     if (seconds >= value || unit === "second") {
       const count = Math.floor(seconds / value);
-      return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(
-        -count,
-        unit as Intl.RelativeTimeFormatUnit,
-      );
+      const data = new Intl.RelativeTimeFormat("en", {
+        numeric: "auto",
+      }).format(-count, unit as Intl.RelativeTimeFormatUnit);
+      if (!data) return dateString;
+      else return data;
     }
   }
 
@@ -85,16 +88,37 @@ export const getLangLabel = (lang: string) => {
 
 // query keys
 export const KEYS = {
-  USERNAME_AVAIL: "USERNAME_AVAIL",
   SIGNUP: "SIGNUP",
   SIGNIN: "SIGNIN",
-  GET_USER: "GET_USER",
   GET_ME: "GET_ME",
   VERIFY: "VERIFY",
+  GET_USER: "GET_USER",
   SEARCH_USERS: "SEARCH_USERS",
+  USERNAME_AVAIL: "USERNAME_AVAIL",
   // rooms
-  SEARCH_PROJECTS: "SEARCH_PROJECTS",
+  GET_ROOM: "GET_ROOM",
   JOIN_ROOM: "JOIN_ROOM",
   CREATE_ROOM: "CREATE_ROOM",
-  GET_ROOM: "GET_ROOM",
+  SEARCH_PROJECTS: "SEARCH_PROJECTS",
+  // discussions
+  GET_DISCUSSION: "GET_DISCUSSION",
+};
+
+// socket events
+// have same object in BE
+export const ev = {
+  // backend emit
+  "b:join": "b:join",
+  "b:code_load": "b:code_load",
+  "b:create": "b:create",
+  "b:code_change": "b:code_change",
+  "b:leave": "b:leave",
+  "b:code_req": "b:code_req",
+  // frontend emit
+  "f:join": "f:join",
+  "f:code_load": "f:code_load",
+  "f:create": "f:create",
+  "f:code_change": "f:code_change",
+  "f:leave": "f:leave",
+  "f:code_req": "f:code_req",
 };

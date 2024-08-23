@@ -6,39 +6,37 @@ import {
   ModalTrigger,
 } from "../../ui/animated-modal";
 import { motion } from "framer-motion";
-import { dummyChat } from "../../../constants";
 import { IconSend } from "@tabler/icons-react";
 import { Input } from "../../ui/input";
 import Discussion from "./Discussion";
 import { useQuery } from "@tanstack/react-query";
-import { getRoomAction } from "../../../lib/actions/roomAction";
 import { KEYS } from "../../../lib/utils";
-import { useEffect } from "react";
+import { getDiscussionAction } from "../../../lib/actions/discussionAction";
 
 function DiscussionModal({
   animate,
   open,
   icon,
-  roomId,
+  room,
   label,
 }: {
   animate: boolean;
-  roomId?: string;
+  room?: IRoom;
   open: boolean;
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
-  const { data: room, refetch } = useQuery({
-    queryFn: async () => await getRoomAction({ roomId, query: "r" }),
-    queryKey: [KEYS.GET_ROOM, roomId],
-  });
   // TODO: fetch users and loggedin user if participent then only show send message button and input
+  // get chat id
+  // get chat populated with username avatar_secure_url and Id
+  const { isLoading, data } = useQuery({
+    queryFn: async () => await getDiscussionAction(room?._id ?? ""),
+    queryKey: [KEYS.GET_DISCUSSION, room?._id],
+  });
 
-  // refetching when roomid changes or arrives late
-  useEffect(() => {
-    if (roomId) refetch();
-  }, [refetch, roomId]);
-  return (
+  return isLoading ? (
+    <h1>loading...</h1>
+  ) : (
     <Modal>
       <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">
         {icon}
@@ -63,7 +61,7 @@ function DiscussionModal({
           </h4>
           <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[60vh]">
             <div className="flex flex-1 justify-center items-center">
-              <Discussion chat={dummyChat} />
+              <Discussion chat={data?.data} />
             </div>
           </div>
         </ModalContent>

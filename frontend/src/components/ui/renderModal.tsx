@@ -7,20 +7,20 @@ const RenderModal = ({
   label,
   animate,
   open,
-  roomId,
+  room,
 }: {
   icon: React.ReactNode | React.JSX.Element;
   label: string;
   animate: boolean;
   open: boolean;
-  roomId?: string;
+  room?: IRoom;
 }) => {
   let Component = <h1>Nothing to show here</h1>;
   switch (label) {
     case "Discussion":
       Component = (
         <DiscussionModal
-          roomId={roomId}
+          room={room}
           icon={icon}
           label={label}
           animate={animate}
@@ -31,7 +31,7 @@ const RenderModal = ({
     case "Users":
       Component = (
         <UsersModal
-          roomId={roomId}
+          room={room}
           icon={icon}
           label={label}
           animate={animate}

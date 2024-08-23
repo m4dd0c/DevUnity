@@ -7,41 +7,22 @@ import {
 } from "../../ui/animated-modal";
 import { motion } from "framer-motion";
 import CloseModalButton from "./CloseModalButton";
-import { useQuery } from "@tanstack/react-query";
 import fallback_pp from "/assets/fallback_pp.jpg";
-import { KEYS } from "../../../lib/utils";
-import { getRoomAction } from "../../../lib/actions/roomAction";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 function UsersModal({
   animate,
   open,
   icon,
-  roomId,
+  room,
   label,
 }: {
   animate: boolean;
-  roomId?: string;
+  room?: IRoom;
   open: boolean;
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
-  const {
-    data: room,
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryFn: async () => await getRoomAction({ roomId, query: "r" }),
-    queryKey: [KEYS.GET_ROOM, roomId],
-  });
-
-  // refetching as roomId changes
-  useEffect(() => {
-    if (roomId) {
-      refetch();
-    }
-  }, [refetch, roomId]);
   return (
     <Modal>
       <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">
@@ -66,30 +47,26 @@ function UsersModal({
             Collaborators right now.
           </h4>
           <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[50vh]">
-            {isLoading ? (
-              <h1>Loading...</h1>
-            ) : (
-              room?.data.participents.map((user, idx) => (
-                <Link
-                  to={`/user/${user._id}`}
-                  key={idx}
-                  className="bg-neutral-900 p-4 rounded-md w-1/4 max-sm:w-full max-lg:w-full"
+            {room?.participents.map((user, idx) => (
+              <Link
+                to={`/user/${user._id}`}
+                key={idx}
+                className="bg-neutral-900 p-4 rounded-md w-1/4 max-sm:w-full max-lg:w-full"
+              >
+                <img
+                  src={user.avatar.secure_url ?? fallback_pp}
+                  className="h-7 w-7 rounded-full mx-auto object-cover"
+                  width={50}
+                  height={50}
+                  alt="Avatar"
+                />
+                <h1
+                  className={`line-clamp-1 text-center ${room?.admin._id === user._id ? "text-violet-500" : "text-white"}`}
                 >
-                  <img
-                    src={user.avatar.secure_url ?? fallback_pp}
-                    className="h-7 w-7 rounded-full mx-auto object-cover"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                  <h1
-                    className={`line-clamp-1 text-center ${room?.data.admin._id === user._id ? "text-violet-500" : "text-white"}`}
-                  >
-                    @{user.username}
-                  </h1>
-                </Link>
-              ))
-            )}
+                  @{user.username}
+                </h1>
+              </Link>
+            ))}
           </div>
         </ModalContent>
         <ModalFooter className="gap-4">

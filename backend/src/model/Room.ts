@@ -56,6 +56,12 @@ const roomSchema = new Schema<IRoom>(
         ref: "User",
       },
     ],
+    activeUsers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     discussion: {
       type: Schema.Types.ObjectId,
       ref: "Discussion",

@@ -60,7 +60,7 @@ const ProfileProjects = ({ user }: { user: IUser | null }) => {
         </div>
       </div>
       <div className="m-2">
-        {data ? (
+        {data && data.length > 0 ? (
           <HoverEffect items={data} />
         ) : (
           <NoResult text="No project found! Check the input again." />

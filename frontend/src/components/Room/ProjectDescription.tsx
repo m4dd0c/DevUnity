@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import fallback_pp from "/assets/fallback_pp.jpg";
 import ParseHtml from "./ParseHtml";
-import { useNavigate } from "react-router-dom";
 import {
   IconCalendarCode,
   IconPointFilled,
@@ -16,16 +14,12 @@ import {
 import { Link } from "react-router-dom";
 
 const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
-  const nav = useNavigate();
-  useEffect(() => {
-    if (!room) nav(-1);
-  }, [room, nav]);
   return (
     <div className="font-normal space-y-2">
       {room && room.admin && (
         <Link
           to={`/user/${room.admin._id}`}
-          className="flex items-center text-black"
+          className="flex items-center text-black w-fit"
         >
           <div className="p-1 bg-white rounded-full">
             <img
@@ -34,7 +28,7 @@ const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
               className="rounded-full h-7 w-7 object-cover"
             />
           </div>
-          <h1 className="text-sm font-semibold  bg-white px-2 rounded-r-full -ml-1">
+          <h1 className="text-sm font-semibold bg-white px-2 rounded-r-full -ml-1">
             @{room.admin.username}
           </h1>
         </Link>

@@ -55,7 +55,7 @@ export default function DescribeForm({
     mutationFn: updateRoomAction,
     onSuccess: (res) => {
       if (res) {
-        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM] });
+        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM, roomId] });
         tabButtons?.descriptionBtn?.click();
       }
     },
@@ -75,10 +75,14 @@ export default function DescribeForm({
     ) as HTMLButtonElement;
     setTabButtons({ descriptionBtn, describeBtn });
   }, []);
+
   // if isNotAdmin then redirecting to playground
   useEffect(() => {
-    if (!isAdmin) return nav(`/room/${roomId}`);
-  }, [isAdmin, nav, roomId]);
+    if (!isAdmin) {
+      console.log("nout admin describe form go back now");
+      tabButtons?.descriptionBtn?.click();
+    }
+  }, [isAdmin, roomId, tabButtons?.descriptionBtn]);
 
   return (
     <>

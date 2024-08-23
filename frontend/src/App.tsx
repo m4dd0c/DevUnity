@@ -31,6 +31,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMeAction } from "./lib/actions/userAction";
 import { KEYS } from "./lib/utils";
 import { useEffect, useState } from "react";
+import { SocketProvider } from "./context/useSocket";
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -53,56 +54,58 @@ function App() {
     refetch();
   }, [refetch]);
   return (
-    <Router>
-      <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
+    <SocketProvider>
+      <Router>
+        <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
 
-        <Route path="/room">
-          <Route path="" element={<Navigate to="create" />} />
-          <Route path="join" element={<JoinRoom />} />
-          <Route path="create" element={<CreateRoom />} />
+          <Route path="/room">
+            <Route path="" element={<Navigate to="create" />} />
+            <Route path="join" element={<JoinRoom user={user} />} />
+            <Route path="create" element={<CreateRoom />} />
 
-          <Route path=":roomId">
-            <Route path="" element={<Playground user={user} />} />
-            <Route path="about" element={<Describe user={user} />} />
+            <Route path=":roomId">
+              <Route path="" element={<Playground user={user} />} />
+              <Route path="about" element={<Describe user={user} />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="/search" element={<SearchUsers />} />
+          <Route path="/search" element={<SearchUsers />} />
 
-        <Route path="/user">
-          <Route path="verify" element={<Verify />} />
-          <Route path=":userId">
-            <Route path="" element={<Profile user_id={user?._id} />} />
-            <Route path="edit" element={<EditProfile user={user} />} />
-            <Route
-              path="danger"
-              element={<DangerZone username={user && user.username} />}
-            />
+          <Route path="/user">
+            <Route path="verify" element={<Verify />} />
+            <Route path=":userId">
+              <Route path="" element={<Profile user_id={user?._id} />} />
+              <Route path="edit" element={<EditProfile user={user} />} />
+              <Route
+                path="danger"
+                element={<DangerZone username={user && user.username} />}
+              />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="/password">
-          <Route path="forget" element={<ForgetPassword />} />
-          <Route path="reset/:token" element={<ResetPassword />} />
-          <Route path="change" element={<ChangePassword />} />
-        </Route>
+          <Route path="/password">
+            <Route path="forget" element={<ForgetPassword />} />
+            <Route path="reset/:token" element={<ResetPassword />} />
+            <Route path="change" element={<ChangePassword />} />
+          </Route>
 
-        <Route path="/auth">
-          <Route path="" element={<Navigate to="signin" />} />
-          <Route path="signin" element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
-        </Route>
+          <Route path="/auth">
+            <Route path="" element={<Navigate to="signin" />} />
+            <Route path="signin" element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
 
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/terms-conditions" element={<TermsConditions />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      </Routes>
-      <Footer />
-    </Router>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </SocketProvider>
   );
 }
 

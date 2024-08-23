@@ -10,11 +10,12 @@ import { joinRoomAction } from "../../lib/actions/roomAction";
 import { JoinRoomSchema } from "../../lib/schemas/room.schema";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSocket } from "../../context/useSocket";
 
-function JoinRoomForm() {
+function JoinRoomForm({ user }: { user: IUser | null }) {
   const nav = useNavigate();
 
-  const { isLoading, refetch, isSuccess, isError, data, error } = useQuery({
+  const { isLoading, refetch, data } = useQuery({
     queryFn: async () =>
       await joinRoomAction({
         roomId: getValues("roomId"),
@@ -37,20 +38,27 @@ function JoinRoomForm() {
     },
   });
 
+  // sending submition
   const onSubmit = () => {
     refetch();
   };
 
+  // setting up socketio
+  const { joinEvent } = useSocket();
+
+  // if error / response handling
   useEffect(() => {
-    if (isSuccess) {
-      if (data)
-        return nav(`/room/${data.data}/about`, { state: { query: "rwx" } });
-      else console.error("something went wrong.");
+    // if (!user) {
+    //   console.log("going back");
+    //   return nav("/room/join");
+    // }
+    // if (error) console.log(error);
+    //
+    if (data && user) {
+      joinEvent({ roomId: data.data, userId: user._id });
+      return nav(`/room/${data.data}/about`, { state: { query: "rwx" } });
     }
-    if (isError) {
-      console.log(error);
-    }
-  }, [isSuccess, data, error, isError, nav]);
+  }, [data, nav, user, joinEvent]);
 
   return (
     <div className="absolute top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-none border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">

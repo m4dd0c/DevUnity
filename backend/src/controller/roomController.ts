@@ -5,6 +5,7 @@ import CollabriteError from "../utils/CollabriteError";
 import CollabriteRes from "../utils/CollabriteRes";
 import Discussion from "../model/Discussion";
 import User from "../model/User";
+import { IRoom } from "../types/types";
 
 export const createRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -153,7 +154,7 @@ export const getRoom = catchAsync(
     new CollabriteRes(res, 200, undefined, room).send();
   },
 );
-// TODO: after socket i guess
+
 export const joinRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // INFO:  roomId is uuid4()
@@ -171,14 +172,18 @@ export const joinRoom = catchAsync(
         ),
       );
     // if admin tries to joinRoom he/she can join without password
-    const _room = await Room.findOne({ roomId, admin: user._id });
+    const _room: IRoom | null = await Room.findOne({ roomId, admin: user._id });
     // make his join without password
+
     if (_room) {
+      // adding to active users
+      await _room.updateOne({ $addToSet: { activeUsers: user._id } });
+      // sending response
       return new CollabriteRes(
         res,
         200,
         `Welcome admin, ${user.username}`,
-        _room._id,
+        roomId,
       ).send();
     }
     if (!password)
@@ -189,7 +194,11 @@ export const joinRoom = catchAsync(
         ),
       );
 
-    const room = await Room.findOne({ roomId, password });
+    const room: IRoom | null = await Room.findOne({
+      roomId,
+      password,
+    });
+
     if (!room)
       return next(
         new CollabriteError(
@@ -207,7 +216,9 @@ export const joinRoom = catchAsync(
       await room.save();
       await user.save();
     }
-    new CollabriteRes(res, 200, `Welcome ${user.username}`, room._id).send();
+    // setting the user in active state
+    await room.updateOne({ $addToSet: { activeUsers: user._id } });
+    new CollabriteRes(res, 200, `Welcome ${user.username}`, roomId).send();
   },
 );
 

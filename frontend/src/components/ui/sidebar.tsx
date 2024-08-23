@@ -173,14 +173,14 @@ export const MobileSidebar = ({
 };
 
 export const SidebarLink = ({
-  roomId,
+  room,
   link,
   className,
   onClick,
   ...props
 }: {
   link: Links;
-  roomId?: string;
+  room?: IRoom;
   className?: string;
   onClick?: () => any;
   props?: any;
@@ -194,7 +194,7 @@ export const SidebarLink = ({
   // if link.href, and it ain't starting with / then thats an relative path
   // eg: link.href = describe then converting to /room/roomId/describe
   if (link.href) {
-    if (!link.href.startsWith("/")) path = `/room/${roomId}/${link.href}`;
+    if (!link.href.startsWith("/")) path = `/room/${room?.roomId}/${link.href}`;
     // case 2:
     // if link.href exists and starting with /, then its an absolute path
     // eg: link.href = '/#hero' then http://localhost:5173/#hero
@@ -211,7 +211,7 @@ export const SidebarLink = ({
   ) {
     return (
       <RenderModal
-        roomId={roomId as string}
+        room={room}
         icon={link.icon}
         label={link.label}
         animate={animate}

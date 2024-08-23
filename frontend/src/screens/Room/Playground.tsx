@@ -10,8 +10,9 @@ const Playground = ({ user }: { user: null | IUser }) => {
   const { roomId } = useParams();
   const nav = useNavigate();
   const [query, setQuery] = useState<"r" | "rwx">("r");
+
   // use query for room
-  const { refetch, data: room } = useQuery({
+  const { data: room, isLoading } = useQuery({
     // TODO : fix it according to the loggedin user
     queryFn: async () => await getRoomAction({ roomId, query }),
     queryKey: [KEYS.GET_ROOM, roomId],
@@ -32,19 +33,29 @@ const Playground = ({ user }: { user: null | IUser }) => {
     }
   }, [room, user]);
 
-  // refetching user when roomId is available and changed
-  useEffect(() => {
-    if (roomId) refetch();
-  }, [refetch, roomId]);
-
   // if !user then
   useEffect(() => {
     if (!user) {
       nav("/");
     }
   }, [nav, user]);
-  return (
-    <RoomSidebar>
+
+  // confirmation before reloading or leaving page
+  useEffect(() => {
+    const unloadCallback = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      // Most browsers will display a confirmation dialog if preventDefault is called.
+      // No need to assign a value to event.returnValue anymore, it's deprecated.
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
+
+  return isLoading ? (
+    <h1>loading... </h1>
+  ) : (
+    <RoomSidebar room={room?.data} query={query}>
       <Dashboard user={user} room={room?.data} />
     </RoomSidebar>
   );

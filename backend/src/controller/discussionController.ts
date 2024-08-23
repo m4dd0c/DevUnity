@@ -4,11 +4,12 @@ import Room from "../model/Room";
 import CollabriteError from "../utils/CollabriteError";
 import Discussion from "../model/Discussion";
 import CollabriteRes from "../utils/CollabriteRes";
+import User from "../model/User";
 
 export const getDiscussion = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { discussionId } = req.params;
-    if (!discussionId)
+    const { roomId } = req.params;
+    if (!roomId)
       return next(
         new CollabriteError(400, "Please provide roomId to proceed."),
       );
@@ -20,7 +21,11 @@ export const getDiscussion = catchAsync(
           "It seems like you are unauthenticated. Please login.",
         ),
       );
-    const discussion = await Discussion.findById(discussionId);
+    const discussion = await Discussion.findOne({ room: roomId }).populate({
+      model: User,
+      path: "chat.sender",
+      select: "_id username avatar.secure_url",
+    });
     if (!discussion)
       return next(
         new CollabriteError(500, "No discussion available w/ this id."),

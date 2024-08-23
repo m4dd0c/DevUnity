@@ -42,9 +42,12 @@ export const createRoomAction = async (
   }
 };
 
+let count = 0;
 export const joinRoomAction = async (
   formData: z.infer<typeof JoinRoomSchema>,
 ) => {
+  console.log({ count, id: formData.roomId, password: formData.password });
+  ++count;
   try {
     const { data }: { data: IData<string> } = await axiosInstance.get(
       `/room/${formData.roomId}?password=${formData.password}`,
