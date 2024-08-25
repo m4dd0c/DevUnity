@@ -54,8 +54,8 @@ function App() {
     refetch();
   }, [refetch]);
   return (
-    <SocketProvider>
-      <Router>
+    <Router>
+      <SocketProvider>
         <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
         <Routes>
           <Route path="*" element={<NotFound />} />
@@ -104,8 +104,8 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
         <Footer />
-      </Router>
-    </SocketProvider>
+      </SocketProvider>
+    </Router>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import { ev } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
@@ -29,6 +30,7 @@ export const useSocket = () => {
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const [socket, setSocket] = useState<Socket>();
   const [code, setCode] = useState("");
+  const location = useLocation();
 
   // save code
   const saveCode = ({ roomId }: { roomId: string }) => {
@@ -82,6 +84,27 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       setSocket(undefined);
     };
   }, []);
+
+  // Handle socket disconnection based on route
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentHash = location.hash;
+
+    const isRoomPath =
+      /^\/room\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}(\/about)?$/.test(currentPath);
+    const isPlayground = currentHash === "#playground";
+
+    console.log({ isRoomPath, isPlayground });
+    if (isRoomPath || isPlayground) {
+      if (!socket?.connected) {
+        socket?.connect();
+      }
+    } else {
+      if (socket?.connected) {
+        socket?.disconnect();
+      }
+    }
+  }, [location.pathname, location.hash, socket]);
 
   return (
     <SocketContext.Provider

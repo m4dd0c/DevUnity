@@ -2,6 +2,8 @@ import { Server, Socket } from "socket.io";
 import type { Server as HttpServer } from "http";
 import { ev } from "./events";
 import User from "../model/User";
+import Room from "../model/Room";
+import Discussion from "../model/Discussion";
 
 interface ISocketStore<T> {
   [key: string]: T;
@@ -94,22 +96,41 @@ class SocketService {
       );
 
       // room delete event
-      socket.on("disconnecting", () => {
-        // remove from db (active user)
-        // save chat
+      socket.on("disconnecting", async () => {
+        console.log("disconneting...");
+        let roomId = "";
+        let userId = "";
         // we have socket id find userid and remove from obj
         for (const roomKey in this.roomSocketUser) {
           for (const socKey in this.roomSocketUser[roomKey]) {
             if (socKey === socket.id) {
+              roomId = roomKey;
+              userId = this.roomSocketUser[roomKey][socKey];
               delete this.roomSocketUser[roomKey][socKey];
               break;
             }
           }
         }
+        if (!roomId || !userId)
+          return console.log("Either userId or roomId is undefined.");
 
-        // save code if the last user in the room
+        const user = await User.findById(userId);
+        if (!user) console.log("Couldn't find user with this Id.");
+
+        // remove from db (active user)
+        const room = await Room.updateOne(
+          { roomId },
+          { $pull: { activeUsers: userId } },
+        );
+        if (!room) return console.log("Couldn't remove from activeUsers");
+
+        // save chat TODO:
+
         // send info
-        // remove from map and room
+        io.to(roomId).emit(
+          ev["b:leave"],
+          `${user ? user.username : socket.id} left the room.`,
+        );
       });
 
       //INFO: feeling no need for this,
