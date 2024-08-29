@@ -10,8 +10,11 @@ import { IconSend } from "@tabler/icons-react";
 import { Input } from "../../ui/input";
 import Discussion from "./Discussion";
 import { useQuery } from "@tanstack/react-query";
-import { KEYS } from "../../../lib/utils";
+import { ev, KEYS } from "../../../lib/utils";
 import { getDiscussionAction } from "../../../lib/actions/discussionAction";
+import { useCallback, useEffect, useState } from "react";
+import { getMeAction } from "../../../lib/actions/userAction";
+import { useSocket } from "../../../context/useSocket";
 
 function DiscussionModal({
   animate,
@@ -26,14 +29,145 @@ function DiscussionModal({
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
-  // TODO: fetch users and loggedin user if participent then only show send message button and input
-  // get chat id
-  // get chat populated with username avatar_secure_url and Id
-  const { isLoading, data } = useQuery({
+  const { socket } = useSocket();
+  const [msg, setMsg] = useState("");
+  const [discussionData, setDiscussionData] = useState<IDiscussion | null>(
+    null,
+  );
+
+  // discussion data
+  const { isLoading: isLoadingDiscussion, data } = useQuery({
     queryFn: async () => await getDiscussionAction(room?._id ?? ""),
     queryKey: [KEYS.GET_DISCUSSION, room?._id],
   });
 
+  // get me
+  const { isLoading: isLoadingUser, data: user } = useQuery({
+    queryFn: getMeAction,
+    queryKey: [KEYS.GET_ME],
+  });
+
+  // only participents are Allowed
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  // send message function
+  const handleSend = useCallback(() => {
+    console.log(msg);
+    if (msg.trim() && isAllowed) {
+      // append to discussionData.
+      if (!user) return console.log("please login.");
+      if (!discussionData) return console.log("discussiondata is null");
+      if (!room) return console.log("room not found");
+
+      setDiscussionData((prev) => {
+        const newChat = {
+          sender: {
+            _id: user.data._id,
+            avatar: user.data.avatar,
+            username: user.data.username,
+          },
+          message: msg,
+        };
+
+        let newData = null;
+        if (prev) {
+          newData = {
+            ...prev,
+            chat: [...prev.chat, newChat],
+          };
+        } else {
+          newData = {
+            room: room._id,
+            admin: room.admin._id,
+            _id: room.discussion,
+            chat: [newChat],
+            createdAt: Date.now().toString(),
+            updatedAt: Date.now().toString(),
+          };
+        }
+        if (!socket) {
+          console.log("socket not found!");
+          return newData;
+        }
+        console.log("discussionData", newData);
+        // sending discussionData to everyone in the room
+        socket.emit(ev["f:message"], { chat: newData, roomId: room.roomId });
+        return newData;
+      });
+    }
+  }, [discussionData, msg, isAllowed, user, socket, room]);
+
+  // only participents can send messages
+  useEffect(() => {
+    if (
+      room?.participents.find(
+        (participent) => participent._id === user?.data._id,
+      )
+    ) {
+      setIsAllowed(true);
+    }
+  }, [room?.participents, user]);
+
+  // requesting chat
+  const chatReq = useCallback(
+    ({ socketId }: { socketId: string }) => {
+      if (!socket) return console.log("socket not found");
+      console.log("chatReq", { socketId, mine: socket.id });
+      socket.emit(ev["f:chat_load"], { socketId, chat: discussionData });
+    },
+    [discussionData, socket],
+  );
+
+  const chatSet = ({ chat }: { chat: IDiscussion }) => {
+    // something TODO:
+    console.log("chatset", chat);
+    setDiscussionData(chat);
+  };
+
+  const recvMessage = useCallback(({ chat }: { chat: IDiscussion }) => {
+    console.log("recvMessage", chat);
+    setDiscussionData(chat);
+  }, []);
+  // get init chat
+  useEffect(() => {
+    if (!socket || !room) return console.log("socket or room not loaded!");
+
+    //emits
+    // TODO: see if it is sending load chat everytime or only once
+    // if it is sending it everytime then use separate useEffect for this, also FIX in dashboard
+    socket.emit(ev["f:chat_req"], { roomId: room._id });
+
+    // listeners
+    socket.on(ev["b:chat_req"], chatReq);
+    socket.on(ev["b:chat_load"], chatSet);
+    socket.on(ev["b:message"], recvMessage);
+    return () => {
+      socket.off(ev["b:chat_req"], chatReq);
+      socket.off(ev["b:chat_load"], chatSet);
+      socket.off(ev["b:message"], recvMessage);
+    };
+  }, [socket, chatReq, room, recvMessage]);
+
+  // get database saved discussion initially
+  useEffect(() => {
+    if (data) setDiscussionData(data.data);
+  }, [data]);
+
+  // on enter
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === "enter") {
+        handleSend();
+      }
+    };
+    document.addEventListener("keypress", fn);
+    return () => {
+      document.removeEventListener("keypress", fn);
+    };
+  }, [handleSend]);
+
+  const isDisabled = !msg || !isAllowed;
+  const isLoading = isLoadingUser || isLoadingDiscussion;
   return isLoading ? (
     <h1>loading...</h1>
   ) : (
@@ -61,13 +195,22 @@ function DiscussionModal({
           </h4>
           <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[60vh]">
             <div className="flex flex-1 justify-center items-center">
-              <Discussion chat={data?.data} />
+              <Discussion chat={discussionData} />
             </div>
           </div>
         </ModalContent>
         <ModalFooter className="gap-4">
-          <Input type="text" placeholder="enter your thoughts..." />
-          <button className="rounded-full p-3 grid place-items-center bg-neutral-800 hover:shadow-custom active:bg-blue-500">
+          <Input
+            type="text"
+            value={msg}
+            onChange={(e) => setMsg(e.target.value)}
+            placeholder="enter your thoughts..."
+          />
+          <button
+            onClick={handleSend}
+            disabled={isDisabled}
+            className="rounded-full p-3 grid place-items-center bg-neutral-800 hover:shadow-custom active:bg-blue-500"
+          >
             <IconSend color="white" size={20} />
           </button>
         </ModalFooter>

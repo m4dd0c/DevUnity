@@ -13,15 +13,16 @@ export const getDiscussionAction = async (roomId: string) => {
 // TODO :later change type
 export const updateDiscussionAction = async ({
   roomId,
-  formData,
+  msg,
 }: {
   roomId: string;
-  formData: any;
+  msg: string;
 }) => {
+  console.log(msg);
   try {
     const { data }: { data: IData<ISearchRoom> } = await axiosInstance.put(
       `/discussion/${roomId}`,
-      formData,
+      { msg },
     );
     return data;
   } catch (error) {

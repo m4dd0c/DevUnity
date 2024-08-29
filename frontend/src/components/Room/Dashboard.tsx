@@ -2,9 +2,17 @@
 import { useCallback, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import ace from "ace-builds/src-noconflict/ace";
-import "ace-builds/src-noconflict/mode-typescript";
+
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
+// languages
+import "ace-builds/src-noconflict/mode-typescript";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-php_laravel_blade";
+import "ace-builds/src-noconflict/mode-golang";
+
 import { useSocket } from "../../context/useSocket";
 import { useParams } from "react-router-dom";
 import { ev } from "../../lib/utils";
@@ -23,8 +31,9 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
 
   const onChange = (e: any) => {
     if (!roomId) return;
-    changeCode({ roomId, code: e });
+    console.log("onchange");
     setCode(e);
+    changeCode({ roomId, code: e });
   };
   // TODO: save code to localstorage with debounce
   // useEffect(() => {
@@ -47,6 +56,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // code change recieve event
   const recvCodeChange = useCallback(
     ({ code }: { code: string }) => {
+      console.log("recv self");
       setCode(code);
     },
     [setCode],
@@ -66,9 +76,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
     // events handling
     if (!socket) return console.log("socket not found");
 
-    // emits
-    socket.emit(ev["f:code_req"], { roomId });
-
     // listeners
     socket.on(ev["b:code_change"], recvCodeChange);
     socket.on(ev["b:code_req"], codeReq);
@@ -83,9 +90,16 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
     // deps
   }, [socket, setCode, recvCodeChange, codeReq, roomId]);
 
+  useEffect(() => {
+    if (!socket) return console.log("socket not loaded");
+    // emits
+    socket.emit(ev["f:code_req"], { roomId });
+  }, [roomId, socket]);
+
   // setting initial code from db;
   useEffect(() => {
     setCode(room?.project.code || "");
+    console.log("called");
   }, []);
 
   // user not found

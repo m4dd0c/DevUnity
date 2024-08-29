@@ -4,17 +4,32 @@ import { ev } from "./events";
 import User from "../model/User";
 import Room from "../model/Room";
 import Discussion from "../model/Discussion";
+import { IDiscussion } from "../types/types";
 
 interface ISocketStore<T> {
   [key: string]: T;
 }
+
+interface IRoomDiscussion {
+  roomId?: string;
+  discussionId?: string;
+  chat: {
+    sender: {
+      _id: string;
+      username: string;
+      avatar: string;
+    };
+    message: string;
+  }[];
+}
+
 class SocketService {
   private _io;
   // private socketUser: ISocketStore<string> = {};
   private roomSocketUser: ISocketStore<ISocketStore<string>> = {};
   /*
     INFO: structure
- 
+
     const roomSocketUser = {
       room1: {
         socket1: user1;
@@ -25,6 +40,12 @@ class SocketService {
       }
     }
   */
+  private chats: IRoomDiscussion = {
+    roomId: undefined,
+    discussionId: undefined,
+    chat: [],
+  };
+
   constructor(server: HttpServer) {
     this._io = new Server(server, {
       cors: {
@@ -72,6 +93,7 @@ class SocketService {
       // code sync starts here
       // code req
       socket.on(ev["f:code_req"], ({ roomId }: { roomId: string }) => {
+        console.log("code req");
         // sending event to everyone except the sender
         socket.to(roomId).emit(ev["b:code_req"], { socketId: socket.id });
       });
@@ -80,6 +102,7 @@ class SocketService {
       socket.on(
         ev["f:code_load"],
         ({ socketId, code }: { socketId: string; code: string }) => {
+          console.log("code load");
           // sending code only to the socketId
           io.to(socketId).emit(ev["b:code_change"], { code });
         },
@@ -91,7 +114,35 @@ class SocketService {
         ev["f:code_change"],
         ({ roomId, code }: { roomId: string; code: string }) => {
           // send code to everyone except self
-          socket.to(roomId).emit(ev["b:code_change"], { code });
+          console.log(this.roomSocketUser[roomId]);
+          socket
+            .to(roomId)
+            .except(socket.id)
+            .emit(ev["b:code_change"], { code });
+        },
+      );
+
+      // chat sync starts here
+      // req chat
+      socket.on(ev["f:chat_req"], async ({ roomId }: { roomId: string }) => {
+        // sending socketid to everyone other than self
+        socket.to(roomId).emit(ev["b:chat_req"], { socketId: socket.id });
+      });
+      // load chat
+      socket.on(
+        ev["f:chat_load"],
+        async ({ socketId, chat }: { socketId: string; chat: any }) => {
+          // sending chat only to the socketId
+          io.to(socketId).emit(ev["b:chat_load"], { chat });
+        },
+      );
+      // chat sync ends here
+
+      // chat system
+      socket.on(
+        ev["f:message"],
+        ({ chat, roomId }: { chat: IDiscussion; roomId: string }) => {
+          io.to(roomId).emit(ev["b:message"], { chat });
         },
       );
 
@@ -132,14 +183,6 @@ class SocketService {
           `${user ? user.username : socket.id} left the room.`,
         );
       });
-
-      //INFO: feeling no need for this,
-      //maybe in future
-      //room create event
-      // socket.on(ev['r:create'], socket => {
-      // something
-      // create room
-      // })
     });
   }
 }

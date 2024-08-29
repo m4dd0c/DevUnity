@@ -94,7 +94,6 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       /^\/room\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}(\/about)?$/.test(currentPath);
     const isPlayground = currentHash === "#playground";
 
-    console.log({ isRoomPath, isPlayground });
     if (isRoomPath || isPlayground) {
       if (!socket?.connected) {
         socket?.connect();
@@ -108,7 +107,14 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   return (
     <SocketContext.Provider
-      value={{ joinEvent, saveCode, changeCode, socket, code, setCode }}
+      value={{
+        joinEvent,
+        saveCode,
+        changeCode,
+        socket,
+        code,
+        setCode,
+      }}
     >
       {children}
     </SocketContext.Provider>

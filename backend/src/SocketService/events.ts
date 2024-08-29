@@ -7,6 +7,9 @@ export const ev = {
   "b:code_load": "b:code_load",
   "b:leave": "b:leave",
   "b:code_req": "b:code_req",
+  "b:message": "b:message",
+  "b:chat_load": "b:chat_load",
+  "b:chat_req": "b:chat_req",
 
   // frontend emits
   "f:join": "f:join",
@@ -15,4 +18,7 @@ export const ev = {
   "f:code_change": "f:code_change",
   "f:leave": "f:leave",
   "f:code_req": "f:code_req",
+  "f:message": "f:message",
+  "f:chat_load": "f:chat_load",
+  "f:chat_req": "f:chat_req",
 };
