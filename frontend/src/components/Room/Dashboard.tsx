@@ -103,7 +103,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
 
   // user not found
   useEffect(() => {
-    if (!user) return console.log("usernotfound!");
+    if (!user) return console.log("user not found!");
   }, [user]);
   return (
     <div className="h-screen w-screen">

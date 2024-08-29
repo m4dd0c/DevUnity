@@ -94,6 +94,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       /^\/room\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}(\/about)?$/.test(currentPath);
     const isPlayground = currentHash === "#playground";
 
+    // if isRoomPath or isPlayground that means user is still joined
     if (isRoomPath || isPlayground) {
       if (!socket?.connected) {
         socket?.connect();

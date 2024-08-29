@@ -3,7 +3,6 @@ import type { Server as HttpServer } from "http";
 import { ev } from "./events";
 import User from "../model/User";
 import Room from "../model/Room";
-import Discussion from "../model/Discussion";
 import { IDiscussion } from "../types/types";
 
 interface ISocketStore<T> {
