@@ -51,8 +51,7 @@ function DiscussionModal({
   const [isAllowed, setIsAllowed] = useState(false);
 
   // send message function
-  const handleSend = useCallback(() => {
-    console.log(msg);
+  const handleSend = () => {
     if (msg.trim() && isAllowed) {
       // append to discussionData.
       if (!user) return console.log("please login.");
@@ -89,13 +88,12 @@ function DiscussionModal({
           console.log("socket not found!");
           return newData;
         }
-        console.log("discussionData", newData);
         // sending discussionData to everyone in the room
         socket.emit(ev["f:message"], { chat: newData, roomId: room.roomId });
         return newData;
       });
     }
-  }, [discussionData, msg, isAllowed, user, socket, room]);
+  };
 
   // only participents can send messages
   useEffect(() => {
@@ -112,7 +110,6 @@ function DiscussionModal({
   const chatReq = useCallback(
     ({ socketId }: { socketId: string }) => {
       if (!socket) return console.log("socket not found");
-      console.log("chatReq", { socketId, mine: socket.id });
       socket.emit(ev["f:chat_load"], { socketId, chat: discussionData });
     },
     [discussionData, socket],
@@ -120,22 +117,15 @@ function DiscussionModal({
 
   const chatSet = ({ chat }: { chat: IDiscussion }) => {
     // something TODO:
-    console.log("chatset", chat);
     setDiscussionData(chat);
   };
 
   const recvMessage = useCallback(({ chat }: { chat: IDiscussion }) => {
-    console.log("recvMessage", chat);
     setDiscussionData(chat);
   }, []);
   // get init chat
   useEffect(() => {
     if (!socket || !room) return console.log("socket or room not loaded!");
-
-    //emits
-    // TODO: see if it is sending load chat everytime or only once
-    // if it is sending it everytime then use separate useEffect for this, also FIX in dashboard
-    socket.emit(ev["f:chat_req"], { roomId: room._id });
 
     // listeners
     socket.on(ev["b:chat_req"], chatReq);
@@ -148,26 +138,21 @@ function DiscussionModal({
     };
   }, [socket, chatReq, room, recvMessage]);
 
+  useEffect(() => {
+    if (!room || !socket)
+      return console.log("either room or socket not yet loaded!");
+    //emits
+    socket.emit(ev["f:chat_req"], { roomId: room.roomId });
+  }, [socket, room]);
+
   // get database saved discussion initially
   useEffect(() => {
     if (data) setDiscussionData(data.data);
   }, [data]);
 
-  // on enter
-  useEffect(() => {
-    const fn = (e: KeyboardEvent) => {
-      if (e.key === "enter") {
-        handleSend();
-      }
-    };
-    document.addEventListener("keypress", fn);
-    return () => {
-      document.removeEventListener("keypress", fn);
-    };
-  }, [handleSend]);
-
   const isDisabled = !msg || !isAllowed;
   const isLoading = isLoadingUser || isLoadingDiscussion;
+
   return isLoading ? (
     <h1>loading...</h1>
   ) : (

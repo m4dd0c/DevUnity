@@ -99,7 +99,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // setting initial code from db;
   useEffect(() => {
     setCode(room?.project.code || "");
-    console.log("called");
   }, []);
 
   // user not found

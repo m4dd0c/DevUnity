@@ -22,7 +22,7 @@ const Discussion = ({ chat }: { chat: IDiscussion | null }) => {
             <img
               src={message.sender.avatar.secure_url ?? fallback_pp}
               alt={message.sender.username}
-              className="h-7 w-7 rounded-full"
+              className="h-7 w-7 rounded-full object-cover"
             />
             <div className="max-w-[80%] max-lg:max-w-[90%] my-1 bg-blue-500 text-white py-1 px-2 mx-2 rounded-md">
               <small className="text-blue-800 line-clamp-1 text-xs">
