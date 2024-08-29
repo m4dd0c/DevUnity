@@ -10,19 +10,18 @@ export const getDiscussionAction = async (roomId: string) => {
     console.log(error);
   }
 };
-// TODO :later change type
 export const updateDiscussionAction = async ({
   roomId,
-  msg,
+  chat,
 }: {
   roomId: string;
-  msg: string;
+  chat: IMessage[];
 }) => {
-  console.log(msg);
+  console.log("hello world");
   try {
     const { data }: { data: IData<ISearchRoom> } = await axiosInstance.put(
       `/discussion/${roomId}`,
-      { msg },
+      { chat },
     );
     return data;
   } catch (error) {

@@ -6,8 +6,10 @@ import { Tabs } from "../../components/ui/tabs";
 import { useEffect, useState } from "react";
 import { KEYS } from "../../lib/utils";
 import { getRoomAction } from "../../lib/actions/roomAction";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import SettingsForm from "../../components/Room/SettingsForm";
+import { updateDiscussionAction } from "../../lib/actions/discussionAction";
+import { useSocket } from "../../context/useSocket";
 
 function Describe({ user }: { user: IUser | null }) {
   const nav = useNavigate();
@@ -17,7 +19,7 @@ function Describe({ user }: { user: IUser | null }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const [query, setQuery] = useState(location?.state?.query || "r");
-  const [isActiveUser, setIsActiveUser] = useState(false);
+  const { discussionData, isActiveUser, setIsActiveUser } = useSocket();
 
   // fetching room data
   const {
@@ -92,23 +94,37 @@ function Describe({ user }: { user: IUser | null }) {
         setQuery("r");
       }
     }
-  }, [room, user, refetch]);
+  }, [room, user, refetch, setIsActiveUser]);
 
   // calling refetch everytime query changes
   useEffect(() => {
     refetch();
   }, [query]);
 
+  // save chat mutation
+  const { mutate } = useMutation({
+    mutationFn: updateDiscussionAction,
+    onSuccess: (res) => {
+      if (res) console.log("chat is saved");
+    },
+  });
+
   // confirmation before reloading or leaving page
   useEffect(() => {
     const unloadCallback = (event: BeforeUnloadEvent) => {
       // Most browsers will display a confirmation dialog if preventDefault is called.
       event.preventDefault();
+
+      // if user is in activeUsers then only save chat
+      if (isActiveUser && discussionData && roomId) {
+        // save chat
+        mutate({ roomId, chat: discussionData.chat });
+      }
     };
 
     window.addEventListener("beforeunload", unloadCallback);
     return () => window.removeEventListener("beforeunload", unloadCallback);
-  }, []);
+  }, [isActiveUser, mutate, roomId, discussionData]);
 
   return isLoading || !roomId ? (
     <h1>loading...</h1>

@@ -29,12 +29,8 @@ function DiscussionModal({
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
-  const { socket } = useSocket();
+  const { socket, discussionData, setDiscussionData } = useSocket();
   const [msg, setMsg] = useState("");
-  const [discussionData, setDiscussionData] = useState<IDiscussion | null>(
-    null,
-  );
-
   // discussion data
   const { isLoading: isLoadingDiscussion, data } = useQuery({
     queryFn: async () => await getDiscussionAction(room?._id ?? ""),
@@ -97,14 +93,10 @@ function DiscussionModal({
 
   // only participents can send messages
   useEffect(() => {
-    if (
-      room?.participents.find(
-        (participent) => participent._id === user?.data._id,
-      )
-    ) {
+    if (user && room?.activeUsers.includes(user.data._id)) {
       setIsAllowed(true);
     }
-  }, [room?.participents, user]);
+  }, [room?.activeUsers, user]);
 
   // requesting chat
   const chatReq = useCallback(
@@ -115,14 +107,21 @@ function DiscussionModal({
     [discussionData, socket],
   );
 
-  const chatSet = ({ chat }: { chat: IDiscussion }) => {
-    // something TODO:
-    setDiscussionData(chat);
-  };
+  const chatSet = useCallback(
+    ({ chat }: { chat: IDiscussion }) => {
+      // something TODO:
+      setDiscussionData(chat);
+    },
+    [setDiscussionData],
+  );
 
-  const recvMessage = useCallback(({ chat }: { chat: IDiscussion }) => {
-    setDiscussionData(chat);
-  }, []);
+  const recvMessage = useCallback(
+    ({ chat }: { chat: IDiscussion }) => {
+      setDiscussionData(chat);
+    },
+    [setDiscussionData],
+  );
+
   // get init chat
   useEffect(() => {
     if (!socket || !room) return console.log("socket or room not loaded!");
@@ -136,7 +135,7 @@ function DiscussionModal({
       socket.off(ev["b:chat_load"], chatSet);
       socket.off(ev["b:message"], recvMessage);
     };
-  }, [socket, chatReq, room, recvMessage]);
+  }, [socket, chatReq, room, recvMessage, chatSet]);
 
   useEffect(() => {
     if (!room || !socket)
@@ -148,7 +147,7 @@ function DiscussionModal({
   // get database saved discussion initially
   useEffect(() => {
     if (data) setDiscussionData(data.data);
-  }, [data]);
+  }, [data, setDiscussionData]);
 
   const isDisabled = !msg || !isAllowed;
   const isLoading = isLoadingUser || isLoadingDiscussion;

@@ -1,9 +1,17 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
 import { ev } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { saveCodeAction } from "../lib/actions/roomAction";
+import { updateDiscussionAction } from "../lib/actions/discussionAction";
 
 interface SocketProviderProps {
   children?: React.ReactNode;
@@ -16,6 +24,10 @@ interface ISocketContext {
   joinEvent: ({ roomId, userId }: { roomId: string; userId: string }) => any;
   changeCode: ({ roomId, code }: { roomId: string; code: string }) => any;
   saveCode: ({ roomId }: { roomId: string }) => any;
+  discussionData: IDiscussion | null;
+  setDiscussionData: React.Dispatch<React.SetStateAction<IDiscussion | null>>;
+  isActiveUser: boolean;
+  setIsActiveUser: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -28,13 +40,16 @@ export const useSocket = () => {
 };
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
-  const [socket, setSocket] = useState<Socket>();
-  const [code, setCode] = useState("");
   const location = useLocation();
+  const [code, setCode] = useState("");
+  const [socket, setSocket] = useState<Socket>();
+  const [isActiveUser, setIsActiveUser] = useState(false);
+  const [discussionData, setDiscussionData] = useState<IDiscussion | null>(
+    null,
+  );
 
   // save code
   const saveCode = ({ roomId }: { roomId: string }) => {
-    console.log({ roomId });
     saveCodeMutation({ roomId, code });
   };
 
@@ -69,6 +84,17 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     [socket],
   );
 
+  // pathname
+  const roomIdMatch = location.pathname.match(
+    /\b\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\b/,
+  );
+  const roomId = roomIdMatch ? roomIdMatch[0] : null;
+  const roomIdRef = useRef(roomId);
+
+  // roomId storing
+  useEffect(() => {
+    if (roomId) roomIdRef.current = roomId; // Update the ref whenever roomId changes
+  }, [roomId]);
   // socket init
   useEffect(() => {
     //TODO: change url later
@@ -85,8 +111,20 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     };
   }, []);
 
+  // save chat mutation
+  const { mutate } = useMutation({
+    mutationFn: updateDiscussionAction,
+    onSuccess: (res) => {
+      if (res) console.log("chat is saved");
+    },
+    onError: (error) => {
+      console.error("Mutation failed:", error);
+    },
+  });
+
   // Handle socket disconnection based on route
   useEffect(() => {
+    if (!isActiveUser) return;
     const currentPath = location.pathname;
     const currentHash = location.hash;
 
@@ -101,14 +139,35 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       }
     } else {
       if (socket?.connected) {
-        socket?.disconnect();
+        // if activeusers then only disconnect and save chat
+        if (isActiveUser) {
+          socket?.disconnect();
+
+          if (discussionData && roomIdRef.current) {
+            // save chat
+            mutate({ roomId: roomIdRef.current, chat: discussionData.chat });
+          }
+        }
       }
     }
-  }, [location.pathname, location.hash, socket]);
+  }, [
+    location.pathname,
+    discussionData,
+    location.hash,
+    isActiveUser,
+    roomIdRef,
+    roomId,
+    socket,
+    mutate,
+  ]);
 
   return (
     <SocketContext.Provider
       value={{
+        isActiveUser,
+        setIsActiveUser,
+        discussionData,
+        setDiscussionData,
         joinEvent,
         saveCode,
         changeCode,
