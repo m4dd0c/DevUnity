@@ -110,10 +110,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   // submit code
   const submitCode: ISocketContext["submitCode"] = () => {
     if (!language) return console.log("language has not been loaded!");
+    console.log(stdin, "is stdin");
     submitCodeMutation({
       source_code: btoa(code),
       language_id: language.id,
-      stdin,
+      stdin: stdin ? btoa(stdin) : null,
     });
   };
 

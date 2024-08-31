@@ -36,6 +36,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
     language,
     submittingCode,
     codeOutput,
+    setStdin,
   } = useSocket();
   const { roomId } = useParams();
   const [aceLoaded, setAceLoaded] = useState(false);
@@ -169,10 +170,10 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
         </div>
         <LabelInputContainer className="mb-3">
           <textarea
-            id="email"
+            onChange={(e) => setStdin(e.target.value)}
             autoComplete="off"
-            placeholder="enter your input here..."
-            className="bg-transparent border max-h-40 max-lg:max-h-20 overflow-y-auto border-gray-900 rounded-lg px-4 py-3"
+            placeholder="enter your input (new line separated in more than one)"
+            className="bg-transparent border min-h-14 max-h-40 max-lg:max-h-20 overflow-y-auto border-gray-900 rounded-lg px-4 py-3"
           />
         </LabelInputContainer>
         <div className="flex justify-between items-center px-4">
