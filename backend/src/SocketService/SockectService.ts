@@ -62,8 +62,6 @@ class SocketService {
     const io = this._io;
 
     io.on("connection", (socket: Socket) => {
-      console.log("new connection", socket.id);
-
       // room join event
       socket.on(
         ev["f:join"],
@@ -92,7 +90,6 @@ class SocketService {
       // code sync starts here
       // code req
       socket.on(ev["f:code_req"], ({ roomId }: { roomId: string }) => {
-        console.log("code req");
         // sending event to everyone except the sender
         socket.to(roomId).emit(ev["b:code_req"], { socketId: socket.id });
       });
@@ -101,7 +98,6 @@ class SocketService {
       socket.on(
         ev["f:code_load"],
         ({ socketId, code }: { socketId: string; code: string }) => {
-          console.log("code load");
           // sending code only to the socketId
           io.to(socketId).emit(ev["b:code_change"], { code });
         },
@@ -113,7 +109,6 @@ class SocketService {
         ev["f:code_change"],
         ({ roomId, code }: { roomId: string; code: string }) => {
           // send code to everyone except self
-          console.log(this.roomSocketUser[roomId]);
           socket
             .to(roomId)
             .except(socket.id)
@@ -161,18 +156,16 @@ class SocketService {
             }
           }
         }
-        if (!roomId || !userId)
-          return console.log("Either userId or roomId is undefined.");
+        if (!roomId || !userId) return;
 
         const user = await User.findById(userId);
-        if (!user) console.log("Couldn't find user with this Id.");
 
         // remove from db (active user)
         const room = await Room.updateOne(
           { roomId },
           { $pull: { activeUsers: userId } },
         );
-        if (!room) return console.log("Couldn't remove from activeUsers");
+        if (!room) return;
 
         // save chat TODO:
 

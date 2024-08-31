@@ -1,6 +1,5 @@
 export const verificationHTMLCreator = ({ token }: { token: string }) => {
   const verify_url = `${process.env.FRONTEND_URI}/user/verify?token=${token}`;
-  console.log(verify_url);
   return `<div style="width: 100%; height: 100%; background-color: black">
       <div
         style="

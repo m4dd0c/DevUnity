@@ -15,7 +15,6 @@ const error = async (
     const development = true;
     // response instance
     const errRes = new CollabriteRes(res);
-    console.log("error", err);
     errRes.status = err.status || 500;
 
     // if production
