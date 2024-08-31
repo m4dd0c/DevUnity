@@ -9,7 +9,7 @@ import {
 import { cn } from "../../utils/cn";
 import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
-import { handleCopy, runCode } from "../../utils/playground/utils";
+import { handleCopy } from "../../utils/playground/utils";
 import { useSocket } from "../../context/useSocket";
 
 function RoomSidebar({
@@ -22,7 +22,7 @@ function RoomSidebar({
   room: IRoom | undefined;
 }) {
   const [open, setOpen] = useState(false);
-  const { saveCode } = useSocket();
+  const { saveCode, submitCode } = useSocket();
 
   return (
     <div
@@ -50,7 +50,7 @@ function RoomSidebar({
             {isActiveUser && (
               <>
                 <SidebarLink
-                  onClick={runCode}
+                  onClick={submitCode}
                   link={{
                     label: "Run (ctrl+r)",
                     icon: (

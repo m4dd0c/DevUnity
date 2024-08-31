@@ -4,7 +4,7 @@ import DescribeForm from "../../components/Room/DescribeForm";
 import ProjectDescription from "../../components/Room/ProjectDescription";
 import { Tabs } from "../../components/ui/tabs";
 import { useEffect, useState } from "react";
-import { KEYS } from "../../lib/utils";
+import { getLang, KEYS } from "../../lib/utils";
 import { getRoomAction } from "../../lib/actions/roomAction";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SettingsForm from "../../components/Room/SettingsForm";
@@ -19,7 +19,8 @@ function Describe({ user }: { user: IUser | null }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const [query, setQuery] = useState(location?.state?.query || "r");
-  const { discussionData, isActiveUser, setIsActiveUser } = useSocket();
+  const { discussionData, isActiveUser, setIsActiveUser, setLanguage } =
+    useSocket();
 
   // fetching room data
   const {
@@ -108,6 +109,13 @@ function Describe({ user }: { user: IUser | null }) {
       if (res) console.log("chat is saved");
     },
   });
+  // settings language
+  useEffect(() => {
+    if (room) {
+      const lang = getLang(room.data.project.lang);
+      if (lang) setLanguage(lang);
+    }
+  }, [room, setLanguage]);
 
   // confirmation before reloading or leaving page
   useEffect(() => {

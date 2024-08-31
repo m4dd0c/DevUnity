@@ -9,7 +9,7 @@ import {
   IconPlayerPlayFilled,
   IconX,
 } from "@tabler/icons-react";
-import { handleCopy, runCode } from "../../utils/playground/utils";
+import { handleCopy } from "../../utils/playground/utils";
 import RenderModal from "./renderModal";
 import { useSocket } from "../../context/useSocket";
 
@@ -130,7 +130,7 @@ export const MobileSidebar = ({
   isActiveUser?: boolean;
 }) => {
   const { open, setOpen } = useSidebar();
-  const { saveCode } = useSocket();
+  const { saveCode, submitCode } = useSocket();
   return (
     <>
       <div
@@ -145,7 +145,7 @@ export const MobileSidebar = ({
               <IconPlayerPlayFilled
                 title="Run code"
                 className="text-indigo-500 h-5 w-5 flex-shrink-0"
-                onClick={runCode}
+                onClick={submitCode}
               />
               <IconDeviceFloppy
                 title="Save code"

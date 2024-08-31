@@ -6,16 +6,15 @@ import ace from "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 // languages
-import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-php_laravel_blade";
-import "ace-builds/src-noconflict/mode-golang";
+import "ace-builds/src-noconflict/mode-java";
 
 import { useSocket } from "../../context/useSocket";
 import { useParams } from "react-router-dom";
-import { ev } from "../../lib/utils";
+import { ev, getLang } from "../../lib/utils";
 
 // Set the base path for Ace
 ace.config.set(
@@ -25,7 +24,8 @@ ace.config.set(
 
 // eslint-disable-next-line
 const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
-  const { changeCode, socket, code, setCode } = useSocket();
+  const { changeCode, socket, code, setCode, setLanguage, language } =
+    useSocket();
   const { roomId } = useParams();
   const [aceLoaded, setAceLoaded] = useState(false);
 
@@ -35,11 +35,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
     setCode(e);
     changeCode({ roomId, code: e });
   };
-  // TODO: save code to localstorage with debounce
-  // useEffect(() => {
-  //   // saving to localstorage debounce
-  //   localStorage.setItem('code', JSON.stringify({code: e, roomId}))
-  // }, [])
 
   // fix error: define is not defined
   useEffect(() => {
@@ -98,20 +93,28 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
 
   // setting initial code from db;
   useEffect(() => {
-    setCode(room?.project.code || "");
+    setCode(room?.project.code || language.defaultCode);
   }, []);
+
+  // settings language
+  useEffect(() => {
+    if (room) {
+      const lang = getLang(room.project.lang);
+      if (lang) setLanguage(lang);
+    }
+  }, [room, setLanguage]);
 
   // user not found
   useEffect(() => {
     if (!user) return console.log("user not found!");
   }, [user]);
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen flex flex-wrap">
       {aceLoaded && (
         <AceEditor
-          placeholder="console.log('collabrite is awesome...');"
-          mode="typescript"
-          style={{ height: "100vh", width: "100%" }}
+          placeholder={language.defaultCode}
+          mode={language.mode}
+          style={{ height: "100vh", width: "70%" }}
           theme="monokai"
           name="playground"
           onChange={onChange}
@@ -122,16 +125,18 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
           value={code}
           setOptions={{
             enableBasicAutocompletion: true,
-            enableLiveAutocompletion: false,
+            enableLiveAutocompletion: true,
             enableSnippets: true,
             showLineNumbers: true,
             cursorStyle: "smooth",
             highlightActiveLine: true,
+            showPrintMargin: false,
             tabSize: 2,
             wrap: true,
           }}
         />
       )}
+      <div className="bg-black border-l-2 border-neutral-600"></div>
     </div>
   );
 };

@@ -1,5 +1,13 @@
 type TFilters = "all" | "owned" | "contributions";
-type TLang = "js" | "c" | "cpp" | "ts" | "py";
+type TLang = "js" | "c" | "cpp" | "java" | "py" | "php";
+interface ILang {
+  id: number;
+  label: string;
+  value: TLang;
+  color: string;
+  mode: string;
+  defaultCode: string;
+}
 interface IData<T> {
   data: T;
   message: string;
@@ -57,7 +65,7 @@ interface IRoom {
     title: string;
     explanation?: string;
     description?: string;
-    lang: "js" | "ts" | "py" | "cpp" | "c";
+    lang: TLang;
     code?: string;
   };
   createdAt: string;
@@ -80,4 +88,57 @@ interface IDiscussion {
   chat: IMessage[];
   createdAt: string;
   updatedAt: string;
+}
+interface ICreateSubmission {
+  token: string;
+}
+interface IGetSubmission {
+  source_code: string;
+  language_id: number;
+  stdin: string | null;
+  expected_output: string | null;
+  stdout: string;
+  status_id: number;
+  created_at: string;
+  finished_at: string;
+  time: string;
+  memory: number;
+  stderr: string | null;
+  token: string;
+  number_of_runs: number;
+  cpu_time_limit: string;
+  cpu_extra_time: string;
+  wall_time_limit: string;
+  memory_limit: number;
+  stack_limit: number;
+  max_processes_and_or_threads: number;
+  enable_per_process_and_thread_time_limit: boolean;
+  enable_per_process_and_thread_memory_limit: boolean;
+  max_file_size: number;
+  compile_output: string | null;
+  exit_code: number;
+  exit_signal: number | null;
+  message: string | null;
+  wall_time: string;
+  compiler_options: string | null;
+  command_line_arguments: string | null;
+  redirect_stderr_to_stdout: boolean;
+  callback_url: string | null;
+  additional_files: string | null;
+  enable_network: boolean;
+  post_execution_filesystem: string;
+  status: {
+    id: number;
+    description: string;
+  };
+  language: {
+    id: number;
+    name: string;
+  };
+}
+
+interface ISubmitCodeArgs {
+  source_code: string;
+  language_id: number;
+  stdin: string | null;
 }

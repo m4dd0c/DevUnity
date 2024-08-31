@@ -85,6 +85,26 @@ export const getLangLabel = (lang: string) => {
   const result = langs.find((item) => item.value === lang);
   return result?.label;
 };
+// get lang id
+export const getLangId = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result?.id;
+};
+// get lang default-code
+export const getLangDefaultCode = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result?.defaultCode;
+};
+// get lang mode
+export const getLangMode = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result?.mode;
+};
+// getLangData
+export const getLang = (lang: string) => {
+  const result = langs.find((item) => item.value === lang);
+  return result;
+};
 
 // query keys
 export const KEYS = {
@@ -102,6 +122,8 @@ export const KEYS = {
   SEARCH_PROJECTS: "SEARCH_PROJECTS",
   // discussions
   GET_DISCUSSION: "GET_DISCUSSION",
+  // run code
+  GET_SUBMISSION: "GET_SUBMISSION",
 };
 
 // socket events

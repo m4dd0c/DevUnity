@@ -26,7 +26,7 @@ const roomSchema = new Schema<IRoom>(
       },
       lang: {
         type: String,
-        enum: ["js", "ts", "py", "cpp", "c"],
+        enum: ["js", "java", "py", "cpp", "c", "php"],
         required: true,
         default: "js",
       },

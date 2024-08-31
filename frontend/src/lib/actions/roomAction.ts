@@ -104,7 +104,7 @@ export const updatePasswordAndLangAction = async ({
   if (!formData.lang) formData.lang = "" as any;
   if (!formData.password) formData.password = "";
   try {
-    const { data }: { data: IData<ISearchRoom> } = await axiosInstance.put(
+    const { data }: { data: IData<boolean> } = await axiosInstance.put(
       `/room/settings/${roomId}`,
       formData,
     );

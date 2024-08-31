@@ -66,7 +66,7 @@ interface IRoom extends Document {
     title: string;
     explanation?: string;
     description?: string;
-    lang: "js" | "ts" | "py" | "cpp" | "c";
+    lang: "js" | "java" | "py" | "cpp" | "c" | "php";
     code?: string;
   };
   createdAt: NativeDate;

@@ -12,6 +12,9 @@ import { ev } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { saveCodeAction } from "../lib/actions/roomAction";
 import { updateDiscussionAction } from "../lib/actions/discussionAction";
+import { createSubmissionAction, getSubmissionAction } from "../api/judge0";
+import { langs } from "../constants";
+import { server } from "../lib";
 
 interface SocketProviderProps {
   children?: React.ReactNode;
@@ -28,6 +31,12 @@ interface ISocketContext {
   setDiscussionData: React.Dispatch<React.SetStateAction<IDiscussion | null>>;
   isActiveUser: boolean;
   setIsActiveUser: React.Dispatch<SetStateAction<boolean>>;
+  submittingCode: boolean;
+  submitCode: () => any;
+  codeOutput: IGetSubmission | null;
+  language: ILang;
+  setLanguage: React.Dispatch<SetStateAction<ILang>>;
+  setStdin: React.Dispatch<SetStateAction<null | string>>;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -42,11 +51,72 @@ export const useSocket = () => {
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const location = useLocation();
   const [code, setCode] = useState("");
+  const [language, setLanguage] = useState<ILang>(langs[langs.length - 1]); // settings default to javascript
+  const [stdin, setStdin] = useState<string | null>(null);
   const [socket, setSocket] = useState<Socket>();
   const [isActiveUser, setIsActiveUser] = useState(false);
   const [discussionData, setDiscussionData] = useState<IDiscussion | null>(
     null,
   );
+
+  const [submittingCode, setIsSubmittingCode] = useState(false);
+  const [submissionToken, setSubmissionToken] = useState<string | null>(null);
+  const [codeOutput, setCodeOutput] = useState<null | IGetSubmission>(null);
+
+  const { mutate: submitCodeMutation } = useMutation({
+    mutationFn: createSubmissionAction,
+    onSuccess: (res) => {
+      if (res) {
+        setSubmissionToken(res.token);
+      }
+    },
+  });
+
+  // Polling mechanism for fetching the submission result
+  useEffect(() => {
+    let intervalId: number | null = null;
+
+    if (submissionToken) {
+      intervalId = setInterval(async () => {
+        if (submissionToken) {
+          try {
+            const data = await getSubmissionAction({ submissionToken });
+            console.log("Polling submission result:", data);
+            if (data && data.status.description !== "Processing") {
+              setCodeOutput(data as any);
+              clearInterval(intervalId!);
+              setSubmissionToken(null);
+            }
+          } catch (error) {
+            console.error("Error fetching submission:", error);
+            clearInterval(intervalId!);
+            setSubmissionToken(null);
+          }
+        }
+      }, 2000); // Poll every 2 seconds
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [submissionToken]);
+
+  // isSubmittingCode
+  useEffect(() => {
+    setIsSubmittingCode(submissionToken !== null);
+  }, [submissionToken]);
+
+  // submit code
+  const submitCode: ISocketContext["submitCode"] = () => {
+    if (!language) return console.log("language has not been loaded!");
+    submitCodeMutation({
+      source_code: btoa(code),
+      language_id: language.id,
+      stdin,
+    });
+  };
 
   // save code
   const saveCode = ({ roomId }: { roomId: string }) => {
@@ -95,10 +165,10 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     if (roomId) roomIdRef.current = roomId; // Update the ref whenever roomId changes
   }, [roomId]);
+
   // socket init
   useEffect(() => {
-    //TODO: change url later
-    const _socket = io("http://localhost:4000");
+    const _socket = io(server);
     _socket.on(ev["b:join"], (data) => {
       console.log(data);
     });
@@ -174,6 +244,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         socket,
         code,
         setCode,
+        submitCode,
+        submittingCode,
+        codeOutput,
+        setStdin,
+        setLanguage,
+        language,
       }}
     >
       {children}

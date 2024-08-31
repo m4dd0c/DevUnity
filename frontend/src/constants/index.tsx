@@ -289,31 +289,74 @@ export const dummyUsers = [
   },
 ];
 // supported languages - DashboardHeader
-export const langs: { label: string; value: TLang; color: string }[] = [
+// INFO: get id from https://rapidapi.com/judge0-official/api/judge0-ce/playground/apiendpoint_67698706-b2a3-4cfc-8ef6-e9aa9eee85c6
+export const langs: ILang[] = [
   {
-    label: "Python",
-    value: "py",
-    color: "yellowgreen",
+    label: "C language",
+    value: "c",
+    color: "brown",
+    id: 48,
+    mode: "c_cpp",
+    defaultCode: `#include <stdio.h>
+
+int main() {
+  printf("Hello World!");
+  return 0;
+}`,
   },
   {
     label: "C++",
     value: "cpp",
     color: "pink",
+    id: 53,
+    mode: "c_cpp",
+    defaultCode: `#include <iostream>
+using namespace std;
+
+int main() {
+  cout<<"Hello World!";
+  return 0;
+}`,
   },
   {
-    label: "C language",
-    value: "c",
-    color: "brown",
+    label: "PHP",
+    value: "php",
+    color: "red",
+    id: 68,
+    mode: "php_laravel_blade",
+    defaultCode: `<?php
+  echo "Hello World!";
+?>`,
   },
   {
-    label: "Typescript",
-    value: "ts",
-    color: "blue",
+    label: "Java",
+    value: "java",
+    color: "gray",
+    id: 91,
+    mode: "java",
+    defaultCode: `class Main
+{
+    public static void main(String []args)
+    {
+        System.out.println("Hello World!");
+    }
+};`,
+  },
+  {
+    label: "Python",
+    value: "py",
+    color: "yellowgreen",
+    id: 92,
+    mode: "python",
+    defaultCode: `print("Hello World!");`,
   },
   {
     label: "Javascript",
     value: "js",
     color: "yellow",
+    id: 93,
+    mode: "javascript",
+    defaultCode: `console.log("Hello World!");`,
   },
 ];
 // user setting links

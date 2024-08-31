@@ -5,15 +5,12 @@ import {
   IconPointFilled,
   IconRotateClockwise2,
 } from "@tabler/icons-react";
-import {
-  formatDate,
-  getLangColor,
-  getLangLabel,
-  timeAgo,
-} from "../../lib/utils";
+import { formatDate, timeAgo } from "../../lib/utils";
 import { Link } from "react-router-dom";
+import { useSocket } from "../../context/useSocket";
 
 const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
+  const { language } = useSocket();
   return (
     <div className="font-normal space-y-2">
       {room && room.admin && (
@@ -39,11 +36,8 @@ const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
       <p className="text-sm font-normal">{room?.project?.explanation}</p>
       <div className="flex text-sm flex-wrap items-center gap-4">
         <div className="flex items-center gap-2">
-          <IconPointFilled
-            size={20}
-            color={getLangColor(room?.project.lang ?? "")}
-          />
-          <h1>{getLangLabel(room?.project.lang ?? "js")}</h1>
+          <IconPointFilled size={20} color={language.color} />
+          <h1>{language.label}</h1>
         </div>
         <div className="flex items-center gap-2">
           <IconCalendarCode size={20} color={"skyblue"} />
