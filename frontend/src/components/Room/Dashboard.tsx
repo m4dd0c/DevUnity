@@ -14,7 +14,7 @@ import "ace-builds/src-noconflict/mode-java";
 
 import { useSocket } from "../../context/useSocket";
 import { useParams } from "react-router-dom";
-import { ev, getLang } from "../../lib/utils";
+import { ev, getElapsedTime, getLang } from "../../lib/utils";
 import { LabelInputContainer } from "../ui/misc";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
@@ -27,8 +27,16 @@ ace.config.set(
 // eslint-disable-next-line
 const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   const [fullSizeTerminal, setFullSizeTerminal] = useState(false);
-  const { changeCode, socket, code, setCode, setLanguage, language } =
-    useSocket();
+  const {
+    changeCode,
+    socket,
+    code,
+    setCode,
+    setLanguage,
+    language,
+    submittingCode,
+    codeOutput,
+  } = useSocket();
   const { roomId } = useParams();
   const [aceLoaded, setAceLoaded] = useState(false);
 
@@ -114,7 +122,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   return (
     <div className="h-screen w-screen flex flex-wrap max-lg:flex-col">
       <div
-        className={`h-full ${fullSizeTerminal ? "max-lg:h-0" : "max-lg:h-[70%]"} transition-all w-3/4 max-lg:w-full`}
+        className={`h-full ${fullSizeTerminal ? "max-lg:h-0 w-0" : "max-lg:h-[70%] w-3/4"} transition-all max-lg:w-full`}
       >
         {aceLoaded && (
           <AceEditor
@@ -144,18 +152,18 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
         )}
       </div>
       <div
-        className={`${fullSizeTerminal ? "max-lg:h-screen" : "max-lg:h-[30%]"} transition-all bg-black w-1/4 max-lg:w-full text-white px-4 py-2 overflow-y-auto`}
+        className={`${fullSizeTerminal ? "max-lg:h-screen w-full" : "max-lg:h-[30%] w-1/4"} transition-all bg-black max-lg:w-full text-white px-4 py-2 overflow-y-auto`}
       >
-        <div className="flex justify-between items-center px-4 py-2">
+        <div className="flex lg:flex-row-reverse justify-between items-center px-4 py-2">
           <h1>Output</h1>
           <button
-            className="rounded-full p-2 bg-gray-900 lg:hidden"
+            className="rounded-full p-2 bg-gray-900"
             onClick={() => setFullSizeTerminal(!fullSizeTerminal)}
           >
             {fullSizeTerminal ? (
-              <IconChevronDown size={15} />
+              <IconChevronDown size={15} className="lg:-rotate-90" />
             ) : (
-              <IconChevronUp size={15} />
+              <IconChevronUp size={15} className="lg:-rotate-90" />
             )}
           </button>
         </div>
@@ -167,10 +175,45 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
             className="bg-transparent border max-h-40 max-lg:max-h-20 overflow-y-auto border-gray-900 rounded-lg px-4 py-3"
           />
         </LabelInputContainer>
-        <h1 className="py-2">Result</h1>
-        <div>
-          <p>Hello World!</p>
+        <div className="flex justify-between items-center px-4">
+          <h1 className="py-2">Result</h1>
+          {codeOutput && (
+            <p className="opacity-50 text-sm">
+              ElapsedTime:{" "}
+              {getElapsedTime({
+                createdAt: codeOutput?.created_at,
+                finishedAt: codeOutput?.finished_at,
+              })}
+              ms
+            </p>
+          )}
         </div>
+        {/* if codeoutput aint null */}
+        {codeOutput && (
+          <div>
+            {/* if loading then show loader */}
+            {submittingCode ? (
+              <h1>loading...</h1>
+            ) : // if not loading then checking if accepted or failed
+            codeOutput.status.description === "Accepted" ? (
+              // if accepted
+              <div id="terminal">
+                <h1 className="text-green-500">Success</h1>
+                <pre>{atob(codeOutput.stdout || "")}</pre>
+              </div>
+            ) : (
+              //  if failed
+              <div id="terminal">
+                <h1 className="text-red-500">
+                  {codeOutput.status.description}
+                </h1>
+                <pre>
+                  {atob(codeOutput.stderr || codeOutput.compile_output || "")}
+                </pre>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

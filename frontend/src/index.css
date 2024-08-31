@@ -62,7 +62,6 @@ code {
   padding: 0.2rem;
   color: #451669 !important;
 }
-
 .markdown pre {
   display: grid;
   width: 100%;
@@ -75,3 +74,14 @@ code {
   color: inherit !important;
 }
 /* Markdown End */
+/* terminal */
+#terminal {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 15px;
+}
+
+#terminal pre {
+  overflow-x: auto;
+}

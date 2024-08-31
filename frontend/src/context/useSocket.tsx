@@ -81,14 +81,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         if (submissionToken) {
           try {
             const data = await getSubmissionAction({ submissionToken });
-            console.log("Polling submission result:", data);
             if (data && data.status.description !== "Processing") {
               setCodeOutput(data as any);
               clearInterval(intervalId!);
               setSubmissionToken(null);
             }
           } catch (error) {
-            console.error("Error fetching submission:", error);
             clearInterval(intervalId!);
             setSubmissionToken(null);
           }
@@ -103,6 +101,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     };
   }, [submissionToken]);
 
+  if (codeOutput) console.log(codeOutput);
   // isSubmittingCode
   useEffect(() => {
     setIsSubmittingCode(submissionToken !== null);

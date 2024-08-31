@@ -18,7 +18,6 @@ export const createSubmissionAction = async ({
   language_id,
   stdin = null,
 }: ISubmitCodeArgs) => {
-  console.log(import.meta.env);
   try {
     const { data }: { data: ICreateSubmission } = await instance.post(
       "/submissions",

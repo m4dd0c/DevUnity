@@ -106,6 +106,20 @@ export const getLang = (lang: string) => {
   return result;
 };
 
+// we'll use it to find elapsedtime for code execution
+export const getElapsedTime = ({
+  createdAt,
+  finishedAt,
+}: {
+  createdAt: string;
+  finishedAt: string;
+}) => {
+  const startTime = new Date(createdAt).getTime();
+  const endTime = new Date(finishedAt).getTime();
+  const elapsedTime = endTime - startTime;
+  return elapsedTime;
+};
+
 // query keys
 export const KEYS = {
   SIGNUP: "SIGNUP",
