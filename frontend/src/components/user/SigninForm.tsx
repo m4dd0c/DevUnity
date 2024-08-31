@@ -50,14 +50,14 @@ function SigninForm() {
 
       <form className="my-8" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-3">
-          <Label htmlFor="input">Email/Username</Label>
+          <Label htmlFor="email">Email/Username</Label>
           <Input
             {...register("input")}
             id="email"
             useCyan={true}
             autoComplete="off"
             placeholder="projectmayhem@fc.com or m4dd0c"
-            type="input"
+            type="text"
             className="bg-slate-900"
           />
           {errors.input && (
