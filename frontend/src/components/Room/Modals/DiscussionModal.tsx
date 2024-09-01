@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getMeAction } from "../../../lib/actions/userAction";
 import { useSocket } from "../../../context/useSocket";
 import toast from "react-hot-toast";
+import Loader from "../../layout/Loadings/Loader";
 
 function DiscussionModal({
   animate,
@@ -157,9 +158,7 @@ function DiscussionModal({
   const isDisabled = !msg || !isAllowed;
   const isLoading = isLoadingUser || isLoadingDiscussion;
 
-  return isLoading ? (
-    <h1>loading...</h1>
-  ) : (
+  return (
     <Modal>
       <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">
         {icon}
@@ -184,7 +183,11 @@ function DiscussionModal({
           </h4>
           <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[60vh]">
             <div className="flex flex-1 justify-center items-center">
-              <Discussion chat={discussionData} />
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <Discussion chat={discussionData} userId={user?.data._id} />
+              )}
             </div>
           </div>
         </ModalContent>

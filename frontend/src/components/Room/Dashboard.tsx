@@ -18,6 +18,7 @@ import { ev, getElapsedTime, getLang } from "../../lib/utils";
 import { LabelInputContainer } from "../ui/misc";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import toast from "react-hot-toast";
+import Loader from "../layout/Loadings/Loader";
 
 // Set the base path for Ace
 ace.config.set(
@@ -198,7 +199,9 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
           <div>
             {/* if loading then show loader */}
             {submittingCode ? (
-              <h1>loading...</h1>
+              <div className="w-fit mx-auto">
+                <Loader />
+              </div>
             ) : // if not loading then checking if accepted or failed
             codeOutput.status.description === "Accepted" ? (
               // if accepted

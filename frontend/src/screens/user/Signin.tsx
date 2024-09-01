@@ -1,8 +1,9 @@
 import { LampContainer } from "../../components/ui/lamp";
 import { motion } from "framer-motion";
 import SigninForm from "../../components/user/SigninForm";
+import { Dispatch, SetStateAction } from "react";
 
-const Login = () => {
+const Login = ({ setAuth }: { setAuth: Dispatch<SetStateAction<boolean>> }) => {
   return (
     <div className="bg-slate-950">
       <LampContainer>
@@ -16,7 +17,7 @@ const Login = () => {
           }}
           className="mt-8 rounded-2xl max-lg:w-full w-96"
         >
-          <SigninForm />
+          <SigninForm setAuth={setAuth} />
         </motion.div>
       </LampContainer>
     </div>

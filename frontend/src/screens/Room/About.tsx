@@ -11,6 +11,7 @@ import SettingsForm from "../../components/Room/SettingsForm";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
 import toast from "react-hot-toast";
+import Loader from "../../components/layout/Loadings/Loader";
 
 function Describe({ user }: { user: IUser | null }) {
   const nav = useNavigate();
@@ -136,7 +137,9 @@ function Describe({ user }: { user: IUser | null }) {
   }, [isActiveUser, mutate, roomId, discussionData]);
 
   return isLoading || !roomId ? (
-    <h1>loading...</h1>
+    <div className="bg-neutral-950 grid place-items-center h-screen w-full">
+      <Loader />
+    </div>
   ) : (
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
       <div className="p-5 min-h-screen [perspective:1000px] relative flex flex-col w-full items-start justify-start">

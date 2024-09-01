@@ -27,6 +27,23 @@ body {
   font-variant-ligatures: no-common-ligatures;
 }
 
+/* breathing skeleton */
+.skeleton {
+  background-color: #27272a;
+  transition: 2s;
+  animation: breathing 1.5s linear infinite;
+  margin: 0.5rem 0;
+}
+@keyframes breathing {
+  0%,
+  100% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 50%;
+  }
+}
+
 /* Hide scrollbar for IE, Edge and Firefox */
 body {
   -ms-overflow-style: none; /* IE and Edge */

@@ -2,13 +2,13 @@ import toast from "react-hot-toast";
 import { langs } from "../constants";
 
 export const isValidUsername = (username: string) => {
-  // Check if the username length is between 1 and 32 characters
+  // Check if the username length is between 3 and 32 characters
   if (username.length < 3 || username.length > 32) {
-    return "Username length must be 3-32";
+    return "Username length must be 3-32 characters.";
   }
 
-  // Check if the username starts with a letter
-  if (!/^[a-zA-Z]/.test(username)) {
+  // Check if the username starts with a letter or an underscore
+  if (!/^[a-zA-Z_]/.test(username)) {
     return "Username can only start with a letter or an underscore.";
   }
 
@@ -17,15 +17,16 @@ export const isValidUsername = (username: string) => {
     return "Username contains invalid characters. Use only letters, numbers, underscores, and periods.";
   }
 
-  // Check for consecutive underscores or periods
-  if (/[_]{2,}|[.]{2,}/.test(username)) {
-    return "Consecutive underscores or periods are not allowed.";
+  // Check for consecutive periods
+  if (/[.]{2,}/.test(username)) {
+    return "Consecutive periods are not allowed.";
   }
 
   // Check if the username ends with a period
   if (/[.]$/.test(username)) {
     return "Username can't end with a period.";
   }
+
   return null;
 };
 

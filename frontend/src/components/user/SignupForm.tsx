@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { LabelInputContainer } from "../ui/misc";
@@ -17,7 +17,11 @@ import {
 import AceButton from "../ui/AceButton";
 import toast from "react-hot-toast";
 
-function SignupForm() {
+function SignupForm({
+  setAuth,
+}: {
+  setAuth: Dispatch<SetStateAction<boolean>>;
+}) {
   // navigation
   const nav = useNavigate();
   // inputs
@@ -67,6 +71,7 @@ function SignupForm() {
     onSuccess: (res) => {
       if (res) {
         toast.success(res.message);
+        setAuth(true);
         nav(`/user/${res.data}`);
       } else toast.error("Something went wrong!");
     },

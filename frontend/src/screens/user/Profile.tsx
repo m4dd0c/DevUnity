@@ -7,6 +7,7 @@ import { getUserAction } from "../../lib/actions/userAction";
 import { formatDate, KEYS } from "../../lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import ProfileProjects from "../../components/user/ProfileProjects";
+import ProfileSkeleton from "../../components/layout/Loadings/ProfileSkeleton";
 
 const Profile = ({ user_id }: { user_id?: string }) => {
   // state and vars
@@ -43,7 +44,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
   }, [setSelf, userId, user_id]);
 
   return isLoading ? (
-    <h1>loading...</h1>
+    <ProfileSkeleton />
   ) : (
     <div className="h-screen max-lg:h-full w-full bg-black text-white flex overflow-hidden">
       <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">

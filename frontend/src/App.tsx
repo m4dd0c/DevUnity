@@ -57,6 +57,7 @@ function App() {
     refetch();
   }, [refetch]);
 
+  console.log({ auth });
   return (
     <Router>
       <Toaster
@@ -65,7 +66,7 @@ function App() {
         reverseOrder={false}
       />
       <SocketProvider>
-        <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
+        <Header user_id={user && user._id} auth={auth} setAuth={setAuth} />
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
@@ -90,7 +91,13 @@ function App() {
               <Route path="edit" element={<EditProfile user={user} />} />
               <Route
                 path="danger"
-                element={<DangerZone username={user && user.username} />}
+                element={
+                  <DangerZone
+                    setAuth={setAuth}
+                    user_id={user && user._id}
+                    username={user && user.username}
+                  />
+                }
               />
             </Route>
           </Route>
@@ -103,8 +110,8 @@ function App() {
 
           <Route path="/auth">
             <Route path="" element={<Navigate to="signin" />} />
-            <Route path="signin" element={<Signin />} />
-            <Route path="signup" element={<Signup />} />
+            <Route path="signin" element={<Signin setAuth={setAuth} />} />
+            <Route path="signup" element={<Signup setAuth={setAuth} />} />
           </Route>
 
           <Route path="/contact" element={<Contact />} />

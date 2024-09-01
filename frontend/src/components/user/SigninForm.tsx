@@ -11,8 +11,13 @@ import { z } from "zod";
 import { signinAction } from "../../lib/actions/userAction";
 import { IconLogin2 } from "@tabler/icons-react";
 import toast from "react-hot-toast";
+import { Dispatch, SetStateAction } from "react";
 
-function SigninForm() {
+function SigninForm({
+  setAuth,
+}: {
+  setAuth: Dispatch<SetStateAction<boolean>>;
+}) {
   const nav = useNavigate();
 
   const {
@@ -36,6 +41,7 @@ function SigninForm() {
     onSuccess: (res) => {
       if (res) {
         toast.success(res.message);
+        setAuth(true);
         nav(`/user/${res.data}`);
       } else toast.error("Something went wrong.");
     },

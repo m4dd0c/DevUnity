@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { KEYS } from "../lib/utils";
 import { searchUsersAction } from "../lib/actions/userAction";
 import { searchRoomsAction } from "../lib/actions/roomAction";
+import SearchLoading from "../components/layout/Loadings/SearchLoading";
 
 const Search = () => {
   const placeholders = [
@@ -87,7 +88,7 @@ const Search = () => {
           {/* little messed up here focus little to understand */}
           {/* isLoading than show loader else not */}
           {isLoading ? (
-            <h1>Loading...</h1>
+            <SearchLoading />
           ) : /* if type is User than check if result available or not, if result available than show result else noResult page */
           type === "Users" ? (
             users && users.data && users.data.users.length > 0 ? (

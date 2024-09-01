@@ -3,18 +3,27 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import { Spotlight } from "../../components/ui/Spotlight";
 import { IconTrash } from "@tabler/icons-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { deleteAccountAction } from "../../lib/actions/userAction";
 import { DeleteAccountSchema } from "../../lib/schemas/user.schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AceButton from "../../components/ui/AceButton";
 import toast from "react-hot-toast";
+import { KEYS } from "../../lib/utils";
 
-function DangerZone({ username }: { username: string | null }) {
+function DangerZone({
+  username,
+  user_id,
+  setAuth,
+}: {
+  username: string | null;
+  user_id: string | null;
+  setAuth: Dispatch<SetStateAction<boolean>>;
+}) {
   const nav = useNavigate();
 
   const [inputs, setInputs] = useState({ verify: "", confirm: "" });
@@ -41,12 +50,17 @@ function DangerZone({ username }: { username: string | null }) {
     else return;
   };
 
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: deleteAccountAction,
     onSuccess: (res) => {
       if (res) {
         toast.success(res.message);
-        nav("/auth/signin");
+        queryClient.invalidateQueries({
+          queryKey: [KEYS.GET_ME, KEYS.GET_USER, user_id],
+        });
+        setAuth(false);
+        return nav("/auth/signin");
       }
     },
   });

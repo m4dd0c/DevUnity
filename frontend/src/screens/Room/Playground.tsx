@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
 import toast from "react-hot-toast";
+import Loader from "../../components/layout/Loadings/Loader";
 
 const Playground = ({ user }: { user: null | IUser }) => {
   const { roomId } = useParams();
@@ -75,7 +76,9 @@ const Playground = ({ user }: { user: null | IUser }) => {
   }, [discussionData, isActiveUser, roomId, mutate]);
 
   return isLoading || !roomId ? (
-    <h1>loading... </h1>
+    <div className="bg-neutral-950 grid place-items-center h-screen w-full">
+      <Loader />
+    </div>
   ) : (
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
       <Dashboard room={room?.data} />
