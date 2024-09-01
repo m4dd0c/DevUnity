@@ -18,13 +18,12 @@ const Profile = ({ user_id }: { user_id?: string }) => {
   // requesting
   const { isLoading, refetch, data, isError, isSuccess } = useQuery({
     queryFn: async () => await getUserAction(userId || ""),
-    queryKey: [KEYS.GET_USER],
+    queryKey: [KEYS.GET_USER, user_id],
   });
 
   // response processing
   useEffect(() => {
     if (isSuccess && data) setUser(data.data);
-    if (isError) return console.log("error");
   }, [isSuccess, isError, data]);
 
   // refetching when userId is available
@@ -50,7 +49,11 @@ const Profile = ({ user_id }: { user_id?: string }) => {
       <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">
         {!user?.verification.verified && (
           <div className="lg:hidden mt-2 text-center bg-red-500 dark:text-white">
-            <h1>Please verify your account within 3 days.</h1>
+            <h1>
+              Please verify your account within 3 days. <br /> Check
+              verification mail to associated email address, also checkout spam
+              section.
+            </h1>
           </div>
         )}
         <div className="h-screen max-lg:h-full p-8 border-r-2 border-r-gray-800">

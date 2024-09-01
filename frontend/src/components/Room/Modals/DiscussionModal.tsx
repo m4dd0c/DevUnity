@@ -15,6 +15,7 @@ import { getDiscussionAction } from "../../../lib/actions/discussionAction";
 import { useCallback, useEffect, useState } from "react";
 import { getMeAction } from "../../../lib/actions/userAction";
 import { useSocket } from "../../../context/useSocket";
+import toast from "react-hot-toast";
 
 function DiscussionModal({
   animate,
@@ -50,9 +51,9 @@ function DiscussionModal({
   const handleSend = () => {
     if (msg.trim() && isAllowed) {
       // append to discussionData.
-      if (!user) return console.log("please login.");
-      if (!discussionData) return console.log("discussiondata is null");
-      if (!room) return console.log("room not found");
+      if (!user) return toast.error("It seems like you're unauthenticated.");
+      if (!discussionData) return toast.error("Something went wrong.");
+      if (!room) return toast.error("Something went wrong.");
 
       setDiscussionData((prev) => {
         const newChat = {
@@ -81,11 +82,11 @@ function DiscussionModal({
           };
         }
         if (!socket) {
-          console.log("socket not found!");
           return newData;
         }
         // sending discussionData to everyone in the room
         socket.emit(ev["f:message"], { chat: newData, roomId: room.roomId });
+        setMsg("");
         return newData;
       });
     }
@@ -101,7 +102,7 @@ function DiscussionModal({
   // requesting chat
   const chatReq = useCallback(
     ({ socketId }: { socketId: string }) => {
-      if (!socket) return console.log("socket not found");
+      if (!socket) return;
       socket.emit(ev["f:chat_load"], { socketId, chat: discussionData });
     },
     [discussionData, socket],
@@ -109,7 +110,6 @@ function DiscussionModal({
 
   const chatSet = useCallback(
     ({ chat }: { chat: IDiscussion }) => {
-      // something TODO:
       setDiscussionData(chat);
     },
     [setDiscussionData],
@@ -124,7 +124,10 @@ function DiscussionModal({
 
   // get init chat
   useEffect(() => {
-    if (!socket || !room) return console.log("socket or room not loaded!");
+    if (!socket || !room) {
+      toast("Either socket or room has not been loaded!", { icon: "ℹ" });
+      return;
+    }
 
     // listeners
     socket.on(ev["b:chat_req"], chatReq);
@@ -138,8 +141,10 @@ function DiscussionModal({
   }, [socket, chatReq, room, recvMessage, chatSet]);
 
   useEffect(() => {
-    if (!room || !socket)
-      return console.log("either room or socket not yet loaded!");
+    if (!socket || !room) {
+      toast("Either socket or room has not been loaded!", { icon: "ℹ" });
+      return;
+    }
     //emits
     socket.emit(ev["f:chat_req"], { roomId: room.roomId });
   }, [socket, room]);

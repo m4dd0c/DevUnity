@@ -1,4 +1,3 @@
-import React from "react";
 import { LabelInputContainer } from "../../components/ui/misc";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
@@ -11,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { forgetPasswordAction } from "../../lib/actions/userAction";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 function ForgetPassword() {
   const onSubmit = (data: z.infer<typeof ForgetPasswordSchema>) => {
@@ -20,13 +20,11 @@ function ForgetPassword() {
     mutationFn: forgetPasswordAction,
     onSuccess: (res) => {
       if (res) {
-        // show toaster TODO:
+        toast.success(res.message);
       }
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
+
   const {
     handleSubmit,
     register,

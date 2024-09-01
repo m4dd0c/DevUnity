@@ -7,6 +7,7 @@ import { KEYS } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
+import toast from "react-hot-toast";
 
 const Playground = ({ user }: { user: null | IUser }) => {
   const { roomId } = useParams();
@@ -20,7 +21,6 @@ const Playground = ({ user }: { user: null | IUser }) => {
     isLoading,
     refetch,
   } = useQuery({
-    // TODO : fix it according to the loggedin user
     queryFn: async () => await getRoomAction({ roomId, query }),
     queryKey: [KEYS.GET_ROOM, roomId],
   });
@@ -44,7 +44,8 @@ const Playground = ({ user }: { user: null | IUser }) => {
   // if !user then
   useEffect(() => {
     if (!user) {
-      nav("/");
+      toast.error("It seems like you're unauthenticated.");
+      nav("/auth/signin");
     }
   }, [nav, user]);
 
@@ -52,7 +53,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) console.log("chat is saved");
+      if (res) toast.success("Chat saved!");
     },
   });
 
@@ -73,11 +74,11 @@ const Playground = ({ user }: { user: null | IUser }) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, [discussionData, isActiveUser, roomId, mutate]);
 
-  return isLoading ? (
+  return isLoading || !roomId ? (
     <h1>loading... </h1>
   ) : (
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
-      <Dashboard user={user} room={room?.data} />
+      <Dashboard room={room?.data} />
     </RoomSidebar>
   );
 };

@@ -10,6 +10,7 @@ import { z } from "zod";
 import { contactMeAction } from "../../lib/actions/userAction";
 import { useMutation } from "@tanstack/react-query";
 import AceButton from "../ui/AceButton";
+import toast from "react-hot-toast";
 
 function ContactForm() {
   // zod_react-hook-form_hook/resolver
@@ -36,11 +37,8 @@ function ContactForm() {
     mutationFn: contactMeAction,
     onSuccess: (res) => {
       if (res) {
-        // TODO: show toaster
-      } else alert("something went wrong!");
-    },
-    onError: (err) => {
-      console.log(err);
+        toast.success(res.message);
+      } else toast.error("something went wrong!");
     },
   });
 

@@ -9,9 +9,9 @@ import {
   IconPlayerPlayFilled,
   IconX,
 } from "@tabler/icons-react";
-import { handleCopy } from "../../utils/playground/utils";
 import RenderModal from "./renderModal";
 import { useSocket } from "../../context/useSocket";
+import { handleCopy } from "../../lib/utils";
 
 interface Links {
   label: string;

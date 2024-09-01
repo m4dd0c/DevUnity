@@ -10,6 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import SettingsForm from "../../components/Room/SettingsForm";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
+import toast from "react-hot-toast";
 
 function Describe({ user }: { user: IUser | null }) {
   const nav = useNavigate();
@@ -80,6 +81,7 @@ function Describe({ user }: { user: IUser | null }) {
   // if user is null
   useEffect(() => {
     if (!user) {
+      toast.error("It seems like you're unauthenticated.");
       return nav("/auth/signin");
     }
   }, [user, nav]);
@@ -106,7 +108,7 @@ function Describe({ user }: { user: IUser | null }) {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) console.log("chat is saved");
+      if (res) toast.success("Chat saved!");
     },
   });
   // settings language
@@ -129,7 +131,6 @@ function Describe({ user }: { user: IUser | null }) {
         mutate({ roomId, chat: discussionData.chat });
       }
     };
-
     window.addEventListener("beforeunload", unloadCallback);
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, [isActiveUser, mutate, roomId, discussionData]);

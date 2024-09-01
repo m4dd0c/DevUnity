@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AceButton from "../../components/ui/AceButton";
+import toast from "react-hot-toast";
 
 function DangerZone({ username }: { username: string | null }) {
   const nav = useNavigate();
@@ -21,10 +22,9 @@ function DangerZone({ username }: { username: string | null }) {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((prev) => {
       const newInputs = { ...prev, [e.target.name]: e.target.value };
-      //TODO : make it dynamic later
       if (
         newInputs.verify.toLowerCase() === "yes" &&
-        newInputs.confirm.toLowerCase() === `delete/@${username}`
+        newInputs.confirm === `delete/@${username}`
       )
         setDisabled(false);
       else setDisabled(true);
@@ -33,8 +33,11 @@ function DangerZone({ username }: { username: string | null }) {
   };
 
   const onSubmit = (data: z.infer<typeof DeleteAccountSchema>) => {
-    // TODO: make it dynamic later
-    if (data.verify === "yes" && data.confirm === "delete/@m4dd0c") mutate();
+    if (
+      data.verify.toLowerCase() === "yes" &&
+      data.confirm === `delete/@${username}`
+    )
+      mutate();
     else return;
   };
 
@@ -42,11 +45,9 @@ function DangerZone({ username }: { username: string | null }) {
     mutationFn: deleteAccountAction,
     onSuccess: (res) => {
       if (res) {
+        toast.success(res.message);
         nav("/auth/signin");
       }
-    },
-    onError: (err) => {
-      console.log(err);
     },
   });
 

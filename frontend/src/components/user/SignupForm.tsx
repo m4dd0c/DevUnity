@@ -15,6 +15,7 @@ import {
   signupAction,
 } from "../../lib/actions/userAction";
 import AceButton from "../ui/AceButton";
+import toast from "react-hot-toast";
 
 function SignupForm() {
   // navigation
@@ -65,12 +66,9 @@ function SignupForm() {
     mutationFn: signupAction,
     onSuccess: (res) => {
       if (res) {
-        // setting userid
+        toast.success(res.message);
         nav(`/user/${res.data}`);
-      } else alert("something went wrong!");
-    },
-    onError: (err) => {
-      console.log(err);
+      } else toast.error("Something went wrong!");
     },
   });
 

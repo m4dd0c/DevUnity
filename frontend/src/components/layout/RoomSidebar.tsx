@@ -9,8 +9,8 @@ import {
 import { cn } from "../../utils/cn";
 import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
-import { handleCopy } from "../../utils/playground/utils";
 import { useSocket } from "../../context/useSocket";
+import { handleCopy } from "../../lib/utils";
 
 function RoomSidebar({
   children,

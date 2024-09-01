@@ -38,7 +38,7 @@ export const verificationHTMLCreator = ({ token }: { token: string }) => {
             alt="verify-account"
             style="height: 100%; width: 100%"
           />
-<div style="width: fit-content; margin: auto">
+        <div style="width: fit-content; margin: auto">
           <a
             style="
               margin-inline: auto;
@@ -51,11 +51,14 @@ export const verificationHTMLCreator = ({ token }: { token: string }) => {
             href="${verify_url}"
             >Verify your Account</a
           >
-</div>
+        </div>
+        <div style="width: 100%; margin-inline: auto">
+          <p style="color:blue">${verify_url}</p>
+        </div>
         </div>
         <div style="padding: 40px">
           <p>
-            <strong>Info: </strong>Verification will expire in 15 minutes.
+            <strong>Info: </strong>Verification will expire in 3 days.
             Please verify your account within 15 minutes, otherwise your account
             will be terminated.
           </p>

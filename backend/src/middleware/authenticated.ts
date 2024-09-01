@@ -24,7 +24,7 @@ export const authenticated = catchAsync(async (req, res, next) => {
     const user = await User.findById(userId).select("+password");
     if (!user)
       return next(
-        new CollabriteError(401, "It seems like you have no account so far."),
+        new CollabriteError(401, "It seems like you're unauthenticated."),
       );
     /* req.user declare in /src/types/index.d.ts
     ./src/types added to tsconfig typeRoots, before /node_module/@types */

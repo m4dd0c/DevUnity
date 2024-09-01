@@ -29,7 +29,7 @@ const Search = () => {
   // eslint-disable-next-line
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: add condition to prevent " " blankspace search
+    if (!query.trim()) return;
     if (type === "Users") fetchUsers();
     if (type === "Projects") fetchProjects();
   };

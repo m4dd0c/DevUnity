@@ -31,6 +31,7 @@ class CollabriteRes {
       secure: true,
       sameSite: "none",
     });
+    this.message = "Logged out!";
     this.send();
   }
   send() {

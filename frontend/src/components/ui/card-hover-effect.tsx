@@ -58,9 +58,12 @@ export const HoverEffect = ({
                 />
                 <h1>{getLangLabel(item.project.lang)}</h1>
               </div>
-              <div className="flex items-center gap-1" title="updated">
+              <div
+                className="flex items-center gap-1"
+                title={`updated ${timeAgo(item.updatedAt)}`}
+              >
                 <IconRotateClockwise2 size={18} color="#6366f1" />
-                <h1>{timeAgo(item.updatedAt)}</h1>
+                <h1 className="line-clamp-1">{timeAgo(item.updatedAt)}</h1>
               </div>
             </div>
             <CardDescription className="line-clamp-6">

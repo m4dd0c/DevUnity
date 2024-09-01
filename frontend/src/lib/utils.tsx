@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { langs } from "../constants";
 
 export const isValidUsername = (username: string) => {
@@ -120,6 +121,21 @@ export const getElapsedTime = ({
   return elapsedTime;
 };
 
+// copy roomId
+export const handleCopy = async () => {
+  window.location.pathname;
+  const pathname = window.location.pathname;
+  const id = pathname.split("/")[2];
+  try {
+    await navigator.clipboard.writeText(id);
+    toast.success("RoomId copied.");
+    // return "Text copied to clipboard!";
+    // Show toast
+  } catch (err) {
+    toast.error("Failed to copy RoomId.");
+    return null;
+  }
+};
 // query keys
 export const KEYS = {
   SIGNUP: "SIGNUP",

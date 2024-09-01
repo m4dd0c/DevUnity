@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditAccountSchema } from "../../lib/schemas/user.schema";
 import AceButton from "../../components/ui/AceButton";
 import { z } from "zod";
+import toast from "react-hot-toast";
 
 function EditProfile({ user }: { user: IUser | null }) {
   const onSubmit = (data: z.infer<typeof EditAccountSchema>) => {
@@ -29,7 +30,6 @@ function EditProfile({ user }: { user: IUser | null }) {
     }
     // sending submit request
     // formdata creation
-    console.log(data);
     const formData = new FormData();
     formData.set("username", data.username);
     formData.set("name", data.name);
@@ -42,23 +42,22 @@ function EditProfile({ user }: { user: IUser | null }) {
     formData.set("bio", data.bio);
     mutate(formData);
   };
+
   const queryClient = useQueryClient();
   const { isPending, mutate } = useMutation({
     mutationFn: editAccountAction,
     onSuccess: (res) => {
-      //TODO: show toast
       if (res && user) {
+        toast.success(res.message);
         queryClient.invalidateQueries({
-          queryKey: [KEYS.GET_ME, KEYS.GET_USER],
+          queryKey: [KEYS.GET_ME, KEYS.GET_USER, user._id],
         });
         // invalidate user
         nav(`/user/${user._id}`);
       }
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
+
   const nav = useNavigate();
   const {
     register,
@@ -76,6 +75,7 @@ function EditProfile({ user }: { user: IUser | null }) {
       portfolio: user && user.portfolio ? user.portfolio : "",
     },
   });
+
   const [username, setUsername] = useState(user ? user.username : "");
   const [image, setImage] = useState<File | null>(null);
   const [imagePrev, setImagePrev] = useState<string | ArrayBuffer | null>(

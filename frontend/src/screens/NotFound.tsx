@@ -1,4 +1,3 @@
-// import { Link } from "reactscroll";
 import { HashLink } from "react-router-hash-link";
 import GradientBorderButton from "../components/ui/gradient-border-button";
 import { BackgroundBeams } from "../components/ui/background-beams";

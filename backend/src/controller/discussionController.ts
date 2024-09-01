@@ -94,6 +94,6 @@ export const updateDiscussion = catchAsync(
       // saving what-so-ever is changed
       await discussion.save();
     }
-    new CollabriteRes(res, 200).send();
+    new CollabriteRes(res, 200, "Chat saved!").send();
   },
 );

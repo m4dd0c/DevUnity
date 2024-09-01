@@ -11,9 +11,11 @@ import { JoinRoomSchema } from "../../lib/schemas/room.schema";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/useSocket";
+import toast from "react-hot-toast";
 
 function JoinRoomForm({ user }: { user: IUser | null }) {
   const nav = useNavigate();
+  //TODO: remove caching for rooms
 
   const { isLoading, refetch, data } = useQuery({
     queryFn: async () =>
@@ -48,13 +50,8 @@ function JoinRoomForm({ user }: { user: IUser | null }) {
 
   // if error / response handling
   useEffect(() => {
-    // if (!user) {
-    //   console.log("going back");
-    //   return nav("/room/join");
-    // }
-    // if (error) console.log(error);
-    //
     if (data && user) {
+      toast.success(data.message);
       joinEvent({ roomId: data.data, userId: user._id });
       return nav(`/room/${data.data}/about`, { state: { query: "rwx" } });
     }

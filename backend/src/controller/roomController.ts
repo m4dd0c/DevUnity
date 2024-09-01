@@ -408,6 +408,7 @@ export const updatePassAndLang = catchAsync(
     new CollabriteRes(res, 200, "Room updated.", true).send();
   },
 );
+
 export const saveCode = catchAsync(async (req, res, next) => {
   const { roomId } = req.params;
   if (!roomId)
@@ -420,7 +421,7 @@ export const saveCode = catchAsync(async (req, res, next) => {
   const user = req.user;
   if (!user)
     return next(
-      new CollabriteError(401, "It seems like you'r not authenticated"),
+      new CollabriteError(401, "It seems like you're unauthenticated."),
     );
 
   const room: IRoom | null = await Room.findOne({ roomId });
@@ -435,5 +436,5 @@ export const saveCode = catchAsync(async (req, res, next) => {
   room.project.code = code;
   await room.save();
 
-  new CollabriteRes(res, 200).send();
+  new CollabriteRes(res, 200, "Code saved!").send();
 });

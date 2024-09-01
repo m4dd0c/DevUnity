@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import { ev, getElapsedTime, getLang } from "../../lib/utils";
 import { LabelInputContainer } from "../ui/misc";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 
 // Set the base path for Ace
 ace.config.set(
@@ -25,7 +26,7 @@ ace.config.set(
 );
 
 // eslint-disable-next-line
-const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
+const Dashboard = ({ room }: { room?: IRoom }) => {
   const [fullSizeTerminal, setFullSizeTerminal] = useState(false);
   const {
     changeCode,
@@ -43,7 +44,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
 
   const onChange = (e: any) => {
     if (!roomId) return;
-    console.log("onchange");
     setCode(e);
     changeCode({ roomId, code: e });
   };
@@ -63,7 +63,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // code change recieve event
   const recvCodeChange = useCallback(
     ({ code }: { code: string }) => {
-      console.log("recv self");
       setCode(code);
     },
     [setCode],
@@ -72,7 +71,10 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // requesting code
   const codeReq = useCallback(
     ({ socketId }: { socketId: string }) => {
-      if (!socket) return console.log("socket not found");
+      if (!socket) {
+        toast("Socket not yet loaded!", { icon: "ℹ" });
+        return;
+      }
       socket.emit(ev["f:code_load"], { socketId, code });
     },
     [code, socket],
@@ -81,7 +83,10 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   // on code change recieve
   useEffect(() => {
     // events handling
-    if (!socket) return console.log("socket not found");
+    if (!socket) {
+      toast("Socket not yet loaded!", { icon: "ℹ" });
+      return;
+    }
 
     // listeners
     socket.on(ev["b:code_change"], recvCodeChange);
@@ -98,7 +103,10 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
   }, [socket, setCode, recvCodeChange, codeReq, roomId]);
 
   useEffect(() => {
-    if (!socket) return console.log("socket not loaded");
+    if (!socket) {
+      toast("Socket not yet loaded!", { icon: "ℹ" });
+      return;
+    }
     // emits
     socket.emit(ev["f:code_req"], { roomId });
   }, [roomId, socket]);
@@ -116,10 +124,6 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
     }
   }, [room, setLanguage]);
 
-  // user not found
-  useEffect(() => {
-    if (!user) return console.log("user not found!");
-  }, [user]);
   return (
     <div className="h-screen w-screen flex flex-wrap max-lg:flex-col">
       <div
@@ -172,7 +176,7 @@ const Dashboard = ({ room, user }: { room?: IRoom; user: IUser | null }) => {
           <textarea
             onChange={(e) => setStdin(e.target.value)}
             autoComplete="off"
-            placeholder="enter your input (new line separated in more than one)"
+            placeholder="enter your input (new line separated if more than one)"
             className="bg-transparent border min-h-14 max-h-40 max-lg:max-h-20 overflow-y-auto border-gray-900 rounded-lg px-4 py-3"
           />
         </LabelInputContainer>

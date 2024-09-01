@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { verificationAction } from "../../lib/actions/userAction";
 import { KEYS } from "../../lib/utils";
+import toast from "react-hot-toast";
 
 function Verify() {
   const nav = useNavigate();
@@ -14,7 +15,6 @@ function Verify() {
     queryKey: [KEYS.VERIFY],
     queryFn: async () => {
       if (token) {
-        console.log(token);
         return await verificationAction(token);
       }
     },
@@ -27,10 +27,12 @@ function Verify() {
   // when request completed w/ error or success
   useEffect(() => {
     if (isError) {
-      alert("Error verifying user");
-      console.log(error);
+      toast.error("Account verification failed.");
     }
-    if (data) if (data.data === true) nav("/");
+    if (data && data.data === true) {
+      toast.success(data.message);
+      nav("/");
+    }
   }, [isError, error, data, nav]);
 
   return (

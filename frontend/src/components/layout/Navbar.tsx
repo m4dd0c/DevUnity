@@ -6,6 +6,7 @@ import { IconLoader, IconLogout } from "@tabler/icons-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutAction } from "../../lib/actions/userAction";
 import { KEYS } from "../../lib/utils";
+import toast from "react-hot-toast";
 
 function Navbar({
   className,
@@ -31,16 +32,14 @@ function Navbar({
   const { isPending, mutate } = useMutation({
     mutationFn: logoutAction,
     // eslint-disable-next-line
-    onSuccess: (_) => {
-      console.log("logged out");
+    onSuccess: (res) => {
+      toast.success(res.message);
       setAuth(false);
       queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
       nav("/");
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
+
   return (
     <div
       className={cn(

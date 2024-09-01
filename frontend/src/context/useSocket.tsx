@@ -15,6 +15,7 @@ import { updateDiscussionAction } from "../lib/actions/discussionAction";
 import { createSubmissionAction, getSubmissionAction } from "../api/judge0";
 import { langs } from "../constants";
 import { server } from "../lib";
+import toast from "react-hot-toast";
 
 interface SocketProviderProps {
   children?: React.ReactNode;
@@ -109,8 +110,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   // submit code
   const submitCode: ISocketContext["submitCode"] = () => {
-    if (!language) return console.log("language has not been loaded!");
-    console.log(stdin, "is stdin");
+    if (!language)
+      return toast("Language has not yet loaded!", { icon: "ℹ " });
+
     submitCodeMutation({
       source_code: btoa(code),
       language_id: language.id,
@@ -126,17 +128,13 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const { mutate: saveCodeMutation } = useMutation({
     mutationFn: saveCodeAction,
     onSuccess: (res) => {
-      console.log(res);
-    },
-    onError: (err) => {
-      console.log(err);
+      toast.success(res.message);
     },
   });
 
   // joinEvent
   const joinEvent: ISocketContext["joinEvent"] = useCallback(
     ({ roomId, userId }) => {
-      //TODO : send value on join
       if (!socket || !roomId || !userId) return;
       socket.emit(ev["f:join"], { roomId, userId });
       return;
@@ -185,10 +183,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) console.log("chat is saved");
-    },
-    onError: (error) => {
-      console.error("Mutation failed:", error);
+      if (res) toast.success(res.message);
     },
   });
 

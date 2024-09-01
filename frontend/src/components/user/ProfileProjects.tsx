@@ -40,10 +40,13 @@ const ProfileProjects = ({ user }: { user: IUser | null }) => {
   }, [setData, user]);
 
   return (
-    <div className="lg:overflow-y-scroll">
+    <div className="lg:overflow-y-scroll lg:w-full">
       {self && !user?.verification.verified && (
         <div className="max-lg:hidden mb-2 px-4 text-center bg-red-500 dark:text-white">
-          <h1>Please verify your account within 3 days.</h1>
+          <h1>
+            Please verify your account within 3 days. <br /> Check verification
+            mail to associated email address, also checkout spam section.
+          </h1>
         </div>
       )}
       <div className="mx-4">
@@ -63,7 +66,7 @@ const ProfileProjects = ({ user }: { user: IUser | null }) => {
         {data && data.length > 0 ? (
           <HoverEffect items={data} />
         ) : (
-          <NoResult text="No project found! Check the input again." />
+          <NoResult text="No project found! Create or contribute." />
         )}
       </div>
     </div>

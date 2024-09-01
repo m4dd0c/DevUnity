@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { langs } from "../../constants";
 import { KEYS } from "../../lib/utils";
+import toast from "react-hot-toast";
 
 const SettingsForm = ({
   isAdmin,
@@ -52,7 +53,6 @@ const SettingsForm = ({
   const [language, setLanguage] = useState<TLang>(room?.project.lang || "js");
 
   const onSubmit = (data: z.infer<typeof UpdatePassAndLangSchema>) => {
-    console.log(data);
     // Check if there's no language and no password
     if (!language && !data.password) return;
     // Prepare the form data object
@@ -89,7 +89,7 @@ const SettingsForm = ({
   // if isNotAdmin then redirecting to playground
   useEffect(() => {
     if (!isAdmin) {
-      console.log("nout admin describe form go back now");
+      toast.error("It seems like you're not admin.");
       tabButtons?.descriptionBtn?.click();
     }
   }, [isAdmin, roomId, tabButtons?.descriptionBtn]);

@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { signinAction } from "../../lib/actions/userAction";
 import { IconLogin2 } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 
 function SigninForm() {
   const nav = useNavigate();
@@ -32,13 +33,11 @@ function SigninForm() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: signinAction,
-    onError: (err) => {
-      console.log(err);
-    },
     onSuccess: (res) => {
       if (res) {
+        toast.success(res.message);
         nav(`/user/${res.data}`);
-      } else console.log("Something went wrong.");
+      } else toast.error("Something went wrong.");
     },
   });
 

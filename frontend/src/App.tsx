@@ -32,6 +32,7 @@ import { getMeAction } from "./lib/actions/userAction";
 import { KEYS } from "./lib/utils";
 import { useEffect, useState } from "react";
 import { SocketProvider } from "./context/useSocket";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -40,6 +41,7 @@ function App() {
     queryFn: getMeAction,
     queryKey: [KEYS.GET_ME],
   });
+
   // getting auth
   useEffect(() => {
     if (data) {
@@ -49,12 +51,19 @@ function App() {
       }
     }
   }, [data]);
+
   // getting data onload
   useEffect(() => {
     refetch();
   }, [refetch]);
+
   return (
     <Router>
+      <Toaster
+        containerStyle={{ zIndex: 99999999 }}
+        position="top-right"
+        reverseOrder={false}
+      />
       <SocketProvider>
         <Header userId={user && user._id} auth={auth} setAuth={setAuth} />
         <Routes>

@@ -13,6 +13,7 @@ import { updateRoomAction } from "../../lib/actions/roomAction";
 import { KEYS } from "../../lib/utils";
 import { Textarea } from "../ui/textarea";
 import AceButton from "../ui/AceButton";
+import toast from "react-hot-toast";
 
 export default function DescribeForm({
   room,
@@ -44,7 +45,6 @@ export default function DescribeForm({
 
   // submit function
   const onSubmit = (data: z.infer<typeof UpdateRoomSchema>) => {
-    console.log("submitting");
     if (roomId) {
       mutate({ formData: data, roomId });
     }
@@ -55,6 +55,7 @@ export default function DescribeForm({
     mutationFn: updateRoomAction,
     onSuccess: (res) => {
       if (res) {
+        toast.success(res.message);
         queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM, roomId] });
         tabButtons?.descriptionBtn?.click();
       }
@@ -79,7 +80,7 @@ export default function DescribeForm({
   // if isNotAdmin then redirecting to playground
   useEffect(() => {
     if (!isAdmin) {
-      console.log("nout admin describe form go back now");
+      toast.error("It seems like you're not admin.");
       tabButtons?.descriptionBtn?.click();
     }
   }, [isAdmin, roomId, tabButtons?.descriptionBtn]);

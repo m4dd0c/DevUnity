@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateRoomSchema } from "../../lib/schemas/room.schema";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function CreateRoomForm() {
   const genRoomId = () => {
@@ -18,10 +19,10 @@ function CreateRoomForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: createRoomAction,
     onSuccess: (res) => {
-      if (res) nav(`/room/${res.data}`);
-    },
-    onError: (err) => {
-      console.log(err);
+      if (res) {
+        toast.success(res.message);
+        return nav(`/room/${res.data}/about`, { state: { query: "rwx" } });
+      }
     },
   });
 
