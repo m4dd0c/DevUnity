@@ -48,7 +48,7 @@ export const createRoom = catchAsync(
       password,
       project: {
         title,
-        lang: "JS",
+        lang: "js",
       },
     });
     // creating a discussion
@@ -273,11 +273,9 @@ export const updateRoom = catchAsync(
         ),
       );
     await room.updateOne({
-      project: {
-        description,
-        title,
-        explanation,
-      },
+      "project.description": description,
+      "project.title": title,
+      "project.explanation": explanation,
     });
     new CollabriteRes(res, 200, "Room updated.", true).send();
   },
