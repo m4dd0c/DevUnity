@@ -10,9 +10,7 @@ const error = async (
   next: NextFunction,
 ) => {
   try {
-    // maybe change this TODO: development
-    // const development = process.env["Mode"] === "DEV";
-    const development = true;
+    const development = process.env["Mode"] === "DEV";
     // response instance
     const errRes = new CollabriteRes(res);
     errRes.status = err.status || 500;
