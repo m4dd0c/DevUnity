@@ -17,6 +17,7 @@ import { getMeAction } from "../../../lib/actions/userAction";
 import { useSocket } from "../../../context/useSocket";
 import toast from "react-hot-toast";
 import Loader from "../../layout/Loadings/Loader";
+import MessageIndicator from "../../layout/MessageIndicator";
 
 function DiscussionModal({
   animate,
@@ -31,7 +32,14 @@ function DiscussionModal({
   icon: React.ReactNode | React.JSX.Element;
   label: string;
 }) {
-  const { socket, discussionData, setDiscussionData } = useSocket();
+  const {
+    socket,
+    discussionData,
+    setDiscussionData,
+    setNewMessageIndicator,
+    newMessageIndicator,
+  } = useSocket();
+
   const [msg, setMsg] = useState("");
   // discussion data
   const { isLoading: isLoadingDiscussion, data } = useQuery({
@@ -118,9 +126,10 @@ function DiscussionModal({
 
   const recvMessage = useCallback(
     ({ chat }: { chat: IDiscussion }) => {
+      setNewMessageIndicator(true);
       setDiscussionData(chat);
     },
-    [setDiscussionData],
+    [setDiscussionData, setNewMessageIndicator],
   );
 
   // get init chat
@@ -160,8 +169,14 @@ function DiscussionModal({
 
   return (
     <Modal>
-      <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">
-        {icon}
+      <ModalTrigger
+        showIndicator={true}
+        className="flex items-center justify-start gap-2 group/sidebar py-2"
+      >
+        <div className="relative">
+          {icon}
+          <MessageIndicator newMessageIndicator={newMessageIndicator} />
+        </div>
         <motion.span
           animate={{
             display: animate

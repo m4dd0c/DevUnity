@@ -33,6 +33,7 @@ import { KEYS } from "./lib/utils";
 import { useEffect, useState } from "react";
 import { SocketProvider } from "./context/useSocket";
 import { Toaster } from "react-hot-toast";
+import Protected from "./protected/Protected";
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -61,9 +62,20 @@ function App() {
   return (
     <Router>
       <Toaster
-        containerStyle={{ zIndex: 99999999 }}
-        position="top-right"
-        reverseOrder={false}
+        containerStyle={{
+          zIndex: 99999999,
+        }}
+        toastOptions={{
+          style: {
+            backgroundColor: "black",
+            color: "white",
+            border: "1px solid rgba(255,255,255,0.2)",
+            WebkitFontSmoothing: "antialiased",
+            MozOsxFontSmoothing: "grayscale",
+            fontSize: ".9rem",
+          },
+        }}
+        position="bottom-right"
       />
       <SocketProvider>
         <Header user_id={user && user._id} auth={auth} setAuth={setAuth} />
@@ -77,41 +89,116 @@ function App() {
             <Route path="create" element={<CreateRoom />} />
 
             <Route path=":roomId">
-              <Route path="" element={<Playground user={user} />} />
-              <Route path="about" element={<Describe user={user} />} />
+              <Route
+                path=""
+                element={
+                  <Protected auth={auth}>
+                    <Playground user={user} />
+                  </Protected>
+                }
+              />
+              <Route
+                path="about"
+                element={
+                  <Protected auth={auth}>
+                    <Describe user={user} />
+                  </Protected>
+                }
+              />
             </Route>
           </Route>
 
           <Route path="/search" element={<SearchUsers />} />
 
           <Route path="/user">
-            <Route path="verify" element={<Verify />} />
+            <Route
+              path="verify"
+              element={
+                <Protected auth={auth}>
+                  <Verify />
+                </Protected>
+              }
+            />
+
             <Route path=":userId">
-              <Route path="" element={<Profile user_id={user?._id} />} />
-              <Route path="edit" element={<EditProfile user={user} />} />
+              <Route
+                path=""
+                element={
+                  <Protected auth={auth}>
+                    <Profile user_id={user?._id} />
+                  </Protected>
+                }
+              />
+
+              <Route
+                path="edit"
+                element={
+                  <Protected auth={auth}>
+                    <EditProfile user={user} />
+                  </Protected>
+                }
+              />
               <Route
                 path="danger"
                 element={
-                  <DangerZone
-                    setAuth={setAuth}
-                    user_id={user && user._id}
-                    username={user && user.username}
-                  />
+                  <Protected auth={auth}>
+                    <DangerZone
+                      setAuth={setAuth}
+                      user_id={user && user._id}
+                      username={user && user.username}
+                    />
+                  </Protected>
                 }
               />
             </Route>
           </Route>
 
           <Route path="/password">
-            <Route path="forget" element={<ForgetPassword />} />
-            <Route path="reset/:token" element={<ResetPassword />} />
-            <Route path="change" element={<ChangePassword />} />
+            <Route
+              path="change"
+              element={
+                <Protected auth={auth}>
+                  <ChangePassword />
+                </Protected>
+              }
+            />
+            <Route
+              path="reset/:token"
+              element={
+                <Protected auth={!auth} redirect="/#hero">
+                  <ResetPassword />
+                </Protected>
+              }
+            />
+            <Route
+              path="forget"
+              element={
+                <Protected auth={!auth} redirect="/#hero">
+                  <ForgetPassword />
+                </Protected>
+              }
+            />
           </Route>
 
           <Route path="/auth">
             <Route path="" element={<Navigate to="signin" />} />
-            <Route path="signin" element={<Signin setAuth={setAuth} />} />
-            <Route path="signup" element={<Signup setAuth={setAuth} />} />
+            {/* if user already authenticated then redirecting to home page */}
+            <Route
+              path="signin"
+              element={
+                <Protected auth={!auth} redirect="/#hero">
+                  <Signin setAuth={setAuth} />
+                </Protected>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <Protected auth={!auth} redirect="/#hero">
+                  <Signup setAuth={setAuth} />
+                </Protected>
+              }
+            />
           </Route>
 
           <Route path="/contact" element={<Contact />} />

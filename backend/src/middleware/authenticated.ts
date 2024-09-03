@@ -8,7 +8,7 @@ export const authenticated = catchAsync(async (req, res, next) => {
   const { token } = req.cookies;
   if (!token)
     return next(
-      new CollabriteError(401, "It looks like you're unauthenticated."),
+      new CollabriteError(401, "It seems like you're unauthenticated."),
     );
   const jwtSecret = process.env.JWT_SECRET;
   if (!jwtSecret)
@@ -31,6 +31,6 @@ export const authenticated = catchAsync(async (req, res, next) => {
     req.user = user;
     next();
   } else {
-    next(new CollabriteError(401, "It looks like you're unauthenticated."));
+    next(new CollabriteError(401, "It seems like you're unauthenticated."));
   }
 });

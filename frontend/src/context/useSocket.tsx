@@ -38,6 +38,8 @@ interface ISocketContext {
   language: ILang;
   setLanguage: React.Dispatch<SetStateAction<ILang>>;
   setStdin: React.Dispatch<SetStateAction<null | string>>;
+  newMessageIndicator: boolean;
+  setNewMessageIndicator: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -51,6 +53,7 @@ export const useSocket = () => {
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const location = useLocation();
+  const [newMessageIndicator, setNewMessageIndicator] = useState(false);
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState<ILang>(langs[langs.length - 1]); // settings default to javascript
   const [stdin, setStdin] = useState<string | null>(null);
@@ -102,7 +105,6 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     };
   }, [submissionToken]);
 
-  if (codeOutput) console.log(codeOutput);
   // isSubmittingCode
   useEffect(() => {
     setIsSubmittingCode(submissionToken !== null);
@@ -168,7 +170,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     const _socket = io(server);
     _socket.on(ev["b:join"], (data) => {
-      console.log(data);
+      toast.success(data.message);
     });
     setSocket(_socket);
 
@@ -229,6 +231,8 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
+        setNewMessageIndicator,
+        newMessageIndicator,
         isActiveUser,
         setIsActiveUser,
         discussionData,

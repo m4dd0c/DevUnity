@@ -8,18 +8,21 @@ const Protected = ({
 }: {
   children: React.ReactNode;
   auth: boolean;
-  redirect: string;
+  redirect?: string;
 }) => {
   const nav = useNavigate();
 
+  // appending / in the redirect string if not available
   if (redirect && !redirect.startsWith("/")) redirect = `/${redirect}`;
   if (!redirect) redirect = "/auth/signup";
 
+  // if authenticated is false then navigating
   useEffect(() => {
     if (!auth) {
       nav(redirect);
     }
   }, [redirect, nav, auth]);
+  // otherwise rendering the children
   return children;
 };
 

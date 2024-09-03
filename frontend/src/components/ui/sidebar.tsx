@@ -12,6 +12,7 @@ import {
 import RenderModal from "./renderModal";
 import { useSocket } from "../../context/useSocket";
 import { handleCopy } from "../../lib/utils";
+import MessageIndicator from "../layout/MessageIndicator";
 
 interface Links {
   label: string;
@@ -130,12 +131,12 @@ export const MobileSidebar = ({
   isActiveUser?: boolean;
 }) => {
   const { open, setOpen } = useSidebar();
-  const { saveCode, submitCode } = useSocket();
+  const { saveCode, submitCode, newMessageIndicator } = useSocket();
   return (
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
         )}
         {...props}
       >
@@ -159,10 +160,13 @@ export const MobileSidebar = ({
             className="text-indigo-500 h-5 w-5 flex-shrink-0"
             onClick={handleCopy}
           />
-          <IconMenu2
-            className="text-neutral-800 dark:text-neutral-200"
-            onClick={() => setOpen(!open)}
-          />
+          <div className="relative">
+            <IconMenu2
+              className="text-neutral-800 dark:text-neutral-200"
+              onClick={() => setOpen(!open)}
+            />
+            <MessageIndicator newMessageIndicator={newMessageIndicator} />
+          </div>
         </div>
         <AnimatePresence>
           {open && (
@@ -242,6 +246,7 @@ export const SidebarLink = ({
     );
   } else {
     return onClick ? (
+      // buttons ie: copy roomId, runCode, saveCode
       <button
         onClick={onClick}
         className={cn(
@@ -251,7 +256,6 @@ export const SidebarLink = ({
         {...props}
       >
         {link.icon}
-
         <motion.span
           animate={{
             display: animate

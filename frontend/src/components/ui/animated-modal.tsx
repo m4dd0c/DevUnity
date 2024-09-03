@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useSocket } from "../../context/useSocket";
 
 interface ModalContextType {
   open: boolean;
@@ -41,18 +42,25 @@ export function Modal({ children }: { children: ReactNode }) {
 export const ModalTrigger = ({
   children,
   className,
+  showIndicator,
 }: {
   children: ReactNode;
+  showIndicator?: boolean;
   className?: string;
 }) => {
   const { setOpen } = useModal();
+  const { setNewMessageIndicator } = useSocket();
   return (
     <button
       className={cn(
         "py-2 rounded-md text-black dark:text-white text-center relative",
         className,
       )}
-      onClick={() => setOpen(true)}
+      onClick={() => {
+        setOpen(true);
+        // show indicator
+        if (showIndicator) setNewMessageIndicator(false);
+      }}
     >
       {children}
     </button>

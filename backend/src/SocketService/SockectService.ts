@@ -83,7 +83,7 @@ class SocketService {
           // send info
           socket.to(roomId).emit(ev["b:join"], {
             socketId: socket.id,
-            message: `Welcome ${user.username}`,
+            message: `${user.username} Joined`,
           });
         },
       );

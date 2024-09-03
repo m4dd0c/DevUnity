@@ -48,6 +48,7 @@ export const createRoom = catchAsync(
       password,
       project: {
         title,
+        lang: "JS",
       },
     });
     // creating a discussion
