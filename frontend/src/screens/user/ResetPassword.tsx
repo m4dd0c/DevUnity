@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordAction } from "../../lib/actions/userAction";
 import AceButton from "../../components/ui/AceButton";
-import toast from "react-hot-toast";
+import { showToast } from "../../lib/utils";
 
 function ResetPassword() {
   const nav = useNavigate();
@@ -32,7 +32,7 @@ function ResetPassword() {
     mutationFn: resetPasswordAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         nav("/auth/signin");
       }
     },

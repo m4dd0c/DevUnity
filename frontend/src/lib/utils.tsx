@@ -129,14 +129,38 @@ export const handleCopy = async () => {
   const id = pathname.split("/")[2];
   try {
     await navigator.clipboard.writeText(id);
-    toast.success("RoomId copied.");
-    // return "Text copied to clipboard!";
-    // Show toast
+    showToast({ message: "RoomId copied." });
   } catch (err) {
-    toast.error("Failed to copy RoomId.");
-    return null;
+    showToast({ message: "Failed to copy RoomId", type: "error" });
   }
 };
+
+// show toaster function
+export const showToast = ({
+  message = "Done!",
+  type = "success",
+  icon,
+}: {
+  message?: string;
+  type?: "success" | "error" | "icon";
+  icon?: string;
+}) => {
+  toast.dismiss();
+  switch (type) {
+    case "success":
+      toast.success(message);
+      break;
+    case "error":
+      toast.error(message);
+      break;
+    case "icon":
+      toast(message, { icon: icon || "ℹ" });
+      break;
+    default:
+      break;
+  }
+};
+
 // query keys
 export const KEYS = {
   SIGNUP: "SIGNUP",

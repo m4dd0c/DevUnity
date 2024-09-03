@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ChangePasswordSchema } from "../../lib/schemas/user.schema";
 import { ChangePasswordAction } from "../../lib/actions/userAction";
-import toast from "react-hot-toast";
+import { showToast } from "../../lib/utils";
 
 function ChangePassword() {
   const onSubmit = (data: z.infer<typeof ChangePasswordSchema>) => {
@@ -31,7 +31,7 @@ function ChangePassword() {
     mutationFn: ChangePasswordAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         nav("/");
       }
     },

@@ -8,14 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { SignupSchema } from "../../lib/schemas/user.schema";
 import { z } from "zod";
-import { isValidUsername } from "../../lib/utils";
+import { isValidUsername, showToast } from "../../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import {
   checkAvailabilityAction,
   signupAction,
 } from "../../lib/actions/userAction";
 import AceButton from "../ui/AceButton";
-import toast from "react-hot-toast";
 
 function SignupForm({
   setAuth,
@@ -70,10 +69,10 @@ function SignupForm({
     mutationFn: signupAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         setAuth(true);
         nav(`/user/${res.data}`);
-      } else toast.error("Something went wrong!");
+      }
     },
   });
 

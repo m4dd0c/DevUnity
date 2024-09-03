@@ -5,8 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconLoader, IconLogout } from "@tabler/icons-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutAction } from "../../lib/actions/userAction";
-import { KEYS } from "../../lib/utils";
-import toast from "react-hot-toast";
+import { KEYS, showToast } from "../../lib/utils";
 
 function Navbar({
   className,
@@ -33,10 +32,12 @@ function Navbar({
     mutationFn: logoutAction,
     // eslint-disable-next-line
     onSuccess: (res) => {
-      toast.success(res.message);
-      setAuth(false);
-      queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
-      nav("/");
+      if (res) {
+        showToast({ message: res.message });
+        setAuth(false);
+        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
+        nav("/");
+      }
     },
   });
 

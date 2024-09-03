@@ -11,8 +11,7 @@ import { updatePasswordAndLangAction } from "../../lib/actions/roomAction";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { langs } from "../../constants";
-import { KEYS } from "../../lib/utils";
-import toast from "react-hot-toast";
+import { KEYS, showToast } from "../../lib/utils";
 
 const SettingsForm = ({
   isAdmin,
@@ -89,7 +88,7 @@ const SettingsForm = ({
   // if isNotAdmin then redirecting to playground
   useEffect(() => {
     if (!isAdmin) {
-      toast.error("It seems like you're not admin.");
+      showToast({ message: "It seems like you're not admin", type: "error" });
       tabButtons?.descriptionBtn?.click();
     }
   }, [isAdmin, roomId, tabButtons?.descriptionBtn]);

@@ -8,14 +8,13 @@ import React, {
 } from "react";
 import { useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
-import { ev } from "../lib/utils";
+import { ev, showToast } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { saveCodeAction } from "../lib/actions/roomAction";
 import { updateDiscussionAction } from "../lib/actions/discussionAction";
 import { createSubmissionAction, getSubmissionAction } from "../api/judge0";
 import { langs } from "../constants";
 import { server } from "../lib";
-import toast from "react-hot-toast";
 
 interface SocketProviderProps {
   children?: React.ReactNode;
@@ -113,7 +112,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   // submit code
   const submitCode: ISocketContext["submitCode"] = () => {
     if (!language)
-      return toast("Language has not yet loaded!", { icon: "ℹ " });
+      return showToast({
+        message: "Language has not yet loaded!",
+        icon: "ℹ ",
+        type: "icon",
+      });
 
     submitCodeMutation({
       source_code: btoa(code),
@@ -130,7 +133,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const { mutate: saveCodeMutation } = useMutation({
     mutationFn: saveCodeAction,
     onSuccess: (res) => {
-      toast.success(res.message);
+      if (res) showToast({ message: res.message });
     },
   });
 
@@ -170,7 +173,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     const _socket = io(server);
     _socket.on(ev["b:join"], (data) => {
-      toast.success(data.message);
+      showToast({ message: data.message });
     });
     setSocket(_socket);
 
@@ -185,7 +188,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) toast.success(res.message);
+      if (res) showToast({ message: res.message });
     },
   });
 

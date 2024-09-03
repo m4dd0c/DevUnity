@@ -10,13 +10,12 @@ import {
   editAccountAction,
 } from "../../lib/actions/userAction";
 import { useEffect, useState } from "react";
-import { isValidUsername, KEYS } from "../../lib/utils";
+import { isValidUsername, KEYS, showToast } from "../../lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditAccountSchema } from "../../lib/schemas/user.schema";
 import AceButton from "../../components/ui/AceButton";
 import { z } from "zod";
-import toast from "react-hot-toast";
 
 function EditProfile({ user }: { user: IUser | null }) {
   const onSubmit = (data: z.infer<typeof EditAccountSchema>) => {
@@ -48,7 +47,7 @@ function EditProfile({ user }: { user: IUser | null }) {
     mutationFn: editAccountAction,
     onSuccess: (res) => {
       if (res && user) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         queryClient.invalidateQueries({
           queryKey: [KEYS.GET_ME, KEYS.GET_USER, user._id],
         });

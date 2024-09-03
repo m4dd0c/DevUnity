@@ -10,12 +10,11 @@ import { IconSend } from "@tabler/icons-react";
 import { Input } from "../../ui/input";
 import Discussion from "./Discussion";
 import { useQuery } from "@tanstack/react-query";
-import { ev, KEYS } from "../../../lib/utils";
+import { ev, KEYS, showToast } from "../../../lib/utils";
 import { getDiscussionAction } from "../../../lib/actions/discussionAction";
 import { useCallback, useEffect, useState } from "react";
 import { getMeAction } from "../../../lib/actions/userAction";
 import { useSocket } from "../../../context/useSocket";
-import toast from "react-hot-toast";
 import Loader from "../../layout/Loadings/Loader";
 import MessageIndicator from "../../layout/MessageIndicator";
 
@@ -60,9 +59,15 @@ function DiscussionModal({
   const handleSend = () => {
     if (msg.trim() && isAllowed) {
       // append to discussionData.
-      if (!user) return toast.error("It seems like you're unauthenticated.");
-      if (!discussionData) return toast.error("Something went wrong.");
-      if (!room) return toast.error("Something went wrong.");
+      if (!user)
+        return showToast({
+          message: "It seems like you're unauthenticated.",
+          type: "error",
+        });
+      if (!discussionData)
+        return showToast({ message: "Something went wrong.", type: "error" });
+      if (!room)
+        return showToast({ message: "Something went wrong.", type: "error" });
 
       setDiscussionData((prev) => {
         const newChat = {
@@ -135,7 +140,9 @@ function DiscussionModal({
   // get init chat
   useEffect(() => {
     if (!socket || !room) {
-      toast("Either socket or room has not been loaded!", { icon: "ℹ" });
+      console.log({
+        info: "Either socket or room has not been loaded!",
+      });
       return;
     }
 
@@ -152,7 +159,9 @@ function DiscussionModal({
 
   useEffect(() => {
     if (!socket || !room) {
-      toast("Either socket or room has not been loaded!", { icon: "ℹ" });
+      console.log({
+        info: "Either socket or room has not been loaded!",
+      });
       return;
     }
     //emits

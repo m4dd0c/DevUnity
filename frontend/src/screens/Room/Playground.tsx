@@ -3,11 +3,10 @@ import RoomSidebar from "../../components/layout/RoomSidebar";
 import Dashboard from "../../components/Room/Dashboard";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getRoomAction } from "../../lib/actions/roomAction";
-import { KEYS } from "../../lib/utils";
+import { KEYS, showToast } from "../../lib/utils";
 import { useEffect, useState } from "react";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
-import toast from "react-hot-toast";
 import Loader from "../../components/layout/Loadings/Loader";
 
 const Playground = ({ user }: { user: null | IUser }) => {
@@ -45,7 +44,10 @@ const Playground = ({ user }: { user: null | IUser }) => {
   // if !user then
   useEffect(() => {
     if (!user) {
-      toast.error("It seems like you're unauthenticated.");
+      showToast({
+        message: "It seems like you're unauthenticated.",
+        type: "error",
+      });
       nav("/auth/signin");
     }
   }, [nav, user]);
@@ -54,7 +56,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) toast.success("Chat saved!");
+      if (res) showToast({ message: res.message });
     },
   });
 

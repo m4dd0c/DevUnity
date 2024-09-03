@@ -1,5 +1,5 @@
 import axios from "axios";
-import toast from "react-hot-toast";
+import { showToast } from "./utils";
 
 // export const server = import.meta.env.BACKEND_URI;
 export const server =
@@ -23,10 +23,13 @@ axiosInstance.interceptors.response.use(
         "Axios error occurred:",
         error.response?.data.message || error.message,
       );
-      toast.error(error.response?.data.message || error.message);
+      showToast({
+        message: error.response?.data.message || error.message,
+        type: "error",
+      });
     } else {
       console.error("Unexpected error occurred:", error.message);
-      toast.error(error.message);
+      showToast({ message: error.message, type: "error" });
     }
     // Optionally, return a rejected promise to propagate the error further
     return Promise.reject(error);

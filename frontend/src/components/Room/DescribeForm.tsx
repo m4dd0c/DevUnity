@@ -10,10 +10,9 @@ import { z } from "zod";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateRoomAction } from "../../lib/actions/roomAction";
-import { KEYS } from "../../lib/utils";
+import { KEYS, showToast } from "../../lib/utils";
 import { Textarea } from "../ui/textarea";
 import AceButton from "../ui/AceButton";
-import toast from "react-hot-toast";
 
 export default function DescribeForm({
   room,
@@ -55,7 +54,7 @@ export default function DescribeForm({
     mutationFn: updateRoomAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM, roomId] });
         tabButtons?.descriptionBtn?.click();
       }
@@ -80,7 +79,7 @@ export default function DescribeForm({
   // if isNotAdmin then redirecting to playground
   useEffect(() => {
     if (!isAdmin) {
-      toast.error("It seems like you're not admin.");
+      showToast({ message: "It seems like you're not admin.", type: "error" });
       tabButtons?.descriptionBtn?.click();
     }
   }, [isAdmin, roomId, tabButtons?.descriptionBtn]);

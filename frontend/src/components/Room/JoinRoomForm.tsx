@@ -2,7 +2,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { LabelInputContainer } from "../ui/misc";
 import AceButton from "../ui/AceButton";
-import { KEYS } from "../../lib/utils";
+import { KEYS, showToast } from "../../lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,6 @@ import { JoinRoomSchema } from "../../lib/schemas/room.schema";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/useSocket";
-import toast from "react-hot-toast";
 
 function JoinRoomForm({ user }: { user: IUser | null }) {
   const nav = useNavigate();
@@ -51,7 +50,7 @@ function JoinRoomForm({ user }: { user: IUser | null }) {
   // if error / response handling
   useEffect(() => {
     if (data && user) {
-      toast.success(data.message);
+      showToast({ message: data.message });
       joinEvent({ roomId: data.data, userId: user._id });
       return nav(`/room/${data.data}/about`, { state: { query: "rwx" } });
     }

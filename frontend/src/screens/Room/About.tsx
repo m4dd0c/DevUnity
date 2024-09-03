@@ -4,13 +4,12 @@ import DescribeForm from "../../components/Room/DescribeForm";
 import ProjectDescription from "../../components/Room/ProjectDescription";
 import { Tabs } from "../../components/ui/tabs";
 import { useEffect, useState } from "react";
-import { getLang, KEYS } from "../../lib/utils";
+import { getLang, KEYS, showToast } from "../../lib/utils";
 import { getRoomAction } from "../../lib/actions/roomAction";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SettingsForm from "../../components/Room/SettingsForm";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
-import toast from "react-hot-toast";
 import Loader from "../../components/layout/Loadings/Loader";
 
 function Describe({ user }: { user: IUser | null }) {
@@ -82,7 +81,10 @@ function Describe({ user }: { user: IUser | null }) {
   // if user is null
   useEffect(() => {
     if (!user) {
-      toast.error("It seems like you're unauthenticated.");
+      showToast({
+        message: "It seems like you're unauthenticated.",
+        type: "error",
+      });
       return nav("/auth/signin");
     }
   }, [user, nav]);
@@ -109,7 +111,7 @@ function Describe({ user }: { user: IUser | null }) {
   const { mutate } = useMutation({
     mutationFn: updateDiscussionAction,
     onSuccess: (res) => {
-      if (res) toast.success("Chat saved!");
+      if (res) showToast({ message: res.message });
     },
   });
   // settings language

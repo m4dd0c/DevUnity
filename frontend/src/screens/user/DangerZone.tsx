@@ -12,8 +12,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AceButton from "../../components/ui/AceButton";
-import toast from "react-hot-toast";
-import { KEYS } from "../../lib/utils";
+import { KEYS, showToast } from "../../lib/utils";
 
 function DangerZone({
   username,
@@ -55,7 +54,7 @@ function DangerZone({
     mutationFn: deleteAccountAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         queryClient.invalidateQueries({
           queryKey: [KEYS.GET_ME, KEYS.GET_USER, user_id],
         });

@@ -17,7 +17,6 @@ import { useParams } from "react-router-dom";
 import { ev, getElapsedTime, getLang } from "../../lib/utils";
 import { LabelInputContainer } from "../ui/misc";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import toast from "react-hot-toast";
 import Loader from "../layout/Loadings/Loader";
 
 // Set the base path for Ace
@@ -73,7 +72,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
   const codeReq = useCallback(
     ({ socketId }: { socketId: string }) => {
       if (!socket) {
-        toast("Socket not yet loaded!", { icon: "ℹ" });
+        console.log({ info: "Socket not yet loaded!" });
         return;
       }
       socket.emit(ev["f:code_load"], { socketId, code });
@@ -85,7 +84,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
   useEffect(() => {
     // events handling
     if (!socket) {
-      toast("Socket not yet loaded!", { icon: "ℹ" });
+      console.log({ info: "Socket not yet loaded!" });
       return;
     }
 
@@ -105,7 +104,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
 
   useEffect(() => {
     if (!socket) {
-      toast("Socket not yet loaded!", { icon: "ℹ" });
+      console.log({ info: "Socket not yet loaded!" });
       return;
     }
     // emits

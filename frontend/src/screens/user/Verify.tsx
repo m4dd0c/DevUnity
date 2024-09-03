@@ -3,8 +3,7 @@ import { Spotlight } from "../../components/ui/Spotlight";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { verificationAction } from "../../lib/actions/userAction";
-import { KEYS } from "../../lib/utils";
-import toast from "react-hot-toast";
+import { KEYS, showToast } from "../../lib/utils";
 
 function Verify() {
   const nav = useNavigate();
@@ -27,10 +26,10 @@ function Verify() {
   // when request completed w/ error or success
   useEffect(() => {
     if (isError) {
-      toast.error("Account verification failed.");
+      showToast({ message: "Account verification failed.", type: "error" });
     }
     if (data && data.data === true) {
-      toast.success(data.message);
+      showToast({ message: data.message });
       nav("/");
     }
   }, [isError, error, data, nav]);

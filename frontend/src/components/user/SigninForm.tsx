@@ -10,8 +10,8 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { signinAction } from "../../lib/actions/userAction";
 import { IconLogin2 } from "@tabler/icons-react";
-import toast from "react-hot-toast";
 import { Dispatch, SetStateAction } from "react";
+import { showToast } from "../../lib/utils";
 
 function SigninForm({
   setAuth,
@@ -40,10 +40,10 @@ function SigninForm({
     mutationFn: signinAction,
     onSuccess: (res) => {
       if (res) {
-        toast.success(res.message);
+        showToast({ message: res.message });
         setAuth(true);
         nav(`/user/${res.data}`);
-      } else toast.error("Something went wrong.");
+      }
     },
   });
 
