@@ -15,7 +15,6 @@ import Loader from "../../components/layout/Loadings/Loader";
 function Describe({ user }: { user: IUser | null }) {
   const nav = useNavigate();
   // setting default to preview mode
-  // while visting from search or profile add query 'r' TODO:;
   const { roomId } = useParams();
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();

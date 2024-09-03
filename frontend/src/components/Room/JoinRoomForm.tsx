@@ -14,7 +14,6 @@ import { useSocket } from "../../context/useSocket";
 
 function JoinRoomForm({ user }: { user: IUser | null }) {
   const nav = useNavigate();
-  //TODO: remove caching for rooms
 
   const { isLoading, refetch, data } = useQuery({
     queryFn: async () =>
