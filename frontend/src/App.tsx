@@ -82,7 +82,13 @@ function App() {
         position="bottom-right"
       />
       <SocketProvider>
-        <Suspense fallback={<Loader />}>
+        <Suspense
+          fallback={
+            <div className="bg-black w-full h-screen grid place-items-center">
+              <Loader />
+            </div>
+          }
+        >
           <Header user_id={user && user._id} auth={auth} setAuth={setAuth} />
           <Routes>
             <Route path="*" element={<NotFound />} />
