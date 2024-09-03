@@ -40,7 +40,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
 
   useEffect(() => {
     refetch();
-  }, [query]);
+  }, [query, refetch]);
   // if !user then
   useEffect(() => {
     if (!user) {

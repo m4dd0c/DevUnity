@@ -10,6 +10,7 @@ export const ev = {
   "b:message": "b:message",
   "b:chat_load": "b:chat_load",
   "b:chat_req": "b:chat_req",
+  "b:lang_change": "b:lang_change",
 
   // frontend emits
   "f:join": "f:join",
@@ -21,4 +22,5 @@ export const ev = {
   "f:message": "f:message",
   "f:chat_load": "f:chat_load",
   "f:chat_req": "f:chat_req",
+  "f:lang_change": "f:lang_change",
 };

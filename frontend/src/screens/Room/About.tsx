@@ -105,7 +105,7 @@ function Describe({ user }: { user: IUser | null }) {
   // calling refetch everytime query changes
   useEffect(() => {
     refetch();
-  }, [query]);
+  }, [query, refetch]);
 
   // save chat mutation
   const { mutate } = useMutation({

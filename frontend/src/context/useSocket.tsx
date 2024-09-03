@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
-import { ev, showToast } from "../lib/utils";
+import { ev, getLang, showToast } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { saveCodeAction } from "../lib/actions/roomAction";
 import { updateDiscussionAction } from "../lib/actions/discussionAction";
@@ -38,6 +38,7 @@ interface ISocketContext {
   setLanguage: React.Dispatch<SetStateAction<ILang>>;
   setStdin: React.Dispatch<SetStateAction<null | string>>;
   newMessageIndicator: boolean;
+  sendLanguage: ({ lang, roomId }: { lang: TLang; roomId?: string }) => any;
   setNewMessageIndicator: React.Dispatch<SetStateAction<boolean>>;
 }
 
@@ -126,7 +127,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   };
 
   // save code
-  const saveCode = ({ roomId }: { roomId: string }) => {
+  const saveCode: ISocketContext["saveCode"] = ({ roomId }) => {
     saveCodeMutation({ roomId, code });
   };
 
@@ -137,12 +138,24 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     },
   });
 
+  // send new language to everyone
+  const sendLanguage: ISocketContext["sendLanguage"] = ({ lang, roomId }) => {
+    if (!socket || !roomId) return;
+    socket.emit(ev["f:lang_change"], { roomId, lang });
+  };
+
+  const changeLang = useCallback(({ lang }: { lang: TLang }) => {
+    if (!lang) return;
+    const newLang = getLang(lang);
+    if (!newLang) return;
+    setLanguage(newLang);
+  }, []);
+
   // joinEvent
   const joinEvent: ISocketContext["joinEvent"] = useCallback(
     ({ roomId, userId }) => {
       if (!socket || !roomId || !userId) return;
       socket.emit(ev["f:join"], { roomId, userId });
-      return;
     },
     [socket],
   );
@@ -152,7 +165,6 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     ({ roomId, code }) => {
       if (!socket || !roomId) return;
       socket.emit(ev["f:code_change"], { roomId, code });
-      return;
     },
     [socket],
   );
@@ -175,14 +187,16 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     _socket.on(ev["b:join"], (data) => {
       showToast({ message: data.message });
     });
+    _socket.on(ev["b:lang_change"], changeLang);
     setSocket(_socket);
 
     return () => {
-      _socket.disconnect();
       _socket.off(ev["b:join"]);
+      _socket.off(ev["b:lang_change"], changeLang);
+      _socket.disconnect();
       setSocket(undefined);
     };
-  }, []);
+  }, [changeLang]);
 
   // save chat mutation
   const { mutate } = useMutation({
@@ -234,6 +248,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
+        sendLanguage,
         setNewMessageIndicator,
         newMessageIndicator,
         isActiveUser,

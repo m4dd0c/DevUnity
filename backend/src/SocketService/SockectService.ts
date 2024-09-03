@@ -104,6 +104,14 @@ class SocketService {
       );
       // code sync ends here
 
+      // language
+      socket.on(
+        ev["f:lang_change"],
+        ({ roomId, lang }: { roomId: string; lang: string }) => {
+          io.in(roomId).emit(ev["b:lang_change"], { lang });
+        },
+      );
+
       // room update event
       socket.on(
         ev["f:code_change"],

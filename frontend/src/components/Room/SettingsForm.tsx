@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { langs } from "../../constants";
 import { KEYS, showToast } from "../../lib/utils";
+import { useSocket } from "../../context/useSocket";
 
 const SettingsForm = ({
   isAdmin,
@@ -21,6 +22,8 @@ const SettingsForm = ({
   room: IRoom | undefined;
 }) => {
   const { roomId } = useParams();
+  const { sendLanguage } = useSocket();
+  const [language, setLanguage] = useState<TLang>(room?.project.lang || "js");
 
   const {
     handleSubmit,
@@ -41,6 +44,8 @@ const SettingsForm = ({
     onSuccess: (res) => {
       if (res) {
         queryClient.invalidateQueries({ queryKey: [KEYS.GET_ROOM, roomId] });
+        // send language to everyone in the room;
+        sendLanguage({ lang: language, roomId });
         tabButtons?.descriptionBtn?.click();
       }
     },
@@ -48,8 +53,6 @@ const SettingsForm = ({
       console.error(err);
     },
   });
-
-  const [language, setLanguage] = useState<TLang>(room?.project.lang || "js");
 
   const onSubmit = (data: z.infer<typeof UpdatePassAndLangSchema>) => {
     // Check if there's no language and no password
@@ -71,6 +74,7 @@ const SettingsForm = ({
       }
     }
   };
+
   const [tabButtons, setTabButtons] = useState<ITabButtons>({
     describeBtn: null,
     descriptionBtn: null,
