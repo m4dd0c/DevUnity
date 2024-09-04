@@ -27,7 +27,7 @@ const Hero = () => {
             <br />
             unite and create with{" "}
             <Highlight className="text-black dark:text-white">
-              Collaborite
+              DevUnity
             </Highlight>
           </motion.h1>
           <HeroGlobe />

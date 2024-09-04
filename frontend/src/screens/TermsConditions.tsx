@@ -1,5 +1,6 @@
 import Heading from "../components/layout/Heading";
 import SpotlightPreview from "../components/layout/SpotlightPreview";
+import { langs } from "../constants";
 
 const TermsConditions = () => {
   return (
@@ -7,27 +8,31 @@ const TermsConditions = () => {
       <SpotlightPreview
         heading={"Guardians of Your Journey"}
         subheading={
-          "Our terms set the rules for a smooth voyage through Collabrite. Understanding them ensures a secure and collaborative experience for all."
+          "Our terms set the rules for a smooth voyage through DevUnity. Understanding them ensures a secure and collaborative experience for all."
         }
       />{" "}
       <div className="mx-auto px-4 py-8 max-w-5xl">
         <section className="p-6 md:p-8 rounded-lg shadow-lg">
           <Heading>Terms and Conditions</Heading>
           <p className="text-lg mb-4">
-            Welcome to Collabrite! By using our platform, you agree to comply
-            with and be bound by the following terms and conditions.
+            Welcome to DevUnity! By using our platform, you agree to comply with
+            and be bound by the following terms and conditions.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">
             1. Acceptance of Terms
           </h2>
           <p className="text-lg mb-4">
-            By accessing and using Collabrite (
+            By accessing and using DevUnity (
             <a
-              href="https://collabrite.netlify.app"
+              href={
+                import.meta.env["VITE_FRONTEND_URI"] ||
+                "https://localhost:5173/"
+              }
               className="text-blue-400 hover:underline"
             >
-              https://collabrite.netlify.app
+              {import.meta.env["VITE_FRONTEND_URI"] ||
+                "https://localhost:5173/"}
             </a>
             ), you accept and agree to be bound by the terms and conditions
             outlined in this agreement.
@@ -35,7 +40,7 @@ const TermsConditions = () => {
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">2. Eligibility</h2>
           <p className="text-lg mb-4">
-            You must be at least 9 years old to use Collabrite.
+            You must be at least 9 years old to use DevUnity.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">3. User Conduct</h2>
@@ -65,7 +70,7 @@ const TermsConditions = () => {
             5. Data Collection
           </h2>
           <p className="text-lg mb-4">
-            Collabrite collects and stores the following data:
+            DevUnity collects and stores the following data:
           </p>
           <ul className="list-disc list-inside text-lg mb-4">
             <li>
@@ -85,14 +90,14 @@ const TermsConditions = () => {
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">7. Data Sharing</h2>
           <p className="text-lg mb-4">
-            Collabrite does not share your data with any third parties.
+            DevUnity does not share your data with any third parties.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">
             8. Account Termination
           </h2>
           <p className="text-lg mb-4">
-            While the feature is not yet implemented, Collabrite reserves the
+            While the feature is not yet implemented, DevUnity reserves the
             right to terminate user accounts for violations of these terms.
           </p>
 
@@ -116,10 +121,9 @@ const TermsConditions = () => {
             11. Allowed File Types
           </h2>
           <ul className="list-disc list-inside text-lg mb-4">
-            <li>.js</li>
-            <li>.cpp</li>
-            <li>.py</li>
-            <li>.c</li>
+            {langs.map((lang) => (
+              <li key={lang.id}>{lang.value}</li>
+            ))}
           </ul>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">
@@ -132,15 +136,15 @@ const TermsConditions = () => {
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">13. Arbitration</h2>
           <p className="text-lg mb-4">
-            Collabrite does not currently offer arbitration for disputes.
+            DevUnity does not currently offer arbitration for disputes.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">
             14. Modifications to Terms
           </h2>
           <p className="text-lg mb-4">
-            Collabrite reserves the right to modify these terms at any time.
-            Users will be notified of any changes.
+            DevUnity reserves the right to modify these terms at any time. Users
+            will be notified of any changes.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">15. Support</h2>
@@ -150,9 +154,8 @@ const TermsConditions = () => {
 
           <footer className="mt-6 text-center">
             <p className="text-lg">
-              By using Collabrite, you agree to these terms and conditions.
-              Thank you for choosing Collabrite for your collaborative coding
-              needs.
+              By using DevUnity, you agree to these terms and conditions. Thank
+              you for choosing DevUnity for your collaborative coding needs.
             </p>
           </footer>
         </section>

@@ -17,7 +17,7 @@ const Testimonials = () => {
   }, [slowScrollerRef, fastScrollerRef]);
   return (
     <div id="testimonials">
-      <Heading subtext={"Here is what they want to say about Collabrite"}>
+      <Heading subtext={"Here is what they want to say about DevUnity"}>
         Loved by thousands of people
       </Heading>
       <div className="flex justify-evenly bg-transparent rounded-lg overflow-hidden h-[80vh] [mask-image:linear-gradient(to_top,transparent,white_20%,white_80%,transparent)]">

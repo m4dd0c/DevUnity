@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import isEmail from "validator/lib/isEmail";
 import { IUser } from "../types/types";
 import Room from "./Room";
-import CollabriteError from "../utils/CollabriteError";
+import DevUnityError from "../utils/DevUnityError";
 import Discussion from "./Discussion";
 
 const userSchema = new Schema<IUser>(
@@ -111,7 +111,7 @@ userSchema.pre(
       const rooms = await Room.deleteMany({ admin: this._id });
       if (!rooms)
         return next(
-          new CollabriteError(
+          new DevUnityError(
             500,
             "rooms, that are created by deleted user couldn't be deleted.",
           ),
@@ -120,7 +120,7 @@ userSchema.pre(
       const discussions = await Discussion.deleteMany({ admin: this._id });
       if (!discussions)
         return next(
-          new CollabriteError(
+          new DevUnityError(
             500,
             "rooms, that are created by deleted user couldn't be deleted.",
           ),

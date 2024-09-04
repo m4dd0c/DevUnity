@@ -84,7 +84,7 @@ function CreateRoomForm() {
           <Input
             {...register("title")}
             id="title"
-            placeholder="eg: Collabrite"
+            placeholder="eg: DevUnity"
             type="text"
             transparent={true}
           />

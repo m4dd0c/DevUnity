@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import CollabriteError from "../utils/CollabriteError";
-import CollabriteRes from "../utils/CollabriteRes";
+import DevUnityError from "../utils/DevUnityError";
+import DevUnityRes from "../utils/DevUnityRes";
 import ErrorLogs from "../model/ErrorLogs";
 
 const error = async (
-  err: CollabriteError,
+  err: DevUnityError,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -12,7 +12,7 @@ const error = async (
   try {
     const development = process.env["Mode"] === "DEV";
     // response instance
-    const errRes = new CollabriteRes(res);
+    const errRes = new DevUnityRes(res);
     errRes.status = err.status || 500;
 
     // if production
@@ -22,7 +22,7 @@ const error = async (
     } else if (err instanceof SyntaxError || err instanceof URIError) {
       errRes.message = "Unprocessable Request.";
       // if custom error
-    } else if (err instanceof CollabriteError) {
+    } else if (err instanceof DevUnityError) {
       errRes.message = err.message;
       // unhandled from above conditions
     } else {

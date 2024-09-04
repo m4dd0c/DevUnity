@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { IRoom } from "../types/types";
 import Discussion from "./Discussion";
 import User from "./User";
-import CollabriteError from "../utils/CollabriteError";
+import DevUnityError from "../utils/DevUnityError";
 
 const roomSchema = new Schema<IRoom>(
   {
@@ -88,7 +88,7 @@ roomSchema.pre(
       const discussions = await Discussion.deleteOne({ room: room_id });
       if (!discussions)
         return next(
-          new CollabriteError(
+          new DevUnityError(
             400,
             "Couldn't delete associated discussion due to some issue.",
           ),

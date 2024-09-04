@@ -113,7 +113,7 @@ function SignupForm({
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 bg-white dark:bg-transparent">
       <h2 className="font-bold text-3xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Collabrite<span className="text-cyan-500">.</span>
+        Welcome to DevUnity<span className="text-cyan-500">.</span>
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         We together Create, Build, and Collaborate.

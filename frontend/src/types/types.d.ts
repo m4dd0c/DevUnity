@@ -143,3 +143,7 @@ interface ISubmitCodeArgs {
   language_id: number;
   stdin: string | null;
 }
+interface IPaginationState {
+  page: number;
+  size: number;
+}

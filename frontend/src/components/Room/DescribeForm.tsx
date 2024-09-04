@@ -98,7 +98,7 @@ export default function DescribeForm({
             <Input
               {...register("title")}
               id="title"
-              placeholder="Collabrite"
+              placeholder="DevUnity"
               type="text"
               className="bg-slate-800 font-normal"
             />

@@ -8,7 +8,7 @@ const Footer = () => {
     <div
       className={`min-h-[40vh] bg-black text-white flex flex-col ${isRoomPath && "hidden"}`}
     >
-      <div className="flex justify-between p-10 max-lg:flex-col flex-1">
+      <div className="flex justify-between p-10 max-md:flex-col flex-1">
         <div>
           <div className="hover:text-neutral-300">
             <HashLink
@@ -17,7 +17,7 @@ const Footer = () => {
               to="/#hero"
             >
               <img src="/assets/logo.png" alt="logo" height={80} width={80} />
-              <h1 className="font-bold text-2xl underline">Collabrite</h1>
+              <h1 className="font-bold text-2xl underline">DevUnity</h1>
             </HashLink>
           </div>
           <div>
@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
 
         <br />
-        <hr />
+        <div className="md:hidden bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
         <br />
         <div className="flex space-x-4 gap-4">
           <div className="flex flex-col">
@@ -37,7 +37,7 @@ const Footer = () => {
               to="/#hero"
               smooth
             >
-              Hero section
+              Hero
             </HashLink>
             <HashLink
               className="hover:text-neutral-300 line-clamp-1"
@@ -72,34 +72,41 @@ const Footer = () => {
               to="/#room-promo"
               smooth
             >
-              Room Promo
+              RoomPromo
             </HashLink>
           </div>
-          <div className="flex flex-col">
-            <Link
-              className="hover:text-neutral-300 line-clamp-1"
-              to="/room/create"
-            >
-              Create a Room
-            </Link>
-            <Link
-              className="hover:text-neutral-300 line-clamp-1"
-              to="/room/join"
-            >
-              Join a Room
-            </Link>
-          </div>
-          <div className="flex flex-col">
-            <Link className="hover:text-neutral-300 line-clamp-1" to="/contact">
-              Get in touch
-            </Link>
-            <Link className="hover:text-neutral-300 line-clamp-1" to="/about">
-              Know about us
-            </Link>
+          <div className="flex max-md:flex-col gap-5">
+            <div className="flex flex-col">
+              <Link
+                className="hover:text-neutral-300 line-clamp-1"
+                to="/room/create"
+              >
+                Create a Room
+              </Link>
+              <Link
+                className="hover:text-neutral-300 line-clamp-1"
+                to="/room/join"
+              >
+                Join a Room
+              </Link>
+            </div>
+            <div className="flex flex-col ">
+              <Link
+                className="hover:text-neutral-300 line-clamp-1"
+                to="/contact"
+              >
+                Get in touch
+              </Link>
+              <Link className="hover:text-neutral-300 line-clamp-1" to="/about">
+                Know about us
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex border-t border-t-neutral-600 p-3 bottom-0 mx-6 justify-between">
+
+      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
+      <div className="flex p-3 bottom-0 mx-6 justify-between">
         <div className="flex gap-3 max-sm:hidden">
           <Link
             className="hover:text-neutral-300 line-clamp-1"

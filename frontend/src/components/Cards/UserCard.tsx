@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const UserCard = ({ user }: { user: IUser }) => {
   return (
-    <Link to={`/user/${user._id}`}>
+    <Link className="my-1 block" to={`/user/${user._id}`}>
       <div className="bg-slate-900 rounded-xl max-md:rounded-none mx-auto flex max-md:p-2 p-4 w-11/12 max-md:w-full gap-7 max-md:gap-4 items-center">
         <div className="min-w-16 min-h-16 max-md:min-h-12 max-md:min-w-12">
           <img

@@ -9,12 +9,12 @@ const About = () => {
       <SpotlightPreview
         heading={"Meet the Architects"}
         subheading={
-          "Discover the visionaries behind Collabrite. We're shaping the future of collaborative coding with passion and innovation."
+          "Discover the visionaries behind DevUnity. We're shaping the future of collaborative coding with passion and innovation."
         }
       />
       <div className="mx-auto px-4 py-8 max-w-5xl">
         <section className="shadow-lg rounded-lg p-6 md:p-8">
-          <Heading>Welcome to Collabrite</Heading>
+          <Heading>Welcome to DevUnity</Heading>
           <h2 className="text-2xl font-semibold mb-4">
             Founder: <span className="text-4xl">Manish Suthar</span>
           </h2>
@@ -34,7 +34,7 @@ const About = () => {
             </Link>
           </div>
           <p className="text-lg mb-4">
-            <strong>Founded in 2024,</strong> Collabrite is a groundbreaking
+            <strong>Founded in 2024,</strong> DevUnity is a groundbreaking
             platform designed to help developers forge meaningful connections
             and leverage these networks to create remarkable projects.
           </p>
@@ -45,7 +45,7 @@ const About = () => {
             teamwork.
           </p>
           <p className="text-lg mb-4">
-            At Collabrite, we believe in the power of collaboration and
+            At DevUnity, we believe in the power of collaboration and
             innovation. Our platform is tailored to foster a community where
             developers can come together, share knowledge, and build something
             invincible.

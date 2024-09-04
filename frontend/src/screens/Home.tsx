@@ -5,6 +5,7 @@ import Testimonials from "../components/Home/Testimonials";
 import Brands from "../components/Home/Brands.tsx";
 import Team from "../components/Home/Team.tsx";
 import RoomPromo from "../components/Home/RoomPromo.tsx";
+
 function Home() {
   return (
     <>

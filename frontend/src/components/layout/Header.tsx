@@ -33,7 +33,7 @@ const Header = ({
             to="/#hero"
           >
             <img src="/assets/logo.png" alt="logo" height={80} width={80} />
-            <h1 className="font-bold text-2xl max-lg:hidden">Collabrite</h1>
+            <h1 className="font-bold text-2xl max-lg:hidden">DevUnity</h1>
           </HashLink>
         </div>
       </div>

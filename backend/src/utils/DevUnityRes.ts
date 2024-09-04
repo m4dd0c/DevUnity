@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-class CollabriteRes {
+class DevUnityRes {
   private res: Response;
   status: number | undefined;
   message: string | undefined;
@@ -47,4 +47,4 @@ class CollabriteRes {
     });
   }
 }
-export default CollabriteRes;
+export default DevUnityRes;

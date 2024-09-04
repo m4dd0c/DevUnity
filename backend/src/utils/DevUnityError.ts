@@ -1,4 +1,4 @@
-class CollabriteError extends Error {
+class DevUnityError extends Error {
   public status;
   constructor(status: number, message: string) {
     super(message);
@@ -6,4 +6,4 @@ class CollabriteError extends Error {
     this.message = message;
   }
 }
-export default CollabriteError;
+export default DevUnityError;

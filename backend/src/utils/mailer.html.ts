@@ -22,7 +22,7 @@ export const verificationHTMLCreator = ({ token }: { token: string }) => {
               -webkit-text-fill-color: transparent;
             "
           >
-            Welcome to Collabrite
+            Welcome to DevUnity
           </h1>
           <p style="text-align: center">Collaborate, Create, Build</p>
         </div>
@@ -34,7 +34,7 @@ export const verificationHTMLCreator = ({ token }: { token: string }) => {
           "
         >
           <img
-            src="https://res.cloudinary.com/dscuiqkrh/image/upload/v1722816813/Collabrite/verify_oq8jkr.jpg"
+            src="https://res.cloudinary.com/dscuiqkrh/image/upload/v1722816813/DevUnity/verify_oq8jkr.jpg"
             alt="verify-account"
             style="height: 100%; width: 100%"
           />
@@ -65,7 +65,7 @@ export const verificationHTMLCreator = ({ token }: { token: string }) => {
           <br />
           <p>
             <strong>Note: </strong>If you haven't created an account on
-            Collabrite, please ignore this and don't share with anyone.
+            DevUnity, please ignore this and don't share with anyone.
           </p>
         </div>
         </div>
@@ -102,7 +102,7 @@ export const resetHTMLCreator = ({
               -webkit-text-fill-color: transparent;
             "
           >
-            Reset your Collabrite Password
+            Reset your DevUnity Password
           </h1>
           <p style="padding: 8px 0; text-align: center">
             We heard you need us, Here we are.
@@ -190,7 +190,7 @@ export const contactUsHTMLCreator = ({
               -webkit-text-fill-color: transparent;
             "
           >
-            Connect to Collabrite
+            Connect to DevUnity
           </h1>
           <p style="text-align: center">Why not have a chat while you can.</p>
         </div>

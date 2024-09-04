@@ -108,6 +108,12 @@ export const getLang = (lang: string) => {
   return result;
 };
 
+// format number append 0 before 0-9
+export const formatNumber = (num: number) => {
+  const formattedNumber = num > 9 ? num.toString() : `0${num}`;
+  return formattedNumber;
+};
+
 // we'll use it to find elapsedtime for code execution
 export const getElapsedTime = ({
   createdAt,

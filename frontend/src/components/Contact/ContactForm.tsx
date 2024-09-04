@@ -43,7 +43,7 @@ function ContactForm() {
   return (
     <div className="max-w-md w-full mx-auto rounded-none border border-neutral-900 md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Contact Collabrite
+        Contact DevUnity
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
         <span>Get in touch</span> <span className="text-lg font-bold">•</span>{" "}
@@ -97,7 +97,7 @@ function ContactForm() {
           <Label htmlFor="message">Message/Feedback</Label>
           <Textarea
             {...register("message")}
-            placeholder="eg: Collabrite is so awesome..."
+            placeholder="eg: DevUnity is so awesome..."
             id="message"
           />
           {errors.message && (

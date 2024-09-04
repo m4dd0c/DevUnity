@@ -1,5 +1,5 @@
 import { IconArrowsExchange2 } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
 import UserCard from "../components/Cards/UserCard";
 import ProjectCard from "../components/Cards/ProjectCard";
@@ -9,6 +9,7 @@ import { KEYS } from "../lib/utils";
 import { searchUsersAction } from "../lib/actions/userAction";
 import { searchRoomsAction } from "../lib/actions/roomAction";
 import SearchLoading from "../components/layout/Loadings/SearchLoading";
+import Pagination from "../components/layout/Pagination";
 
 const Search = () => {
   const placeholders = [
@@ -25,11 +26,12 @@ const Search = () => {
   // switch b/w projects and users data
   const handleType = () => {
     setType((prev) => (prev === "Users" ? "Projects" : "Users"));
+    setPaginationState({ size: 10, page: 1 });
   };
 
   // eslint-disable-next-line
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
     if (!query.trim()) return;
     if (type === "Users") fetchUsers();
     if (type === "Projects") fetchProjects();
@@ -37,7 +39,7 @@ const Search = () => {
 
   // query
   const [query, setQuery] = useState("");
-  // const page TODO: pagination remains
+  const [paginationState, setPaginationState] = useState({ page: 1, size: 10 });
 
   // fetching users
   const {
@@ -45,7 +47,12 @@ const Search = () => {
     isLoading: isLoadingUsers,
     data: users,
   } = useQuery({
-    queryFn: async () => await searchUsersAction({ query, page: 1, size: 10 }),
+    queryFn: async () =>
+      await searchUsersAction({
+        query,
+        page: paginationState.page,
+        size: paginationState.size,
+      }),
     queryKey: [KEYS.SEARCH_USERS],
     enabled: false,
   });
@@ -56,11 +63,22 @@ const Search = () => {
     isLoading: isLoadingProjects,
     data: projects,
   } = useQuery({
-    queryFn: async () => await searchRoomsAction({ query, page: 1, size: 10 }),
+    queryFn: async () =>
+      await searchRoomsAction({
+        query,
+        page: paginationState.page,
+        size: paginationState.size,
+      }),
     queryKey: [KEYS.SEARCH_PROJECTS],
     enabled: false,
   });
   const [active, setActive] = useState(false);
+
+  // Refetching data whenever paginationState changes
+  // TODO: check if if wrong
+  useEffect(() => {
+    onSubmit();
+  }, [paginationState]);
 
   const isLoading = isLoadingUsers || isLoadingProjects;
   return (
@@ -92,17 +110,33 @@ const Search = () => {
           ) : /* if type is User than check if result available or not, if result available than show result else noResult page */
           type === "Users" ? (
             users && users.data && users.data.users.length > 0 ? (
-              users.data.users.map((user) => (
-                <UserCard user={user} key={user._id} />
-              ))
+              <>
+                {users.data.users.map((user) => (
+                  <UserCard user={user} key={user._id} />
+                ))}
+                <Pagination
+                  query={query}
+                  isNext={users.data.isNext}
+                  setPaginationState={setPaginationState}
+                  paginationState={paginationState}
+                />
+              </>
             ) : (
               <NoResult text="No user found! Check the input again." />
             )
           ) : projects && projects.data && projects.data.rooms.length > 0 ? (
             /* if type is other than User (means Projects) than check if result available or not, if result available than show result else noResult page */
-            projects.data.rooms.map((room) => (
-              <ProjectCard room={room} key={room._id} />
-            ))
+            <>
+              {projects.data.rooms.map((room) => (
+                <ProjectCard room={room} key={room._id} />
+              ))}
+              <Pagination
+                query={query}
+                isNext={projects.data.isNext}
+                paginationState={paginationState}
+                setPaginationState={setPaginationState}
+              />
+            </>
           ) : (
             <NoResult text="No Project found! Check the input again." />
           )}

@@ -80,7 +80,7 @@ function RoomSidebar({
             />
             <SidebarLink
               link={{
-                label: room?.admin.username || "Collabrite",
+                label: room?.admin.username || "DevUnity",
                 href: `/user/${room?.admin._id || "/"}`,
                 icon: (
                   <img

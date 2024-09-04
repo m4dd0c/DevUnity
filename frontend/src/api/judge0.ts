@@ -34,7 +34,6 @@ export const createSubmissionAction = async ({
         },
       },
     );
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -57,7 +56,6 @@ export const getSubmissionAction = async ({
         },
       },
     );
-    console.log(data);
     return data;
   } catch (error) {
     console.error(error);

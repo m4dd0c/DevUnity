@@ -14,18 +14,22 @@ const PrivacyPolicy = () => {
         <section className="p-6 md:p-8 rounded-lg shadow-lg">
           <Heading>Privacy Policy</Heading>
           <p className="text-lg mb-4">
-            Welcome to Collabrite! This privacy policy outlines how we collect,
+            Welcome to DevUnity! This privacy policy outlines how we collect,
             use, and protect your information when you use our platform.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">1. Introduction</h2>
           <p className="text-lg mb-4">
-            This Privacy Policy applies to Collabrite (
+            This Privacy Policy applies to DevUnity(
             <a
-              href="https://collabrite.netlify.app"
+              href={
+                import.meta.env["VITE_FRONTEND_URI"] ||
+                "https://localhost:5173/"
+              }
               className="text-blue-400 hover:underline"
             >
-              https://collabrite.netlify.app
+              {import.meta.env["VITE_FRONTEND_URI"] ||
+                "https://localhost:5173/"}
             </a>
             ). By using our platform, you agree to the collection and use of
             your information as described in this policy.
@@ -90,10 +94,10 @@ const PrivacyPolicy = () => {
             7. Children’s Privacy
           </h2>
           <p className="text-lg mb-4">
-            Collabrite is intended for users aged 9 and above. We do not
-            knowingly collect personal information from children under 9. If we
-            discover that we have collected such information, we will take steps
-            to delete it promptly.
+            DevUnity is intended for users aged 9 and above. We do not knowingly
+            collect personal information from children under 9. If we discover
+            that we have collected such information, we will take steps to
+            delete it promptly.
           </p>
 
           <h2 className="text-2xl font-semibold mt-6 mb-4">
@@ -112,9 +116,9 @@ const PrivacyPolicy = () => {
 
           <footer className="mt-6 text-center">
             <p className="text-lg">
-              By using Collabrite, you agree to the collection and use of your
+              By using DevUnity, you agree to the collection and use of your
               information as described in this Privacy Policy. Thank you for
-              trusting Collabrite for your collaborative coding needs.
+              trusting DevUnity for your collaborative coding needs.
             </p>
           </footer>
         </section>

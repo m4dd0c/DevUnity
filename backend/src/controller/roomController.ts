@@ -1,11 +1,11 @@
 import { NextFunction, Response, Request } from "express";
 import catchAsync from "../utils/catchAsync";
 import Room from "../model/Room";
-import CollabriteError from "../utils/CollabriteError";
-import CollabriteRes from "../utils/CollabriteRes";
+import DevUnityError from "../utils/DevUnityError";
 import Discussion from "../model/Discussion";
 import User from "../model/User";
 import { IRoom } from "../types/types";
+import DevUnityRes from "../utils/DevUnityRes";
 
 export const createRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +14,7 @@ export const createRoom = catchAsync(
     const { password, title } = req.body;
     if (!roomId || !password || !title)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Please provide a roomId, password and name to proceed.",
         ),
@@ -23,19 +23,17 @@ export const createRoom = catchAsync(
     // checking if room id contains space (blankcharacter)
     const validation = roomId.split(" ").length > 1;
     if (validation)
-      return next(
-        new CollabriteError(400, "RoomId can not contain any space."),
-      );
+      return next(new DevUnityError(400, "RoomId can not contain any space."));
     // checking if provided id is unique or not
     const isExist = await Room.exists({ roomId });
     if (isExist)
       return next(
-        new CollabriteError(400, "Room id is already taken by someone else."),
+        new DevUnityError(400, "Room id is already taken by someone else."),
       );
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -66,7 +64,7 @@ export const createRoom = catchAsync(
     await room.save();
     user.rooms.push(room._id);
     await user.save();
-    new CollabriteRes(res, 201, "Room Created!", room.roomId).send();
+    new DevUnityRes(res, 201, "Room Created!", room.roomId).send();
   },
 );
 
@@ -74,7 +72,7 @@ export const getRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // INFO: roomId is uuid
     const { roomId } = req.params;
-    if (!roomId) return next(new CollabriteError(400, "RoomId not found!"));
+    if (!roomId) return next(new DevUnityError(400, "RoomId not found!"));
 
     let { query: mode } = req.query;
     if (!mode) mode = "r";
@@ -82,7 +80,7 @@ export const getRoom = catchAsync(
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -102,7 +100,7 @@ export const getRoom = catchAsync(
 
     if (!room)
       return next(
-        new CollabriteError(400, "No such room available with this id."),
+        new DevUnityError(400, "No such room available with this id."),
       );
 
     if (mode === "r") {
@@ -148,9 +146,9 @@ export const getRoom = catchAsync(
           });
       }
     } else {
-      return new CollabriteError(400, "It seems like the url is infected.");
+      return new DevUnityError(400, "It seems like the url is infected.");
     }
-    new CollabriteRes(res, 200, undefined, room).send();
+    new DevUnityRes(res, 200, undefined, room).send();
   },
 );
 
@@ -158,14 +156,13 @@ export const joinRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // INFO:  roomId is uuid4()
     const { roomId } = req.params;
-    if (!roomId)
-      return next(new CollabriteError(400, "Please provide roomId."));
+    if (!roomId) return next(new DevUnityError(400, "Please provide roomId."));
 
     const { password } = req.query;
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -178,7 +175,7 @@ export const joinRoom = catchAsync(
       // adding to active users
       await _room.updateOne({ $addToSet: { activeUsers: user._id } });
       // sending response
-      return new CollabriteRes(
+      return new DevUnityRes(
         res,
         200,
         `Welcome admin, ${user.username}`,
@@ -187,7 +184,7 @@ export const joinRoom = catchAsync(
     }
     if (!password)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Please provide password since you are not owner of the room.",
         ),
@@ -200,7 +197,7 @@ export const joinRoom = catchAsync(
 
     if (!room)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like the roomId or the password is wrong.",
         ),
@@ -217,7 +214,7 @@ export const joinRoom = catchAsync(
     }
     // setting the user in active state
     await room.updateOne({ $addToSet: { activeUsers: user._id } });
-    new CollabriteRes(res, 200, `Welcome ${user.username}`, roomId).send();
+    new DevUnityRes(res, 200, `Welcome ${user.username}`, roomId).send();
   },
 );
 
@@ -225,11 +222,11 @@ export const deleteRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // INFO: roomId is _id
     const { roomId } = req.params;
-    if (!roomId) return next(new CollabriteError(400, "RoomId not found!"));
+    if (!roomId) return next(new DevUnityError(400, "RoomId not found!"));
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -237,13 +234,13 @@ export const deleteRoom = catchAsync(
     const room = await Room.findOne({ _id: roomId, admin: user._id });
     if (!room)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Either you're not admin of the room or just room doesn't exist with given id.",
         ),
       );
     await Room.deleteOne({ _id: room._id });
-    new CollabriteRes(res, 200, "Room Deleted", true).send();
+    new DevUnityRes(res, 200, "Room Deleted", true).send();
   },
 );
 export const updateRoom = catchAsync(
@@ -251,15 +248,15 @@ export const updateRoom = catchAsync(
     const { description, title, explanation } = req.body;
     if (!description && !title && !explanation)
       return next(
-        new CollabriteError(400, "Provide at least one field to update."),
+        new DevUnityError(400, "Provide at least one field to update."),
       );
     // INFO: roomId is uuid
     const { roomId } = req.params;
-    if (!roomId) return next(new CollabriteError(400, "RoomId not found!"));
+    if (!roomId) return next(new DevUnityError(400, "RoomId not found!"));
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -267,7 +264,7 @@ export const updateRoom = catchAsync(
     const room = await Room.findOne({ roomId, admin: user._id });
     if (!room)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Either you're not admin of the room or just room doesn't exist with given id.",
         ),
@@ -277,7 +274,7 @@ export const updateRoom = catchAsync(
       "project.title": title,
       "project.explanation": explanation,
     });
-    new CollabriteRes(res, 200, "Room updated.", true).send();
+    new DevUnityRes(res, 200, "Room updated.", true).send();
   },
 );
 export const allRooms = catchAsync(
@@ -285,7 +282,7 @@ export const allRooms = catchAsync(
     const { ownerId } = req.params;
     if (!ownerId)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Please provide ownerId to get his/her all rooms.",
         ),
@@ -303,12 +300,12 @@ export const allRooms = catchAsync(
       });
     if (!rooms)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           500,
           "Couldn't find rooms at the moment. Please try again later.",
         ),
       );
-    new CollabriteRes(res, 200, undefined, rooms).send();
+    new DevUnityRes(res, 200, undefined, rooms).send();
   },
 );
 export const searchRoom = catchAsync(
@@ -356,10 +353,10 @@ export const searchRoom = catchAsync(
       .limit(parseInt(size as string));
 
     if (!rooms)
-      return next(new CollabriteError(500, "No user found w/ this query."));
+      return next(new DevUnityError(500, "No user found w/ this query."));
     const totalDocuments = await Room.countDocuments(searchQuery);
     const isNext = totalDocuments > skipAmount + rooms.length;
-    new CollabriteRes(res, 200, undefined, { isNext, rooms }).send();
+    new DevUnityRes(res, 200, undefined, { isNext, rooms }).send();
   },
 );
 
@@ -369,15 +366,15 @@ export const updatePassAndLang = catchAsync(
     const { password, lang } = req.body;
     if (!password && !lang)
       return next(
-        new CollabriteError(400, "Provide at least one field to update."),
+        new DevUnityError(400, "Provide at least one field to update."),
       );
     // INFO: roomId is uuid
     const { roomId } = req.params;
-    if (!roomId) return next(new CollabriteError(400, "RoomId not found!"));
+    if (!roomId) return next(new DevUnityError(400, "RoomId not found!"));
     const user = req.user;
     if (!user)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           401,
           "It seems like you are unauthenticated, Please login first.",
         ),
@@ -385,7 +382,7 @@ export const updatePassAndLang = catchAsync(
     const room = await Room.findOne({ roomId, admin: user._id });
     if (!room)
       return next(
-        new CollabriteError(
+        new DevUnityError(
           400,
           "Either you're not admin of the room or just room doesn't exist with given id.",
         ),
@@ -397,43 +394,38 @@ export const updatePassAndLang = catchAsync(
       if (password.trim().length >= 6) {
         room.password = password;
       } else {
-        new CollabriteError(
-          401,
-          "Password must contain at least 6 characters.",
-        );
+        new DevUnityError(401, "Password must contain at least 6 characters.");
       }
     }
     await room.save();
-    new CollabriteRes(res, 200, "Room updated.", true).send();
+    new DevUnityRes(res, 200, "Room updated.", true).send();
   },
 );
 
 export const saveCode = catchAsync(async (req, res, next) => {
   const { roomId } = req.params;
   if (!roomId)
-    return next(
-      new CollabriteError(400, "Please provide a roomid to proceed."),
-    );
+    return next(new DevUnityError(400, "Please provide a roomid to proceed."));
 
   const { code } = req.body;
 
   const user = req.user;
   if (!user)
     return next(
-      new CollabriteError(401, "It seems like you're unauthenticated."),
+      new DevUnityError(401, "It seems like you're unauthenticated."),
     );
 
   const room: IRoom | null = await Room.findOne({ roomId });
   if (!room)
-    return next(new CollabriteError(400, "Room not found with provided Id."));
+    return next(new DevUnityError(400, "Room not found with provided Id."));
 
   if (!room.activeUsers.includes(user._id))
     return next(
-      new CollabriteError(401, "You must join the room to save the code."),
+      new DevUnityError(401, "You must join the room to save the code."),
     );
 
   room.project.code = code;
   await room.save();
 
-  new CollabriteRes(res, 200, "Code saved!").send();
+  new DevUnityRes(res, 200, "Code saved!").send();
 });
