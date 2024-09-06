@@ -1,9 +1,19 @@
 import Heading from "../components/layout/Heading";
+import SEO from "../components/layout/SEO";
 import SpotlightPreview from "../components/layout/SpotlightPreview";
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Privacy Policy | DevUnity"
+        description="Understand how DevUnity collects, uses, and protects your personal information."
+        name="DevUnity"
+        twitterCard="summery"
+        ogType="article"
+      />
+
       <SpotlightPreview
         heading={"Your Privacy, Our Priority"}
         subheading={

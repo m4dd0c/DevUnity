@@ -2,6 +2,7 @@ import { LampContainer } from "../../components/ui/lamp";
 import { motion } from "framer-motion";
 import SignupForm from "../../components/user/SignupForm";
 import { Dispatch, SetStateAction } from "react";
+import SEO from "../../components/layout/SEO";
 
 const Signup = ({
   setAuth,
@@ -10,6 +11,14 @@ const Signup = ({
 }) => {
   return (
     <div className="bg-slate-950">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Signup | DevUnity"
+        description="Create a DevUnity account to join the developer community."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
       <LampContainer>
         <motion.div
           initial={{ opacity: 0.5, y: 400 }}

@@ -1,10 +1,19 @@
 import Heading from "../components/layout/Heading";
+import SEO from "../components/layout/SEO";
 import SpotlightPreview from "../components/layout/SpotlightPreview";
 import { langs } from "../constants";
 
 const TermsConditions = () => {
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Terms & Conditions | DevUnity"
+        description="Read the Terms and Conditions governing the use of DevUnity."
+        name="DevUnity"
+        ogType="article"
+        twitterCard="summery"
+      />
       <SpotlightPreview
         heading={"Guardians of Your Journey"}
         subheading={

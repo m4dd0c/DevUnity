@@ -10,6 +10,7 @@ import { searchUsersAction } from "../lib/actions/userAction";
 import { searchRoomsAction } from "../lib/actions/roomAction";
 import SearchLoading from "../components/layout/Loadings/SearchLoading";
 import Pagination from "../components/layout/Pagination";
+import SEO from "../components/layout/SEO";
 
 const Search = () => {
   const placeholders = [
@@ -75,7 +76,6 @@ const Search = () => {
   const [active, setActive] = useState(false);
 
   // Refetching data whenever paginationState changes
-  // TODO: check if if wrong
   useEffect(() => {
     onSubmit();
   }, [paginationState]);
@@ -83,6 +83,15 @@ const Search = () => {
   const isLoading = isLoadingUsers || isLoadingProjects;
   return (
     <div className="min-h-screen bg-black">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Search | DevUnity"
+        description="Search for developers & rooms on DevUnity."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
+
       <div className="w-full mx-auto pt-20 max-w-3xl dark:text-white">
         <div className="flex justify-center items-center gap-2 mx-4 py-2 px-4 bg-gray-900 rounded-md">
           <button

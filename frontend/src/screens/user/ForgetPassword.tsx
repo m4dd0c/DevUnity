@@ -11,6 +11,7 @@ import { forgetPasswordAction } from "../../lib/actions/userAction";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { showToast } from "../../lib/utils";
+import SEO from "../../components/layout/SEO";
 
 function ForgetPassword() {
   const onSubmit = (data: z.infer<typeof ForgetPasswordSchema>) => {
@@ -37,6 +38,14 @@ function ForgetPassword() {
   });
   return (
     <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Forget password | DevUnity"
+        description="Reset your DevUnity password if you've forgotten it."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"

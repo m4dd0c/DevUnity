@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditAccountSchema } from "../../lib/schemas/user.schema";
 import AceButton from "../../components/ui/AceButton";
 import { z } from "zod";
+import SEO from "../../components/layout/SEO";
 
 function EditProfile({ user }: { user: IUser | null }) {
   const onSubmit = (data: z.infer<typeof EditAccountSchema>) => {
@@ -128,6 +129,15 @@ function EditProfile({ user }: { user: IUser | null }) {
   if (!user) nav("/");
   return (
     <div className="min-h-screen bg-black grid place-items-center pt-20">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Edit Profile | DevUnity"
+        description="Edit your DevUnity profile information and preferences."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
+
       <form
         className="max-w-2xl w-full h-full"
         onSubmit={handleSubmit(onSubmit)}

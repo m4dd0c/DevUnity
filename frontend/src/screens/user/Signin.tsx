@@ -2,10 +2,20 @@ import { LampContainer } from "../../components/ui/lamp";
 import { motion } from "framer-motion";
 import SigninForm from "../../components/user/SigninForm";
 import { Dispatch, SetStateAction } from "react";
+import SEO from "../../components/layout/SEO";
 
 const Login = ({ setAuth }: { setAuth: Dispatch<SetStateAction<boolean>> }) => {
   return (
     <div className="bg-slate-950">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Signin | DevUnity"
+        description="Sign in to access DevUnity, a platform for developers to connect and collaborate."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
+
       <LampContainer>
         <motion.div
           initial={{ opacity: 0.5, y: 400 }}

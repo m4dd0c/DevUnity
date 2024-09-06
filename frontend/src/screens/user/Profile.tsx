@@ -8,6 +8,7 @@ import { formatDate, KEYS } from "../../lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import ProfileProjects from "../../components/user/ProfileProjects";
 import ProfileSkeleton from "../../components/layout/Loadings/ProfileSkeleton";
+import SEO from "../../components/layout/SEO";
 
 const Profile = ({ user_id }: { user_id?: string }) => {
   // state and vars
@@ -47,6 +48,15 @@ const Profile = ({ user_id }: { user_id?: string }) => {
     <ProfileSkeleton />
   ) : (
     <div className="h-screen max-lg:h-full w-full bg-black text-white flex overflow-hidden">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title={`${user ? user.username : "Profile"} | DevUnity`}
+        description="View and explore this developer's profile on DevUnity."
+        name="DevUnity"
+        ogType="profile"
+        twitterCard="summery"
+      />
+
       <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">
         {!user?.verification.verified && (
           <div className="lg:hidden mt-2 text-center bg-red-500 dark:text-white">

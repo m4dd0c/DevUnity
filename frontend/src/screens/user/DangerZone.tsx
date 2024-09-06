@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AceButton from "../../components/ui/AceButton";
 import { KEYS, showToast } from "../../lib/utils";
+import SEO from "../../components/layout/SEO";
 
 function DangerZone({
   username,
@@ -80,6 +81,15 @@ function DangerZone({
 
   return (
     <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Danger Zone | DevUnity"
+        description="Manage critical settings or delete your DevUnity account in the Danger Zone."
+        ogType="website"
+        twitterCard="summery"
+        name="DevUnity"
+      />
+
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"

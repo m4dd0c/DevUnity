@@ -2,10 +2,19 @@ import { Link } from "react-router-dom";
 import Heading from "../components/layout/Heading";
 import SpotlightPreview from "../components/layout/SpotlightPreview";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import SEO from "../components/layout/SEO";
 
 const About = () => {
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="About | DevUnity"
+        description="Learn more about DevUnity, our mission, and the team behind the platform."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
       <SpotlightPreview
         heading={"Meet the Architects"}
         subheading={

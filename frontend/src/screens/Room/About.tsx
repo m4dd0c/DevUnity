@@ -11,6 +11,7 @@ import SettingsForm from "../../components/Room/SettingsForm";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
 import Loader from "../../components/layout/Loadings/Loader";
+import SEO from "../../components/layout/SEO";
 
 function Describe({ user }: { user: IUser | null }) {
   const nav = useNavigate();
@@ -38,6 +39,15 @@ function Describe({ user }: { user: IUser | null }) {
     value: "description",
     content: (
       <div className="w-full overflow-y-auto relative h-full rounded-2xl p-7 max-md:p-3 max-md:pb-16 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
+        {/* SEO - INVISIBLE IN PAGE */}
+        <SEO
+          title="About | DevUnity"
+          description="Learn more about this collaboration room on DevUnity."
+          name="DevUnity"
+          ogType="article"
+          twitterCard="summery"
+        />
+
         <ProjectDescription room={room?.data} />
       </div>
     ),

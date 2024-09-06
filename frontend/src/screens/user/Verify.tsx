@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { verificationAction } from "../../lib/actions/userAction";
 import { KEYS, showToast } from "../../lib/utils";
+import SEO from "../../components/layout/SEO";
 
 function Verify() {
   const nav = useNavigate();
@@ -36,6 +37,15 @@ function Verify() {
 
   return (
     <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Verify | DevUnity"
+        description="Verify your email address to activate your DevUnity account."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery"
+      />
+
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"

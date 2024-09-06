@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { updateDiscussionAction } from "../../lib/actions/discussionAction";
 import { useSocket } from "../../context/useSocket";
 import Loader from "../../components/layout/Loadings/Loader";
+import SEO from "../../components/layout/SEO";
 
 const Playground = ({ user }: { user: null | IUser }) => {
   const { roomId } = useParams();
@@ -83,6 +84,15 @@ const Playground = ({ user }: { user: null | IUser }) => {
     </div>
   ) : (
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
+      {/* SEO - INVISIBLE IN PAGE */}
+      <SEO
+        title="Playground | DevUnity"
+        description="Collaborate in real-time with developers in the DevUnity Playground."
+        name="DevUnity"
+        ogType="website"
+        twitterCard="summery_large_image"
+      />
+
       <Dashboard room={room?.data} />
     </RoomSidebar>
   );
