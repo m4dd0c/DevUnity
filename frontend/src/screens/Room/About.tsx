@@ -41,7 +41,7 @@ function Describe({ user }: { user: IUser | null }) {
       <div className="w-full overflow-y-auto relative h-full rounded-2xl p-7 max-md:p-3 max-md:pb-16 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
         {/* SEO - INVISIBLE IN PAGE */}
         <SEO
-          title="About | DevUnity"
+          title={`About - ${room && room.data.project.title} | DevUnity`}
           description="Learn more about this collaboration room on DevUnity."
           name="DevUnity"
           ogType="article"

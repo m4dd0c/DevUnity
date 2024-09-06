@@ -53,7 +53,7 @@ function ResetPassword() {
   });
 
   return (
-    <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title="Reset password | DevUnity"

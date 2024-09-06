@@ -86,7 +86,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
-        title="Playground | DevUnity"
+        title={`Playground - ${room && room.data.project.title} | DevUnity`}
         description="Collaborate in real-time with developers in the DevUnity Playground."
         name="DevUnity"
         ogType="website"
