@@ -58,7 +58,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
       />
 
       <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">
-        {!user?.verification.verified && (
+        {!user?.verification.verified && self && (
           <div className="lg:hidden mt-2 text-center bg-red-500 dark:text-white">
             <h1>
               Please verify your account within 3 days. <br /> Check
