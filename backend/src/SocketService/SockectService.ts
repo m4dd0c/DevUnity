@@ -180,7 +180,7 @@ class SocketService {
         // send info
         io.to(roomId).emit(
           ev["b:leave"],
-          `${user ? user.username : socket.id} left the room.`,
+          `${user ? user.username : socket.id} left!`,
         );
       });
     });

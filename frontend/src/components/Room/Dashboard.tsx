@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import ace from "ace-builds/src-noconflict/ace";
 
-import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-github_dark";
 import "ace-builds/src-noconflict/ext-language_tools";
 // languages
 import "ace-builds/src-noconflict/mode-javascript";
@@ -134,7 +134,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
             placeholder={language.defaultCode}
             mode={language.mode}
             style={{ height: "100%", width: "100%" }}
-            theme="monokai"
+            theme="github_dark"
             name="playground"
             onChange={onChange}
             fontSize={14}
