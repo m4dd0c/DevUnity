@@ -297,7 +297,9 @@ export const langs: ILang[] = [
     color: "brown",
     id: 48,
     mode: "c_cpp",
-    defaultCode: `#include <stdio.h>
+    defaultCode: `
+/* Default code hence not saved */
+#include <stdio.h>
 
 int main() {
   printf("Hello World!");
@@ -310,7 +312,9 @@ int main() {
     color: "pink",
     id: 53,
     mode: "c_cpp",
-    defaultCode: `#include <iostream>
+    defaultCode: `
+/* Default code hence not saved */
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -324,7 +328,9 @@ int main() {
     color: "red",
     id: 68,
     mode: "php_laravel_blade",
-    defaultCode: `<?php
+    defaultCode: `
+<?php
+  /* Default code hence not saved */
   echo "Hello World!";
 ?>`,
   },
@@ -334,7 +340,9 @@ int main() {
     color: "gray",
     id: 91,
     mode: "java",
-    defaultCode: `class Main
+    defaultCode: `
+/* Default code hence not saved */
+class Main
 {
     public static void main(String []args)
     {
@@ -348,7 +356,9 @@ int main() {
     color: "yellowgreen",
     id: 92,
     mode: "python",
-    defaultCode: `print("Hello World!");`,
+    defaultCode: `
+# Default code hence not saved
+print("Hello World!");`,
   },
   {
     label: "Javascript",
@@ -356,7 +366,9 @@ int main() {
     color: "yellow",
     id: 93,
     mode: "javascript",
-    defaultCode: `console.log("Hello World!");`,
+    defaultCode: `
+/* Default code hence not saved */
+console.log("Hello World!");`,
   },
 ];
 // user setting links
