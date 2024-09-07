@@ -4,17 +4,18 @@ A Collaboration focused coding platform.
 
 ## Preview
 
-[![](https://github.com/m4dd0c/DevUnity/images/home.png)](https://devunity.netlify.app/)
-[![](https://github.com/m4dd0c/DevUnity/images/profile.png)](https://devunity.netlify.app/)
-[![](https://github.com/m4dd0c/DevUnity/images/desc.png)](https://devunity.netlify.app/)
-[![](https://github.com/m4dd0c/DevUnity/images/editor.png)](https://devunity.netlify.app/)
+[![Home](./images/home.png)](https://devunity.netlify.app/)
+[![Profile](./images/profile.png)](https://devunity.netlify.app/)
+[![Description](./images/desc.png)](https://devunity.netlify.app/)
+[![Editor](./images/editor.png)](https://devunity.netlify.app/)
+<br/>
 
 ![ReactJS](https://img.shields.io/badge/React.js-blue?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-yellow?style=for-the-badge&logo=Vite&logoColor=white)
 ![ThreeJS](https://img.shields.io/badge/three-js?style=for-the-badge&logo=three.js&logoColor=white)
 ![Tailwindcss](https://img.shields.io/badge/tailwindcss-blue?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![SocketIO](https://img.shields.io/badge/SocketIO-black?style=for-the-badge&logo=socket.io&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/framer_motion-purple?style=for-the-badge&logo=framermotion&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/framer_motion-purple?style=for-the-badge&logo=framer&logoColor=white)
 ![Ace Editor](https://img.shields.io/badge/ace_editor-u?style=for-the-badge&logo=aceeditor&logoColor=white)
 ![TinyMCE](https://img.shields.io/badge/tinyMCE-blue?style=for-the-badge&logo=tinymce&logoColor=white)
 ![Cloudinary](https://img.shields.io/badge/cloudinary-red?style=for-the-badge&logo=cloudinary&logoColor=white)
@@ -49,7 +50,7 @@ Refer to [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 # Credits
 
-[Aceternity](https://www.aceternity.ui) for amazing UI components.
+[Aceternity](https://ui.aceternity.com) for amazing UI components. <br/>
 [Nitesh Suthar](https://github.com/nitesh098suthar) for the name suggestion.
 
 <!--
