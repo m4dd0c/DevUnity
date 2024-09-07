@@ -12,7 +12,7 @@
 
 ## Getting Started
 
-When contributing to Monkeytype, it's good to know our best practices, tips, and tricks. First, Monkeytype is written in ~~JavaScript~~ TypeScript, CSS, and HTML (in order of language usage within the project); thus, we assume you are comfortable with these languages or have basic knowledge of them. Our backend is in NodeJS and we use MongoDB to store our user data. Firebase is used for authentication. Redis is used to store ephemeral data (daily leaderboards, jobs via BullMQ, OAuth state parameters). Furthermore, we use Prettier to format our code.
+When contributing to DevUnity, it's good to know our best practices, tips, and tricks. First, DevUnity is written in ~~JavaScript~~ TypeScript (in order of language usage within the project); thus, we assume you are comfortable with these languages or have basic knowledge of them. Our backend is in NodeJS and we use MongoDB to store our user data. Furthermore, we use Prettier to format our code.
 
 # How to Contribute
 
@@ -132,4 +132,4 @@ For types, we use the following:
 
 ## Questions
 
-If you have any questions, comments, concerns, or problems let me know on [GitHub](https://github.com/m4dd0c), in the `#development` channel, or ask a question on DevUnity's [GitHub discussions](https://github.com/m4dd0c/DevUnity/discussions) and a contributor will be happy to assist you.
+If you have any questions, comments, concerns, or problems let me know on [GitHub](https://github.com/m4dd0c) in the `#development` channel, or ask a question on DevUnity's [GitHub discussions](https://github.com/m4dd0c/DevUnity/discussions) and a contributor will be happy to assist you.
