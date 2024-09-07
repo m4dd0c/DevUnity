@@ -94,14 +94,17 @@ How to setup backend locally
    ```
         # SMTP
         SMTP_MAIL="" # eg: address@service.tld
-        SMTP_PASS="" # eg: app-password; refer to:
+        # reference: https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
+        SMTP_PASS="" # eg: app-password;
         SMTP_HOST="" # eg: smtp.gmail.com
    ```
 
 5. If you think you'll need Cloudinary service to be working then add
 
    ```
-       #cloudinary variables; refer to:
+       #cloudinary variables;
+       # reference: https://cloudinary.com/documentation/node_integration#set_required_configuration_parameters
+
        CLOUDINARY_NAME=""
        CLOUDINARY_API_KEY=""
        CLOUDINARY_API_SECRET=""
