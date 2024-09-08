@@ -44,7 +44,7 @@ function ForgetPassword() {
         description="Reset your DevUnity password if you've forgotten it."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"

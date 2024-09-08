@@ -54,7 +54,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
         description="View and explore this developer's profile on DevUnity."
         name="DevUnity"
         ogType="profile"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">

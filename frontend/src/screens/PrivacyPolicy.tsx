@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
         title="Privacy Policy | DevUnity"
         description="Understand how DevUnity collects, uses, and protects your personal information."
         name="DevUnity"
-        twitterCard="summery"
+        twitterCard="summary"
         ogType="article"
       />
 

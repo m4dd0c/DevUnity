@@ -89,7 +89,7 @@ const Search = () => {
         description="Search for developers & rooms on DevUnity."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <div className="w-full mx-auto pt-20 max-w-3xl dark:text-white">

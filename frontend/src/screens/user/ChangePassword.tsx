@@ -58,7 +58,7 @@ function ChangePassword() {
         description="Change your DevUnity account password to keep your account secure."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <Spotlight

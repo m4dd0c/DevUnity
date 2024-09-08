@@ -86,7 +86,7 @@ function DangerZone({
         title="Danger Zone | DevUnity"
         description="Manage critical settings or delete your DevUnity account in the Danger Zone."
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
         name="DevUnity"
       />
 

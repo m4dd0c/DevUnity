@@ -135,7 +135,7 @@ function EditProfile({ user }: { user: IUser | null }) {
         description="Edit your DevUnity profile information and preferences."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <form

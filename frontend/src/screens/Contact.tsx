@@ -11,7 +11,7 @@ const Contact = () => {
         description="Contact DevUnity for support, feedback, or general inquiries."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <ContactHead />
       <ContactForm />

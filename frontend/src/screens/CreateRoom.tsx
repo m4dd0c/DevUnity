@@ -8,7 +8,7 @@ function CreateRoom() {
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title="Create a room | DevUnity"
-        twitterCard="summery"
+        twitterCard="summary"
         ogType="article"
         description="Create a new collaborative room on DevUnity to work with other developers."
         name="DevUnity"

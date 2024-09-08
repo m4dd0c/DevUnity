@@ -90,7 +90,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
         description="Collaborate in real-time with developers in the DevUnity Playground."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery_large_image"
+        twitterCard="summary_large_image"
       />
 
       <Dashboard room={room?.data} />

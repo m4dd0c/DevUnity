@@ -12,7 +12,7 @@ const NotFound = () => {
         description="The page you are looking for does not exist on DevUnity."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <div className="max-w-2xl mx-auto p-4">

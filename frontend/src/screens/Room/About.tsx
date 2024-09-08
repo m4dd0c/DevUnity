@@ -45,7 +45,7 @@ function Describe({ user }: { user: IUser | null }) {
           description="Learn more about this collaboration room on DevUnity."
           name="DevUnity"
           ogType="article"
-          twitterCard="summery"
+          twitterCard="summary"
         />
 
         <ProjectDescription room={room?.data} />

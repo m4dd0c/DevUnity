@@ -17,7 +17,7 @@ const Signup = ({
         description="Create a DevUnity account to join the developer community."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <LampContainer>
         <motion.div

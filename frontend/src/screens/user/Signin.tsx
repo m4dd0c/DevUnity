@@ -13,7 +13,7 @@ const Login = ({ setAuth }: { setAuth: Dispatch<SetStateAction<boolean>> }) => {
         description="Sign in to access DevUnity, a platform for developers to connect and collaborate."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <LampContainer>

@@ -60,7 +60,7 @@ function ResetPassword() {
         description="Create a new password for your DevUnity account."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"

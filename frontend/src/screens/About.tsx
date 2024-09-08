@@ -13,7 +13,7 @@ const About = () => {
         description="Learn more about DevUnity, our mission, and the team behind the platform."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <SpotlightPreview
         heading={"Meet the Architects"}

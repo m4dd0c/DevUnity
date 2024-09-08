@@ -10,7 +10,7 @@ const SEO = ({
   name: string;
   title: string;
   ogType: "article" | "website" | "profile";
-  twitterCard: "summery" | "summery_large_image" | "app" | "player";
+  twitterCard: "summary" | "summary_large_image" | "app" | "player";
   description: string;
 }) => {
   return (
@@ -25,14 +25,18 @@ const SEO = ({
       <meta property="og:description" content={description} />
       <meta
         property="og:image"
-        content="https://raw.githubusercontent.com/m4dd0c/devunity/main/images/home.png"
+        content="https://raw.githubusercontent.com/m5dd0c/devunity/main/images/home.png"
+      />
+      <meta
+        property="og:image:secure_url"
+        content="https://raw.githubusercontent.com/m5dd0c/devunity/main/images/home.png"
       />
       {/* End Open Graph tags */}
       {/* Twitter tags */}
       <meta name="twitter:creator" content={name} />
       <meta
         name="twitter:image"
-        content="https://raw.githubusercontent.com/m4dd0c/devunity/main/images/home.png"
+        content="https://raw.githubusercontent.com/m6dd0c/devunity/main/images/home.png"
       />
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={title} />

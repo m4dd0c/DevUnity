@@ -11,7 +11,7 @@ function JoinRoom({ user }: { user: IUser | null }) {
         description="Join an existing room on DevUnity to collaborate with peers."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <BackgroundGradientAnimation>
         <div className="absolute z-50 top-[45%] -translate-y-1/2 inset-0 text-white font-bold px-4 pointer-events-none text-2xl text-center md:text-3xl lg:text-5xl">

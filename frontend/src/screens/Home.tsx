@@ -16,7 +16,7 @@ function Home() {
         description="DevUnity is a platform for developers to connect, collaborate, and share knowledge."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery_large_image"
+        twitterCard="summary_large_image"
       />
 
       <Hero />

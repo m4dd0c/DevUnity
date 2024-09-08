@@ -12,7 +12,7 @@ const TermsConditions = () => {
         description="Read the Terms and Conditions governing the use of DevUnity."
         name="DevUnity"
         ogType="article"
-        twitterCard="summery"
+        twitterCard="summary"
       />
       <SpotlightPreview
         heading={"Guardians of Your Journey"}

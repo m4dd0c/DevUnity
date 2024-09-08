@@ -43,7 +43,7 @@ function Verify() {
         description="Verify your email address to activate your DevUnity account."
         name="DevUnity"
         ogType="website"
-        twitterCard="summery"
+        twitterCard="summary"
       />
 
       <Spotlight
