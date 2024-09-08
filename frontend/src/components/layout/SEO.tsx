@@ -23,9 +23,17 @@ const SEO = ({
       <meta property="og:type" content={ogType} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
+      <meta
+        property="og:image"
+        content="https://raw.githubusercontent.com/m4dd0c/devunity/main/images/home.png"
+      />
       {/* End Open Graph tags */}
       {/* Twitter tags */}
       <meta name="twitter:creator" content={name} />
+      <meta
+        name="twitter:image"
+        content="https://raw.githubusercontent.com/m4dd0c/devunity/main/images/home.png"
+      />
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
