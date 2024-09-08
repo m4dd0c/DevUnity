@@ -9,6 +9,7 @@
     @apply max-w-full prose dark:prose-p:text-neutral-200 dark:prose-ol:text-neutral-200 dark:prose-ul:text-neutral-400 dark:prose-strong:text-white dark:prose-headings:text-white prose-headings:text-neutral-800 prose-h1:text-neutral-700 prose-h2:text-neutral-800 prose-p:text-neutral-500 prose-ul:text-neutral-500 prose-ol:text-neutral-500;
   }
 }
+
 * {
   margin: 0;
   padding: 0;
