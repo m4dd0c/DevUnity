@@ -4,8 +4,9 @@ import Room from "../model/Room";
 import DevUnityError from "../utils/DevUnityError";
 import Discussion from "../model/Discussion";
 import User from "../model/User";
-import { IRoom } from "../types/types";
+import { IPopulatedUsersProject, IRoom } from "../types/types";
 import DevUnityRes from "../utils/DevUnityRes";
+import { Types } from "mongoose";
 
 export const createRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -62,7 +63,7 @@ export const createRoom = catchAsync(
     });
     room.discussion = discussion._id;
     await room.save();
-    user.rooms.push(room._id);
+    user.rooms.push(room._id as Types.ObjectId & IPopulatedUsersProject);
     await user.save();
     new DevUnityRes(res, 201, "Room Created!", room.roomId).send();
   },
@@ -208,7 +209,7 @@ export const joinRoom = catchAsync(
       // new user in the room
       // add room id in userModel and participent_id in roomModel
       room.participents.push(user._id);
-      user.rooms.push(room._id);
+      user.rooms.push(room._id as Types.ObjectId & IPopulatedUsersProject);
       await room.save();
       await user.save();
     }
@@ -321,19 +322,19 @@ export const searchRoom = catchAsync(
     // forming query
     const searchQuery = query
       ? {
-          admin: ownerId,
-          $or: [
-            {
-              "project.title": { $regex: new RegExp(query, "i") },
-            },
-            {
-              "project.explanation": { $regex: new RegExp(query, "i") },
-            },
-            {
-              "project.lang": { $regex: new RegExp(query, "i") },
-            },
-          ],
-        }
+        admin: ownerId,
+        $or: [
+          {
+            "project.title": { $regex: new RegExp(query, "i") },
+          },
+          {
+            "project.explanation": { $regex: new RegExp(query, "i") },
+          },
+          {
+            "project.lang": { $regex: new RegExp(query, "i") },
+          },
+        ],
+      }
       : { admin: ownerId };
 
     // if owner-id isnt there then deleting admin field from the searchQuery

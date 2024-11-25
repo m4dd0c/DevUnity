@@ -30,6 +30,7 @@ interface IPopulatedUsersProject {
   createdAt: NativeDate;
   updatedAt: NativeDate;
 }
+
 interface IUser extends Document {
   _id: Types.ObjectId;
   rooms: Types.ObjectId[] | IPopulatedUsersProject[];

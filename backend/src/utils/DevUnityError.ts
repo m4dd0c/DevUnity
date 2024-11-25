@@ -1,5 +1,5 @@
 class DevUnityError extends Error {
-  public status;
+  public status: number;
   constructor(status: number, message: string) {
     super(message);
     this.status = status;
