@@ -1,14 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import DevUnityError from "../utils/DevUnityError";
 import DevUnityRes from "../utils/DevUnityRes";
 import ErrorLogs from "../model/ErrorLogs";
 
-const error = async (
-  err: DevUnityError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const error = async (err: DevUnityError, req: Request, res: Response) => {
   try {
     const development = process.env["Mode"] === "DEV";
     // response instance
@@ -26,8 +21,7 @@ const error = async (
       errRes.message = err.message;
       // unhandled from above conditions
     } else {
-      // @ts-ignore
-      errRes.message = err?.message || "Internal server error.";
+      errRes.message = (err as any)?.message || "Internal server error.";
     }
 
     if (development) errRes.data = err.stack;

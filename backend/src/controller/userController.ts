@@ -427,7 +427,7 @@ export const deleteMe = catchAsync(
 export const searchUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let { page, size } = req.query;
-    let { query } = req.params;
+    const { query } = req.params;
     if (!page) page = "1";
     if (!size) size = "10";
 
@@ -460,8 +460,6 @@ export const searchUser = catchAsync(
     new DevUnityRes(res, 200, undefined, { isNext, users }).send();
   },
 );
-export const logout = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    new DevUnityRes(res, 200, "Logout Successful").deauthenticate();
-  },
-);
+export const logout = catchAsync(async (req: Request, res: Response) => {
+  new DevUnityRes(res, 200, "Logout Successful").deauthenticate();
+});

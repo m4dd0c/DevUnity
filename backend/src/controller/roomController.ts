@@ -310,8 +310,9 @@ export const allRooms = catchAsync(
 );
 export const searchRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    let { page, size, ownerId } = req.query;
-    let { query } = req.params;
+    let { page, size } = req.query;
+    const { ownerId } = req.query;
+    const { query } = req.params;
     if (!page) page = "1";
     if (!size) size = "10";
 

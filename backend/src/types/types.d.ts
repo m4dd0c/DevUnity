@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
-import express from "express";
+
 import { Document, Types } from "mongoose";
 
 interface JwtPayload extends JwtPayload {
@@ -55,7 +55,7 @@ interface IUser extends Document {
   genJwt: () => string | false;
 }
 interface IRoom extends Document {
-  _id: Types.Objectid;
+  _id: Types.ObjectId;
   roomId: string;
   password: string;
   admin: Types.ObjectId;
