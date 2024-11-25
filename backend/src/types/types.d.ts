@@ -1,9 +1,9 @@
-import { JwtPayload } from "jsonwebtoken";
-
 import { Document, Types } from "mongoose";
 
-interface JwtPayload extends JwtPayload {
-  _id: string;
+declare module "jsonwebtoken" {
+  export interface JwtPayload {
+    _id: string;
+  }
 }
 
 declare global {

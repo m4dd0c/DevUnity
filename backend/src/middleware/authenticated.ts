@@ -1,7 +1,6 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import catchAsync from "../utils/catchAsync";
 import DevUnityError from "../utils/DevUnityError";
-import { JwtPayload } from "../types/types";
 import User from "../model/User";
 
 export const authenticated = catchAsync(async (req, res, next) => {
