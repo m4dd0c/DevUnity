@@ -2,6 +2,16 @@
 
 A Collaboration focused coding platform.
 
+## Table of content
+
+- [DevUnity](#devunity)
+  - [Preview](#preview)
+  - [About](#about)
+  - [Features](#features)
+  - [Bug report or Feature request](#bug-report-or-feature-request)
+  - [Want to Contribute?](#want-to-contribute)
+  - [Credits](#credits)
+
 ## Preview
 
 [![Home](./images/home.png)](https://devunity.netlify.app/)
@@ -24,11 +34,11 @@ A Collaboration focused coding platform.
 ![Express](https://img.shields.io/badge/-Express-373737?style=for-the-badge&logo=Express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 
-# About
+## About
 
 DevUnity is a Real-time code editing platform [DevUnity](https://www.devunity.netlify.app). It features collaborates chatting, an account system to save your rooms and collaborations, and room-configurable features such as edit description, title, language, password and more. DevUnity attempts to emulate a natural collaborative experience during a project creation and problem solving by providing real-time feedback on typing.
 
-# Features
+## Features
 
 - Real-time Code Editing
 - Real-time Chatting with collaborators
@@ -40,25 +50,22 @@ DevUnity is a Real-time code editing platform [DevUnity](https://www.devunity.ne
 - Search users and rooms
 - and much more
 
-# Bug report or Feature request
+## Bug report or Feature request
 
-If you encounter a bug or have a feature request, [send me an email](mailto:m4dd0x078@gmail.com), [create an issue](https://github.com/m4dd0c/DevUnity/issues), [create a discussion thread](https://github.com/m4dd0c/DevUnity/discussions)
+If you encounter a bug or have a feature request,
+[send me an email](mailto:m4dd0x078@gmail.com),
+[create an issue](https://github.com/m4dd0c/DevUnity/issues),
+[create a discussion thread](https://github.com/m4dd0c/DevUnity/discussions)
 
-# Want to Contribute?
+## Want to Contribute?
 
 Refer to [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-# Credits
+## Credits
 
-[Aceternity](https://ui.aceternity.com) for amazing UI components. <br/>
+[Aceternity](https://ui.aceternity.com) for amazing UI components.  
 [Nitesh Suthar](https://github.com/nitesh098suthar) for the name suggestion.
 
 <!--
 All of the [contributors](https://github.com/m4dd0c/DevUnity/graphs/contributors) have helped implement various features, add themes, fix bugs, and more.
--->
-
-<!--
-# Support
-
-If you wish to support further development and feel extra awesome, you can [donate](https://ko-fi.com/monkeytype), [become a Patron](https://www.patreon.com/monkeytype) or [buy a t-shirt](https://www.monkeytype.store/).
 -->
