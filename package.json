@@ -9,7 +9,11 @@
     "lint-fe:check": "cd frontend && npm run lint:check",
     "lint-fe:fix": "cd frontend && npm run lint:fix",
     "pretty-fe:check": "cd frontend && npm run pretty:check",
-    "pretty-fe:fix": "cd frontend && npm run pretty:fix"
+    "pretty-fe:fix": "cd frontend && npm run pretty:fix",
+    "lint-be:check": "cd backend && npm run lint:check",
+    "lint-be:fix": "cd backend && npm run lint:fix",
+    "pretty-be:check": "cd backend && npm run pretty:check",
+    "pretty-be:fix": "cd backend && npm run pretty:fix"
   },
   "author": "m4dd0c",
   "license": "ISC"
