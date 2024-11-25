@@ -34,7 +34,7 @@ const ParseHtml = ({ data }: IParseHtml) => {
     Prism.highlightAll();
   }, []);
   return (
-    <div className="markdown w-full min-w-screen text-white">{parse(data)}</div>
+    <div className="markdown min-w-screen w-full text-white">{parse(data)}</div>
   );
 };
 

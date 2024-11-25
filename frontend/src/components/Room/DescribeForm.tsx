@@ -91,7 +91,7 @@ export default function DescribeForm({
         <br />
         <strong>Note:</strong> Don't forget to save.
       </p>
-      <form className="mt-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-4 mt-8" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-10">
           <LabelInputContainer className="mb-4">
             <Label htmlFor="title">Title</Label>
@@ -115,7 +115,7 @@ export default function DescribeForm({
               useSlate={true}
               id="explanation"
               placeholder="brief explanation about your project. max 150 letters"
-              className="font-normal p-4"
+              className="p-4 font-normal"
             />
             {errors.explanation && (
               <span className="text-sm text-red-500">
@@ -157,14 +157,14 @@ export default function DescribeForm({
             initialValue={room?.project?.description}
           />
           {errors.description && (
-            <span className="text-red-500 font-normal text-[1rem]">
+            <span className="text-[1rem] font-normal text-red-500">
               {errors.description.message}
             </span>
           )}
         </div>
-        <div className="text-sm flex justify-end gap-3">
+        <div className="flex justify-end gap-3 text-sm">
           <AceButton
-            className="block bg-gradient-to-br relative group/btn dark:from-white from-gray-200 to-gray-300 dark:to-white bg-gray-400 w-full dark:text-gray-800 rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--gray-400)_inset,0px_-1px_0px_0px_var(--gray-400)_inset]"
+            className="group/btn relative block h-10 w-full rounded-md bg-gray-400 bg-gradient-to-br from-gray-200 to-gray-300 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:from-white dark:to-white dark:text-gray-800 dark:shadow-[0px_1px_0px_0px_var(--gray-400)_inset,0px_-1px_0px_0px_var(--gray-400)_inset]"
             isLoading={isPending}
             type="submit"
           >

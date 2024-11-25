@@ -48,8 +48,8 @@ function SigninForm({
   });
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-1xl p-4 md:p-8 bg-white dark:bg-transparent">
-      <h3 className="font-bold text-3xl text-neutral-800 dark:text-neutral-200">
+    <div className="rounded-1xl mx-auto w-full max-w-md bg-white p-4 dark:bg-transparent md:p-8">
+      <h3 className="text-3xl font-bold text-neutral-800 dark:text-neutral-200">
         Welcome back<span className="text-cyan-500">.</span>
       </h3>
 
@@ -66,7 +66,7 @@ function SigninForm({
             className="bg-slate-900"
           />
           {errors.input && (
-            <span className="text-red-500 text-sm">{errors.input.message}</span>
+            <span className="text-sm text-red-500">{errors.input.message}</span>
           )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-2">
@@ -80,7 +80,7 @@ function SigninForm({
             className="bg-slate-950"
           />
           {errors.password && (
-            <span className="text-red-500 text-sm">
+            <span className="text-sm text-red-500">
               {errors.password.message}
             </span>
           )}
@@ -103,7 +103,7 @@ function SigninForm({
             Sign up
           </Link>
         </small>
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
       </form>
     </div>
   );

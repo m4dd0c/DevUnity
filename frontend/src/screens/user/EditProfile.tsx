@@ -128,7 +128,7 @@ function EditProfile({ user }: { user: IUser | null }) {
 
   if (!user) nav("/");
   return (
-    <div className="min-h-screen bg-black grid place-items-center pt-20">
+    <div className="grid min-h-screen place-items-center bg-black pt-20">
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title="Edit Profile | DevUnity"
@@ -138,17 +138,14 @@ function EditProfile({ user }: { user: IUser | null }) {
         twitterCard="summary"
       />
 
-      <form
-        className="max-w-2xl w-full h-full"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="min-w-60 min-h-60 my-5">
+      <form className="size-full max-w-2xl" onSubmit={handleSubmit(onSubmit)}>
+        <div className="my-5 min-h-60 min-w-60">
           <img
             src={imagePrev as string}
             alt="user"
-            className="object-cover rounded-full h-52 w-52 shadow-input shadow-slate-800 max-md:mx-auto"
+            className="size-52 rounded-full object-cover shadow-input shadow-slate-800 max-md:mx-auto"
           />
-          <label className="text-indigo-500 cursor-pointer block my-2 ml-12 max-md:ml-0 max-md:text-center">
+          <label className="my-2 ml-12 block cursor-pointer text-indigo-500 max-md:ml-0 max-md:text-center">
             <input
               className="hidden"
               type="file"
@@ -158,7 +155,7 @@ function EditProfile({ user }: { user: IUser | null }) {
             Change Avatar
           </label>
         </div>
-        <div className="w-full max-md:w-11/12 gap-2 flex items-center justify-between mb-4 mx-auto">
+        <div className="mx-auto mb-4 flex w-full items-center justify-between gap-2 max-md:w-11/12">
           <AceButton isPurple={true} isLoading={isPending} type="submit">
             Save
           </AceButton>
@@ -166,7 +163,7 @@ function EditProfile({ user }: { user: IUser | null }) {
             Cancel
           </AceButton>
         </div>
-        <div className="max-md:w-11/12 w-full mx-auto">
+        <div className="mx-auto w-full max-md:w-11/12">
           <LabelInputContainer className="mb-4">
             <Label htmlFor="fullname">Full Name</Label>
             <Input
@@ -176,7 +173,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               type="text"
             />
             {errors.name && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.name.message}
               </span>
             )}
@@ -193,7 +190,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               isLoading={isLoading}
             />
             {
-              <div className="text-red-500 text-sm min-h-5">
+              <div className="min-h-5 text-sm text-red-500">
                 {errors.username && errors.username.message}
               </div>
             }
@@ -207,7 +204,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               type="text"
             />
             {errors.location && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.location.message}
               </span>
             )}
@@ -221,7 +218,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               type="text"
             />
             {errors.portfolio && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.portfolio.message}
               </span>
             )}
@@ -234,7 +231,7 @@ function EditProfile({ user }: { user: IUser | null }) {
               placeholder="About you..."
             />
             {errors.bio && (
-              <span className="text-red-500 text-sm">{errors.bio.message}</span>
+              <span className="text-sm text-red-500">{errors.bio.message}</span>
             )}
           </LabelInputContainer>
         </div>

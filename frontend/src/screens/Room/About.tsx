@@ -38,7 +38,7 @@ function Describe({ user }: { user: IUser | null }) {
     title: "Description",
     value: "description",
     content: (
-      <div className="w-full overflow-y-auto relative h-full rounded-2xl p-7 max-md:p-3 max-md:pb-16 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
+      <div className="relative size-full overflow-y-auto rounded-2xl bg-gradient-to-br from-purple-700 to-violet-900 p-7 text-xl font-bold text-white max-md:p-3 max-md:pb-16 md:text-4xl">
         {/* SEO - INVISIBLE IN PAGE */}
         <SEO
           title={`About - ${room && room.data.project.title} | DevUnity`}
@@ -58,7 +58,7 @@ function Describe({ user }: { user: IUser | null }) {
     title: "Describe",
     value: "describe",
     content: (
-      <div className="w-full overflow-y-auto relative h-full rounded-2xl p-7 max-md:p-3 max-md:pb-16 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
+      <div className="relative size-full overflow-y-auto rounded-2xl bg-gradient-to-br from-purple-700 to-violet-900 p-7 text-xl font-bold text-white max-md:p-3 max-md:pb-16 md:text-4xl">
         <p>Describe</p>
         <DescribeForm isAdmin={isAdmin} room={room?.data} />
       </div>
@@ -70,7 +70,7 @@ function Describe({ user }: { user: IUser | null }) {
     title: "Settings",
     value: "settings",
     content: (
-      <div className="w-full overflow-y-auto relative h-full rounded-2xl p-7 max-md:p-3 max-md:pb-16 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
+      <div className="relative size-full overflow-y-auto rounded-2xl bg-gradient-to-br from-purple-700 to-violet-900 p-7 text-xl font-bold text-white max-md:p-3 max-md:pb-16 md:text-4xl">
         <p>Settings</p>
         <SettingsForm isAdmin={isAdmin} room={room?.data} />
       </div>
@@ -148,12 +148,12 @@ function Describe({ user }: { user: IUser | null }) {
   }, [isActiveUser, mutate, roomId, discussionData]);
 
   return isLoading || !roomId ? (
-    <div className="bg-neutral-950 grid place-items-center h-screen w-full">
+    <div className="grid h-screen w-full place-items-center bg-neutral-950">
       <Loader />
     </div>
   ) : (
     <RoomSidebar room={room?.data} isActiveUser={isActiveUser}>
-      <div className="p-5 min-h-screen [perspective:1000px] relative flex flex-col w-full items-start justify-start">
+      <div className="relative flex min-h-screen w-full flex-col items-start justify-start p-5 [perspective:1000px]">
         <Tabs tabs={tabs} contentClassName="mt-10" />
       </div>
     </RoomSidebar>

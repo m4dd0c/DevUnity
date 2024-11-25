@@ -36,7 +36,7 @@ function RoomSidebar({
           isActiveUser={isActiveUser}
           className="justify-between gap-10"
         >
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => {
@@ -54,7 +54,7 @@ function RoomSidebar({
                   link={{
                     label: "Run (ctrl+r)",
                     icon: (
-                      <IconPlayerPlayFilled className="text-indigo-500 h-5 w-5 flex-shrink-0" />
+                      <IconPlayerPlayFilled className="size-5 shrink-0 text-indigo-500" />
                     ),
                   }}
                 />
@@ -63,7 +63,7 @@ function RoomSidebar({
                   link={{
                     label: "Save code (ctrl+s)",
                     icon: (
-                      <IconDeviceFloppy className="text-indigo-500 h-5 w-5 flex-shrink-0" />
+                      <IconDeviceFloppy className="size-5 shrink-0 text-indigo-500" />
                     ),
                   }}
                 />
@@ -73,9 +73,7 @@ function RoomSidebar({
               onClick={handleCopy}
               link={{
                 label: "Copy RoomId",
-                icon: (
-                  <IconCopy className="text-indigo-500 h-5 w-5 flex-shrink-0" />
-                ),
+                icon: <IconCopy className="size-5 shrink-0 text-indigo-500" />,
               }}
             />
             <SidebarLink
@@ -85,7 +83,7 @@ function RoomSidebar({
                 icon: (
                   <img
                     src={room?.admin.avatar.secure_url || fallback_pp}
-                    className="h-7 w-7 flex-shrink-0 rounded-full object-cover"
+                    className="size-7 shrink-0 rounded-full object-cover"
                     width={50}
                     height={50}
                     alt="Avatar"

@@ -111,11 +111,11 @@ function SignupForm({
   }, [input.username, clearErrors, setError, usernameMutate]);
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 bg-white dark:bg-transparent">
-      <h2 className="font-bold text-3xl text-neutral-800 dark:text-neutral-200">
+    <div className="mx-auto w-full max-w-md rounded-none bg-white p-4 dark:bg-transparent md:rounded-2xl md:p-8">
+      <h2 className="text-3xl font-bold text-neutral-800 dark:text-neutral-200">
         Welcome to DevUnity<span className="text-cyan-500">.</span>
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+      <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         We together Create, Build, and Collaborate.
       </p>
 
@@ -134,7 +134,7 @@ function SignupForm({
             value={input.name}
           />
           {errors.name && (
-            <span className="text-red-500 text-sm">{errors.name.message}</span>
+            <span className="text-sm text-red-500">{errors.name.message}</span>
           )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -151,7 +151,7 @@ function SignupForm({
             value={input.username}
           />
           {
-            <div className="text-red-500 text-sm min-h-5">
+            <div className="min-h-5 text-sm text-red-500">
               {errors.username && errors.username.message}
             </div>
           }
@@ -170,7 +170,7 @@ function SignupForm({
             value={input.email}
           />
           {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
+            <span className="text-sm text-red-500">{errors.email.message}</span>
           )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-2">
@@ -187,7 +187,7 @@ function SignupForm({
             value={input.password}
           />
           {errors.password && (
-            <span className="text-red-500 text-sm">
+            <span className="text-sm text-red-500">
               {errors.password.message}
             </span>
           )}
@@ -205,7 +205,7 @@ function SignupForm({
         >
           Sign up
         </AceButton>
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
       </form>
     </div>
   );

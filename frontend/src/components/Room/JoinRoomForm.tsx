@@ -56,14 +56,14 @@ function JoinRoomForm({ user }: { user: IUser | null }) {
   }, [data, nav, user, joinEvent]);
 
   return (
-    <div className="absolute top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-none border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+    <div className="absolute inset-x-0 top-1/2 z-50 mx-auto w-full max-w-md -translate-y-1/4 rounded-none border border-neutral-900 bg-white p-4 shadow-input dark:bg-[rgba(0,0,0,0.5)] md:rounded-2xl md:p-8">
+      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Join A Room
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
+      <p className="mt-2 flex max-w-sm items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
         Join with fellows and dominate the World together.
       </p>
-      <form className="mt-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-4 mt-8" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="roomId">Room ID</Label>
           <Input

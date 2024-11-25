@@ -40,7 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className={`w-full p-[2px] rounded-lg transition duration-300 group/input ${isLoading && "relative"}`}
+        className={`group/input w-full rounded-lg p-[2px] transition duration-300 ${isLoading && "relative"}`}
       >
         <input
           type={type}
@@ -58,7 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {isLoading && (
-          <div className="absolute top-1/2 right-4 -translate-y-1/2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2">
             <IconLoader size={15} className="animate-spin" color="white" />
           </div>
         )}

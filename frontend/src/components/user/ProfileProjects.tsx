@@ -40,9 +40,9 @@ const ProfileProjects = ({ user }: { user: IUser | null }) => {
   }, [setData, user]);
 
   return (
-    <div className="lg:overflow-y-scroll lg:w-full">
+    <div className="lg:w-full lg:overflow-y-scroll">
       {self && !user?.verification.verified && (
-        <div className="max-lg:hidden mb-2 px-4 text-center bg-red-500 dark:text-white">
+        <div className="mb-2 bg-red-500 px-4 text-center dark:text-white max-lg:hidden">
           <h1>
             Please verify your account within 3 days. <br /> Check verification
             mail to associated email address, also checkout spam section.
@@ -55,7 +55,7 @@ const ProfileProjects = ({ user }: { user: IUser | null }) => {
             <h1
               key={filter}
               onClick={(e) => onSubmit(filter, e)}
-              className={`${active === filter && "text-indigo-500"} capitalize select-none cursor-pointer bg-slate-800 rounded-full px-4 py-2`}
+              className={`${active === filter && "text-indigo-500"} cursor-pointer select-none rounded-full bg-slate-800 px-4 py-2 capitalize`}
             >
               {filter}
             </h1>

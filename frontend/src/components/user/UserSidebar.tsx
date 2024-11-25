@@ -12,8 +12,8 @@ function UserSidebar({ children }: { children: React.ReactNode }) {
     >
       <Sidebar>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            <div className="mt-14 pl-2 flex flex-col gap-2">
+          <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+            <div className="mt-14 flex flex-col gap-2 pl-2">
               {userSettingsLinks.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}

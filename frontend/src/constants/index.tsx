@@ -377,21 +377,21 @@ export const userSettingsLinks = [
     label: "Edit Profile",
     href: "edit",
     icon: (
-      <IconEdit className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconEdit className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Change Password",
     href: "/password/change",
     icon: (
-      <IconKey className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconKey className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Danger Zone",
     href: "delete",
     icon: (
-      <IconTrash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconTrash className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
 ];
@@ -401,33 +401,33 @@ export const links = [
     label: "About project",
     href: "about",
     icon: (
-      <IconInfoSquareRounded className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconInfoSquareRounded className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Dashboard",
     href: "#playground",
     icon: (
-      <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconBrandTabler className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Discussion",
     icon: (
-      <IconMessageCircle className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconMessageCircle className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Users",
     icon: (
-      <IconUsers className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconUsers className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
   {
     label: "Go Home",
     href: "/#hero",
     icon: (
-      <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <IconArrowLeft className="size-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
   },
 ];
@@ -440,12 +440,12 @@ export const team = [
     description:
       "Manish is a visionary leader with a passion for innovation and technology. He has over 15 years of experience in the tech industry and has successfully launched multiple startups.",
     content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
+      <div className="flex size-full  items-center justify-center text-white">
         <img
           src="/assets/team/manish.jpg"
           width={300}
           height={300}
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
           alt="Manish Suthar"
         />
       </div>
@@ -457,12 +457,12 @@ export const team = [
     description:
       "Emily is a talented UX designer who focuses on creating intuitive and user-friendly designs. She believes in the power of user-centered design to solve real-world problems.",
     content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
+      <div className="flex size-full  items-center justify-center text-white">
         <img
           src="/assets/team/emily.jpg"
           width={300}
           height={300}
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
           alt="Emily Davis"
         />
       </div>
@@ -474,12 +474,12 @@ export const team = [
     description:
       "Robert is an experienced project manager who excels in coordinating teams and ensuring projects are completed on time and within budget. His organizational skills are second to none.",
     content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
+      <div className="flex size-full  items-center justify-center text-white">
         <img
           src="/assets/team/robert.jpg"
           width={300}
           height={300}
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
           alt="Robert Johnson"
         />
       </div>
@@ -491,12 +491,12 @@ export const team = [
     description:
       "Jane is a data scientist with a deep understanding of machine learning algorithms and data analytics. She has a knack for turning complex data into actionable insights.",
     content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
+      <div className="flex size-full  items-center justify-center text-white">
         <img
           src="/assets/team/jane.jpg"
           width={300}
           height={300}
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
           alt="Jane Smith"
         />
       </div>

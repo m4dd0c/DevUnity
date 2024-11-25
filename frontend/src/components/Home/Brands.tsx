@@ -8,8 +8,8 @@ const Brands = () => {
       <Heading subtext={"Trusted by world's leading platforms."}>
         Brands
       </Heading>
-      <div className="bg-transparent rounded-lg overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)] h-[30vh]">
-        <div className="animate-scroll-x gap-10 flex justify-evenly">
+      <div className="h-[30vh] overflow-hidden rounded-lg bg-transparent [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <div className="flex animate-scroll-x justify-evenly gap-10">
           {[...brands, ...brands].map((brand, idx) => (
             <BrandCard
               key={idx}

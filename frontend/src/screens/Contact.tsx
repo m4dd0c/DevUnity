@@ -4,7 +4,7 @@ import SEO from "../components/layout/SEO";
 
 const Contact = () => {
   return (
-    <div className="py-10 bg-black text-white">
+    <div className="bg-black py-10 text-white">
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title="Contact | DevUnity"

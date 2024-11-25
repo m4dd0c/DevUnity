@@ -4,8 +4,8 @@ function ContactHead() {
   const words = ["Thoughts", "Feedback", "Inquiries", "Suggestions"];
 
   return (
-    <div className="h-[15rem] flex justify-center items-center px-4">
-      <div className="text-4xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
+    <div className="flex h-60 items-center justify-center px-4">
+      <div className="mx-auto text-4xl font-normal text-neutral-600 dark:text-neutral-400">
         Share
         <FlipWords words={words} /> <br />
         Connect with DevUnity.

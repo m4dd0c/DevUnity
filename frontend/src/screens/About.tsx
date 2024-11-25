@@ -21,39 +21,39 @@ const About = () => {
           "Discover the visionaries behind DevUnity. We're shaping the future of collaborative coding with passion and innovation."
         }
       />
-      <div className="mx-auto px-4 py-8 max-w-5xl">
-        <section className="shadow-lg rounded-lg p-6 md:p-8">
+      <div className="mx-auto max-w-5xl px-4 py-8">
+        <section className="rounded-lg p-6 shadow-lg md:p-8">
           <Heading>Welcome to DevUnity</Heading>
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="mb-4 text-2xl font-semibold">
             Founder: <span className="text-4xl">Manish Suthar</span>
           </h2>
-          <div className="flex gap-3 my-3">
+          <div className="my-3 flex gap-3">
             <Link
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="https://github.com/m4dd0c"
             >
               <IconBrandGithub color={"#a855f7"} />
             </Link>
-            <p className="font-bold text-xl">•</p>
+            <p className="text-xl font-bold">•</p>
             <Link
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="https://linkedin.com/in/m4dd0c"
             >
               <IconBrandLinkedin color={"#a855f7"} />
             </Link>
           </div>
-          <p className="text-lg mb-4">
+          <p className="mb-4 text-lg">
             <strong>Founded in 2024,</strong> DevUnity is a groundbreaking
             platform designed to help developers forge meaningful connections
             and leverage these networks to create remarkable projects.
           </p>
-          <p className="text-lg mb-4">
+          <p className="mb-4 text-lg">
             Our primary mission is to empower developers and students by
             providing a real-time collaborative coding environment, coupled with
             discussion functionality, enabling seamless communication and
             teamwork.
           </p>
-          <p className="text-lg mb-4">
+          <p className="mb-4 text-lg">
             At DevUnity, we believe in the power of collaboration and
             innovation. Our platform is tailored to foster a community where
             developers can come together, share knowledge, and build something

@@ -63,7 +63,7 @@ function Navbar({
           Search
         </Link>
         <MenuItem setActive={setActive} active={active} item="Room">
-          <div className="text-sm grid grid-cols-2 gap-10 p-4 max-sm:flex max-sm:flex-col max-sm:px-1 max-sm:gap-0 max-sm:space-y-10">
+          <div className="grid grid-cols-2 gap-10 p-4 text-sm max-sm:flex max-sm:flex-col max-sm:gap-0 max-sm:space-y-10 max-sm:px-1">
             <ProductItem
               title="Create Room"
               href="/room/create"
@@ -100,7 +100,7 @@ function Navbar({
               <button
                 onClick={() => mutate()}
                 disabled={isPending}
-                className="border-none text-left flex items-center gap-1 cursor-pointer dark:text-white"
+                className="flex cursor-pointer items-center gap-1 border-none text-left dark:text-white"
               >
                 <h1>Logout</h1>
 

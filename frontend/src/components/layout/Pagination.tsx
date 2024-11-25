@@ -13,10 +13,10 @@ const Pagination = ({
   setPaginationState: React.Dispatch<React.SetStateAction<IPaginationState>>;
 }) => {
   return (
-    <div className="flex justify-center items-center gap-3">
+    <div className="flex items-center justify-center gap-3">
       <div>
         <button
-          className="rounded-md p-2 border border-[rgba(255,255,255,0.2)] disabled:text-gray-500"
+          className="rounded-md border border-[rgba(255,255,255,0.2)] p-2 disabled:text-gray-500"
           disabled={paginationState.page <= 1 || !query}
           onClick={() =>
             setPaginationState({
@@ -31,7 +31,7 @@ const Pagination = ({
       <div>{formatNumber(paginationState.page)}</div>
       <div>
         <button
-          className="rounded-md p-2 border border-[rgba(255,255,255,0.2)] disabled:text-gray-500"
+          className="rounded-md border border-[rgba(255,255,255,0.2)] p-2 disabled:text-gray-500"
           disabled={!isNext || !query}
           onClick={() =>
             setPaginationState({

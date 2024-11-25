@@ -20,8 +20,8 @@ const Testimonials = () => {
       <Heading subtext={"Here is what they want to say about DevUnity"}>
         Loved by thousands of people
       </Heading>
-      <div className="flex justify-evenly bg-transparent rounded-lg overflow-hidden h-[80vh] [mask-image:linear-gradient(to_top,transparent,white_20%,white_80%,transparent)]">
-        <div className="max-lg:hidden animate-scroll" ref={fastScrollerRef}>
+      <div className="flex h-[80vh] justify-evenly overflow-hidden rounded-lg bg-transparent [mask-image:linear-gradient(to_top,transparent,white_20%,white_80%,transparent)]">
+        <div className="animate-scroll max-lg:hidden" ref={fastScrollerRef}>
           {[...testimonials.slice(0, 15), ...testimonials.slice(0, 15)].map(
             (testimonial, idx) => (
               <TestimonialCard
@@ -47,7 +47,7 @@ const Testimonials = () => {
             ),
           )}
         </div>
-        <div className="max-sm:hidden animate-scroll" ref={fastScrollerRef}>
+        <div className="animate-scroll max-sm:hidden" ref={fastScrollerRef}>
           {[...testimonials.slice(30), ...testimonials.slice(30)].map(
             (testimonial, idx) => (
               <TestimonialCard

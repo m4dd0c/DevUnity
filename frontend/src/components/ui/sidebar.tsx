@@ -140,24 +140,24 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="flex gap-4 items-center justify-end z-20 w-full">
+        <div className="z-20 flex w-full items-center justify-end gap-4">
           {isActiveUser && (
             <>
               <IconPlayerPlayFilled
                 title="Run code"
-                className="text-indigo-500 h-5 w-5 flex-shrink-0"
+                className="size-5 shrink-0 text-indigo-500"
                 onClick={submitCode}
               />
               <IconDeviceFloppy
                 title="Save code"
-                className="text-indigo-500 h-5 w-5 flex-shrink-0"
+                className="size-5 shrink-0 text-indigo-500"
                 onClick={() => saveCode({ roomId: roomId || "" })}
               />
             </>
           )}
           <IconCopy
             title="copy roomId"
-            className="text-indigo-500 h-5 w-5 flex-shrink-0"
+            className="size-5 shrink-0 text-indigo-500"
             onClick={handleCopy}
           />
           <div className="relative">
@@ -265,7 +265,7 @@ export const SidebarLink = ({
               : "inline-block",
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
         >
           {link.label}
         </motion.span>
@@ -291,7 +291,7 @@ export const SidebarLink = ({
               : "inline-block",
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
         >
           {link.label}
         </motion.span>

@@ -10,15 +10,15 @@ const TestimonialCard = ({
   feedback: string;
 }) => {
   return (
-    <div className="rounded-lg bg-neutral-950 text-white my-10 p-4 w-fit  border border-neutral-800">
+    <div className="my-10 w-fit rounded-lg border border-neutral-800 bg-neutral-950  p-4 text-white">
       <div className="flex items-center">
         <img
           alt={username}
           src={img}
-          className="h-10 w-10 rounded-full object-cover"
+          className="size-10 rounded-full object-cover"
         />
         <div className="ml-4">
-          <p className="font-semibold text-lg">{name}</p>
+          <p className="text-lg font-semibold">{name}</p>
           <p className="text-neutral-400">@{username}</p>
         </div>
       </div>

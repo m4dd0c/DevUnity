@@ -24,16 +24,16 @@ const Header = ({
   return (
     <>
       <div
-        className={`${isRoomPath && "hidden"} h-[5rem] fixed z-[99999] text-white max-sm:hidden`}
+        className={`${isRoomPath && "hidden"} fixed z-[99999] h-20 text-white max-sm:hidden`}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <HashLink
-            className="flex justify-start items-center"
+            className="flex items-center justify-start"
             smooth
             to="/#hero"
           >
             <img src="/assets/logo.png" alt="logo" height={80} width={80} />
-            <h1 className="font-bold text-2xl max-lg:hidden">DevUnity</h1>
+            <h1 className="text-2xl font-bold max-lg:hidden">DevUnity</h1>
           </HashLink>
         </div>
       </div>

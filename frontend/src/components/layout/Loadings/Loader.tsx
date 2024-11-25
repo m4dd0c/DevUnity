@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
 const Loader = () => (
-  <div className="h-[20vh] w-[20vh] grid place-items-center">
+  <div className="grid size-[20vh] place-items-center">
     <motion.div
-      className="bg-slate-300 h-1/4 w-1/4"
+      className="size-1/4 bg-slate-300"
       animate={{
         scale: [1, 2, 2, 1, 1],
         rotate: [0, 0, 270, 270, 0],

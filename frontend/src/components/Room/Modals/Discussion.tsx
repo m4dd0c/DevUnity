@@ -8,7 +8,7 @@ const Discussion = ({
   userId?: string;
 }) => {
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-1 flex-col">
       {chat &&
         chat.chat.map((message, idx) => (
           <div
@@ -18,10 +18,10 @@ const Discussion = ({
             <img
               src={message?.sender?.avatar?.secure_url ?? fallback_pp}
               alt={message?.sender?.username}
-              className="h-7 w-7 rounded-full object-cover"
+              className="size-7 rounded-full object-cover"
             />
-            <div className="max-w-[80%] max-lg:max-w-[90%] my-1 bg-blue-500 text-white py-1 px-2 mx-2 rounded-md">
-              <small className="text-blue-800 line-clamp-1 text-xs">
+            <div className="mx-2 my-1 max-w-[80%] rounded-md bg-blue-500 px-2 py-1 text-white max-lg:max-w-[90%]">
+              <small className="line-clamp-1 text-xs text-blue-800">
                 {message?.sender?.username}
               </small>
               <p className="">{message?.message}</p>

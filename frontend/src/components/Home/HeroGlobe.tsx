@@ -3,7 +3,7 @@ import { World } from "../ui/globe";
 
 function HeroGlobe() {
   return (
-    <div className="h-[60vh] w-[60vh] max-sm:h-[40vh] max-sm:w-[40vh]">
+    <div className="size-[60vh] max-sm:size-[40vh]">
       <World data={sampleArcs} globeConfig={globeConfig} />;
     </div>
   );

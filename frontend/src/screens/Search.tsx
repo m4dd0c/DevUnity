@@ -92,10 +92,10 @@ const Search = () => {
         twitterCard="summary"
       />
 
-      <div className="w-full mx-auto pt-20 max-w-3xl dark:text-white">
-        <div className="flex justify-center items-center gap-2 mx-4 py-2 px-4 bg-gray-900 rounded-md">
+      <div className="mx-auto w-full max-w-3xl pt-20 dark:text-white">
+        <div className="mx-4 flex items-center justify-center gap-2 rounded-md bg-gray-900 px-4 py-2">
           <button
-            className={`flex justify-between items-center w-[6.4rem] bg-slate-800 rounded-full px-3 py-1 ${active && "max-md:hidden"}`}
+            className={`flex w-[6.4rem] items-center justify-between rounded-full bg-slate-800 px-3 py-1 ${active && "max-md:hidden"}`}
             onClick={handleType}
           >
             <h1>{type}</h1>
@@ -110,7 +110,7 @@ const Search = () => {
             onSubmit={onSubmit}
           />
         </div>
-        <h1 className="max-md:mx-2 mx-10 my-4">Results</h1>
+        <h1 className="mx-10 my-4 max-md:mx-2">Results</h1>
         <div className="mx-auto space-y-2">
           {/* little messed up here focus little to understand */}
           {/* isLoading than show loader else not */}

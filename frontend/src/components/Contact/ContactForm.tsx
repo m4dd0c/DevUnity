@@ -41,17 +41,17 @@ function ContactForm() {
   });
 
   return (
-    <div className="max-w-md w-full mx-auto rounded-none border border-neutral-900 md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+    <div className="mx-auto w-full max-w-md rounded-none border border-neutral-900 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
+      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Contact DevUnity
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
+      <p className="mt-2 flex max-w-sm items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
         <span>Get in touch</span> <span className="text-lg font-bold">•</span>{" "}
         <span>24/7 support</span>
       </p>
 
       <form className="my-8" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
             <Input
@@ -61,7 +61,7 @@ function ContactForm() {
               type="text"
             />
             {errors.f_name && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.f_name.message}
               </span>
             )}
@@ -75,7 +75,7 @@ function ContactForm() {
               type="text"
             />
             {errors.l_name && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.l_name.message}
               </span>
             )}
@@ -90,7 +90,7 @@ function ContactForm() {
             type="email"
           />
           {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
+            <span className="text-sm text-red-500">{errors.email.message}</span>
           )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -101,7 +101,7 @@ function ContactForm() {
             id="message"
           />
           {errors.message && (
-            <span className="text-red-500 text-sm">
+            <span className="text-sm text-red-500">
               {errors.message.message}
             </span>
           )}

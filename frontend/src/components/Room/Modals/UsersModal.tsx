@@ -25,7 +25,7 @@ function UsersModal({
 }) {
   return (
     <Modal>
-      <ModalTrigger className="flex items-center justify-start gap-2  group/sidebar py-2">
+      <ModalTrigger className="group/sidebar flex items-center justify-start  gap-2 py-2">
         {icon}
         <motion.span
           animate={{
@@ -36,26 +36,26 @@ function UsersModal({
               : "inline-block",
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
         >
           {label}
         </motion.span>
       </ModalTrigger>
       <ModalBody>
         <ModalContent>
-          <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
+          <h4 className="mb-8 text-center text-lg font-bold text-neutral-600 dark:text-neutral-100 md:text-2xl">
             Collaborators right now.
           </h4>
-          <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[50vh]">
+          <div className="mx-auto flex max-h-[50vh] w-full flex-wrap items-start justify-center gap-4 overflow-y-auto py-10">
             {room?.participents.map((user, idx) => (
               <Link
                 to={`/user/${user._id}`}
                 key={idx}
-                className="bg-neutral-900 p-4 rounded-md w-1/4 max-sm:w-full max-lg:w-full"
+                className="w-1/4 rounded-md bg-neutral-900 p-4 max-lg:w-full max-sm:w-full"
               >
                 <img
                   src={user.avatar.secure_url ?? fallback_pp}
-                  className="h-7 w-7 rounded-full mx-auto object-cover"
+                  className="mx-auto size-7 rounded-full object-cover"
                   width={50}
                   height={50}
                   alt="Avatar"

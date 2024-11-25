@@ -5,7 +5,7 @@ const CloseModalButton = () => {
   return (
     <button
       onClick={() => setOpen(false)}
-      className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28"
+      className="w-28 rounded-md border border-gray-300 bg-gray-200 px-2 py-1 text-sm text-black dark:border-black dark:bg-black dark:text-white"
     >
       Close
     </button>

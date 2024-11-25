@@ -27,7 +27,7 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}
-        className={`cursor-pointer hover:opacity-[0.9] ${item === "Profile" ? "text-indigo-500" : "dark:text-white text-black"}`}
+        className={`cursor-pointer hover:opacity-90 ${item === "Profile" ? "text-indigo-500" : "text-black dark:text-white"}`}
       >
         {item}
       </motion.p>
@@ -38,15 +38,15 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+            <div className="absolute left-1/2 top-[calc(100%_+_1.2rem)] -translate-x-1/2 pt-4">
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+                className="overflow-hidden rounded-2xl border border-black/[0.2] bg-white shadow-xl backdrop-blur-sm dark:border-white/[0.2] dark:bg-black"
               >
                 <motion.div
                   layout // layout ensures smooth animation
-                  className="w-max h-full p-4"
+                  className="h-full w-max p-4"
                 >
                   {children}
                 </motion.div>
@@ -69,7 +69,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative rounded-full border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input flex justify-center space-x-4 max-sm:px-4 px-8 py-4 "
+      className="relative flex justify-center space-x-4 rounded-full border border-transparent bg-white px-8 py-4 shadow-input dark:border-white/[0.2] dark:bg-black max-sm:px-4 "
     >
       {children}
     </nav>
@@ -94,13 +94,13 @@ export const ProductItem = ({
         width={140}
         height={70}
         alt={title}
-        className="flex-shrink-0 rounded-md shadow-2xl"
+        className="shrink-0 rounded-md shadow-2xl"
       />
       <div>
-        <h4 className="text-xl max-sm:text-lg font-bold mb-1 text-black dark:text-white">
+        <h4 className="mb-1 text-xl font-bold text-black dark:text-white max-sm:text-lg">
           {title}
         </h4>
-        <p className="text-neutral-700 text-sm max-sm:w-[8rem] max-w-[10rem] dark:text-neutral-300">
+        <p className="max-w-40 text-sm text-neutral-700 dark:text-neutral-300 max-sm:w-32">
           {description}
         </p>
       </div>
@@ -114,7 +114,7 @@ export const HoveredLink = ({ children, href, ...rest }: any) => {
       {...rest}
       to={href}
       smooth
-      className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+      className="text-neutral-700 hover:text-black dark:text-neutral-200 "
     >
       {children}
     </HashLink>

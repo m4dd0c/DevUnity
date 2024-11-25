@@ -51,7 +51,7 @@ function ChangePassword() {
     },
   });
   return (
-    <div className="h-screen w-full flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="bg-grid-white/[0.02] relative flex h-screen w-full overflow-hidden bg-black/[0.96] antialiased md:items-center md:justify-center">
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title="Change password | DevUnity"
@@ -62,15 +62,15 @@ function ChangePassword() {
       />
 
       <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
+        className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
-      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-32 md:pt-0">
-        <h1 className="text-xl md:text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
+      <div className="relative z-10 mx-auto w-full max-w-7xl p-4 pt-32 md:pt-0">
+        <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-xl font-bold text-transparent md:text-4xl">
           Change Password.
         </h1>
         <form
-          className="my-8 max-w-md mx-auto text-white "
+          className="mx-auto my-8 max-w-md text-white "
           onSubmit={handleSubmit(onSubmit)}
         >
           <LabelInputContainer className="mb-4">
@@ -82,7 +82,7 @@ function ChangePassword() {
               type="password"
             />
             {errors.currentPassword && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.currentPassword.message}
               </span>
             )}
@@ -96,7 +96,7 @@ function ChangePassword() {
               type="password"
             />
             {errors.newPassword && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.newPassword.message}
               </span>
             )}
@@ -111,7 +111,7 @@ function ChangePassword() {
               type="password"
             />
             {errors.confirmPassword && (
-              <span className="text-red-500 text-sm">
+              <span className="text-sm text-red-500">
                 {errors.confirmPassword.message}
               </span>
             )}
@@ -122,7 +122,7 @@ function ChangePassword() {
           <AceButton isLoading={isPending} type="submit">
             Change Password
           </AceButton>
-          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+          <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
         </form>
       </div>
     </div>

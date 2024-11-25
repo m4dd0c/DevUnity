@@ -12,29 +12,29 @@ import { useSocket } from "../../context/useSocket";
 const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
   const { language } = useSocket();
   return (
-    <div className="font-normal space-y-2">
+    <div className="space-y-2 font-normal">
       {room && room.admin && (
         <Link
           to={`/user/${room.admin._id}`}
-          className="flex items-center text-black w-fit"
+          className="flex w-fit items-center text-black"
         >
-          <div className="p-1 bg-white rounded-full">
+          <div className="rounded-full bg-white p-1">
             <img
               src={room.admin.avatar.secure_url ?? fallback_pp}
               alt="pp"
-              className="rounded-full h-7 w-7 object-cover"
+              className="size-7 rounded-full object-cover"
             />
           </div>
-          <h1 className="text-sm font-semibold bg-white px-2 rounded-r-full -ml-1">
+          <h1 className="-ml-1 rounded-r-full bg-white px-2 text-sm font-semibold">
             @{room.admin.username}
           </h1>
         </Link>
       )}
-      <h1 className="text-5xl font-bold capitalize py-2">
+      <h1 className="py-2 text-5xl font-bold capitalize">
         {room?.project?.title}
       </h1>
       <p className="text-sm font-normal">{room?.project?.explanation}</p>
-      <div className="flex text-sm flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4 text-sm">
         <div className="flex items-center gap-2">
           <IconPointFilled size={20} color={language.color} />
           <h1>{language.label}</h1>
@@ -49,14 +49,14 @@ const ProjectDescription = ({ room }: { room: IRoom | undefined }) => {
         </div>
       </div>
       <br />
-      <div className="bg-gradient-to-r from-transparent via-neutral-300 to-transparent my-8 h-[1px] w-full" />
+      <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
       <br />
       {room?.project.description ? (
         <div className="w-full">
           <ParseHtml data={room.project.description} />
         </div>
       ) : (
-        <div className="grid w-full h-full place-items-center">
+        <div className="grid size-full place-items-center">
           <h1 className="opacity-70">No Description added yet :(</h1>
         </div>
       )}

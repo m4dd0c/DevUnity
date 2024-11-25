@@ -84,7 +84,7 @@ function App() {
       <SocketProvider>
         <Suspense
           fallback={
-            <div className="bg-black w-full h-screen grid place-items-center">
+            <div className="grid h-screen w-full place-items-center bg-black">
               <Loader />
             </div>
           }

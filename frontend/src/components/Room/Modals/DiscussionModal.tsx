@@ -180,7 +180,7 @@ function DiscussionModal({
     <Modal>
       <ModalTrigger
         showIndicator={true}
-        className="flex items-center justify-start gap-2 group/sidebar py-2"
+        className="group/sidebar flex items-center justify-start gap-2 py-2"
       >
         <div className="relative">
           {icon}
@@ -195,18 +195,18 @@ function DiscussionModal({
               : "inline-block",
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="!m-0 inline-block whitespace-pre !p-0 text-sm text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
         >
           {label}
         </motion.span>
       </ModalTrigger>
       <ModalBody>
         <ModalContent className="p-4">
-          <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
+          <h4 className="mb-8 text-center text-lg font-bold text-neutral-600 dark:text-neutral-100 md:text-2xl">
             Discussion
           </h4>
-          <div className="py-10 flex flex-wrap gap-4 items-start justify-center w-full mx-auto overflow-y-auto max-h-[60vh]">
-            <div className="flex flex-1 justify-center items-center">
+          <div className="mx-auto flex max-h-[60vh] w-full flex-wrap items-start justify-center gap-4 overflow-y-auto py-10">
+            <div className="flex flex-1 items-center justify-center">
               {isLoading ? (
                 <Loader />
               ) : (
@@ -225,7 +225,7 @@ function DiscussionModal({
           <button
             onClick={handleSend}
             disabled={isDisabled}
-            className="rounded-full p-3 grid place-items-center bg-neutral-800 hover:shadow-custom active:bg-blue-500"
+            className="grid place-items-center rounded-full bg-neutral-800 p-3 hover:shadow-custom active:bg-blue-500"
           >
             <IconSend color="white" size={20} />
           </button>

@@ -79,7 +79,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
   }, [discussionData, isActiveUser, roomId, mutate]);
 
   return isLoading || !roomId ? (
-    <div className="bg-neutral-950 grid place-items-center h-screen w-full">
+    <div className="grid h-screen w-full place-items-center bg-neutral-950">
       <Loader />
     </div>
   ) : (

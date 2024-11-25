@@ -45,14 +45,14 @@ function CreateRoomForm() {
   };
 
   return (
-    <div className="absolute max-lg:top-[55%] top-1/2 -translate-y-1/4 inset-x-0 z-50 max-w-md w-full mx-auto rounded-xl border border-neutral-900 md:rounded-2xl p-4 md:p-8 bg-white dark:bg-[rgba(0,0,0,0.5)] shadow-input">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+    <div className="absolute inset-x-0 top-1/2 z-50 mx-auto w-full max-w-md -translate-y-1/4 rounded-xl border border-neutral-900 bg-white p-4 shadow-input dark:bg-[rgba(0,0,0,0.5)] max-lg:top-[55%] md:rounded-2xl md:p-8">
+      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Create A Room
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 flex items-center gap-2">
+      <p className="mt-2 flex max-w-sm items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
         Start by putting your name in.
       </p>
-      <form className="mt-8 mb-4 max-md:mb-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-4 mt-8 max-md:mb-4" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="roomId">Room ID</Label>
           <Input

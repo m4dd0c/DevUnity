@@ -47,7 +47,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
   return isLoading ? (
     <ProfileSkeleton />
   ) : (
-    <div className="h-screen max-lg:h-full w-full bg-black text-white flex overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden bg-black text-white max-lg:h-full">
       {/* SEO - INVISIBLE IN PAGE */}
       <SEO
         title={`${user ? user.username : "Profile"} | DevUnity`}
@@ -57,9 +57,9 @@ const Profile = ({ user_id }: { user_id?: string }) => {
         twitterCard="summary"
       />
 
-      <div className="max-w-6xl w-full mx-auto flex max-lg:flex-col mt-20">
+      <div className="mx-auto mt-20 flex w-full max-w-6xl max-lg:flex-col">
         {!user?.verification.verified && self && (
-          <div className="lg:hidden mt-2 text-center bg-red-500 dark:text-white">
+          <div className="mt-2 bg-red-500 text-center dark:text-white lg:hidden">
             <h1>
               Please verify your account within 3 days. <br /> Check
               verification mail to associated email address, also checkout spam
@@ -67,8 +67,8 @@ const Profile = ({ user_id }: { user_id?: string }) => {
             </h1>
           </div>
         )}
-        <div className="h-screen max-lg:h-full p-8 border-r-2 border-r-gray-800">
-          <div className="min-w-60 min-h-60">
+        <div className="h-screen border-r-2 border-r-gray-800 p-8 max-lg:h-full">
+          <div className="min-h-60 min-w-60">
             <img
               src={
                 user && user?.avatar?.secure_url
@@ -76,7 +76,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
                   : fallback_pp
               }
               alt="user"
-              className="object-cover rounded-full h-56 w-56"
+              className="size-56 rounded-full object-cover"
             />
           </div>
           <div className="w-full">
@@ -87,7 +87,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
             {self ? (
               <>
                 <button
-                  className="block mt-4 mb-5 bg-gradient-to-br relative group/btn from-indigo-500 dark:from-indigo-700 dark:to-purple-700 to-purple-500 dark:bg-purple-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--purple-800)_inset,0px_-1px_0px_0px_var(--purple-800)_inset]"
+                  className="group/btn relative mb-5 mt-4 block h-10 w-full rounded-md bg-gradient-to-br from-indigo-500 to-purple-500 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-purple-800 dark:from-indigo-700 dark:to-purple-700 dark:shadow-[0px_1px_0px_0px_var(--purple-800)_inset,0px_-1px_0px_0px_var(--purple-800)_inset]"
                   onClick={() => nav("edit")}
                 >
                   Edit Profile
@@ -95,22 +95,22 @@ const Profile = ({ user_id }: { user_id?: string }) => {
                 </button>
               </>
             ) : (
-              <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+              <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
             )}
             <p className="line-clamp-4">{user && user?.bio}</p>
-            <div className="mt-3 flex flex-col justify-start items-start max-lg:gap-5 gap-1">
-              <div className="flex gap-2 items-center">
+            <div className="mt-3 flex flex-col items-start justify-start gap-1 max-lg:gap-5">
+              <div className="flex items-center gap-2">
                 <IconCalendarMonth size={18} />{" "}
                 <h1>Joined {user && formatDate(user.createdAt)}</h1>
               </div>
               {user && user.location && (
-                <div className="flex gap-2 items-center">
+                <div className="flex items-center gap-2">
                   <IconMapPin size={18} />{" "}
                   <h1 className="line-clamp-1">{user.location}</h1>
                 </div>
               )}
               {user && user.portfolio && (
-                <div className="flex gap-2 items-center">
+                <div className="flex items-center gap-2">
                   <IconLink size={18} />{" "}
                   <a
                     href={user.portfolio}

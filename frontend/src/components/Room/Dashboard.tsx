@@ -125,9 +125,9 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
   }, [room, setLanguage]);
 
   return (
-    <div className="h-screen w-screen flex flex-wrap max-lg:flex-col">
+    <div className="flex h-screen w-screen flex-wrap max-lg:flex-col">
       <div
-        className={`h-full ${fullSizeTerminal ? "max-lg:h-0 w-0" : "max-lg:h-[70%] w-3/4"} transition-all max-lg:w-full`}
+        className={`h-full ${fullSizeTerminal ? "w-0 max-lg:h-0" : "w-3/4 max-lg:h-[70%]"} transition-all max-lg:w-full`}
       >
         {aceLoaded && (
           <AceEditor
@@ -157,12 +157,12 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
         )}
       </div>
       <div
-        className={`${fullSizeTerminal ? "max-lg:h-screen w-full" : "max-lg:h-[30%] w-1/4"} transition-all bg-black max-lg:w-full text-white px-4 py-2 overflow-y-auto`}
+        className={`${fullSizeTerminal ? "w-full max-lg:h-screen" : "w-1/4 max-lg:h-[30%]"} overflow-y-auto bg-black px-4 py-2 text-white transition-all max-lg:w-full`}
       >
-        <div className="flex lg:flex-row-reverse justify-between items-center px-4 py-2">
+        <div className="flex items-center justify-between px-4 py-2 lg:flex-row-reverse">
           <h1>Output</h1>
           <button
-            className="rounded-full p-2 bg-gray-900"
+            className="rounded-full bg-gray-900 p-2"
             onClick={() => setFullSizeTerminal(!fullSizeTerminal)}
           >
             {fullSizeTerminal ? (
@@ -177,13 +177,13 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
             onChange={(e) => setStdin(e.target.value)}
             autoComplete="off"
             placeholder="enter your input (new line separated if more than one)"
-            className="bg-transparent border min-h-14 max-h-40 max-lg:max-h-20 overflow-y-auto border-gray-900 rounded-lg px-4 py-3"
+            className="max-h-40 min-h-14 overflow-y-auto rounded-lg border border-gray-900 bg-transparent px-4 py-3 max-lg:max-h-20"
           />
         </LabelInputContainer>
-        <div className="flex justify-between items-center px-4">
+        <div className="flex items-center justify-between px-4">
           <h1 className="py-2">Result</h1>
           {codeOutput && (
-            <p className="opacity-50 text-sm">
+            <p className="text-sm opacity-50">
               ElapsedTime:{" "}
               {getElapsedTime({
                 createdAt: codeOutput?.created_at,
@@ -198,7 +198,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
           <div>
             {/* if loading then show loader */}
             {submittingCode ? (
-              <div className="w-fit mx-auto">
+              <div className="mx-auto w-fit">
                 <Loader />
               </div>
             ) : // if not loading then checking if accepted or failed

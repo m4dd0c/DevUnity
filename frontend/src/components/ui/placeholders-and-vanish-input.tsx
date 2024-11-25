@@ -210,7 +210,7 @@ export const PlaceholdersAndVanishInput: React.FC<IInput> = ({
       <button
         disabled={!value}
         type="submit"
-        className="absolute right-2 top-1/2 z-50 -translate-y-1/2 h-8 w-8 rounded-full disabled:bg-gray-100 bg-black dark:bg-slate-900 dark:disabled:bg-slate-700 transition duration-200 flex items-center justify-center"
+        className="absolute right-2 top-1/2 z-50 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black transition duration-200 disabled:bg-gray-100 dark:bg-slate-900 dark:disabled:bg-slate-700"
       >
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +222,7 @@ export const PlaceholdersAndVanishInput: React.FC<IInput> = ({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-300 h-4 w-4"
+          className="size-4 text-gray-300"
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <motion.path
@@ -244,7 +244,7 @@ export const PlaceholdersAndVanishInput: React.FC<IInput> = ({
         </motion.svg>
       </button>
 
-      <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 flex items-center rounded-full">
         <AnimatePresence mode="wait">
           {!value && (
             <motion.p
@@ -265,7 +265,7 @@ export const PlaceholdersAndVanishInput: React.FC<IInput> = ({
                 duration: 0.3,
                 ease: "linear",
               }}
-              className="dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-4 sm:pl-12 text-left w-[calc(100%-2rem)] truncate"
+              className="w-[calc(100%-2rem)] truncate pl-4 text-left text-sm font-normal text-neutral-500 dark:text-zinc-500 sm:pl-12 sm:text-base"
             >
               {placeholders[currentPlaceholder]}
             </motion.p>

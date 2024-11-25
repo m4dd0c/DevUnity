@@ -25,14 +25,14 @@ export const HoverEffect = ({
         <Link
           to={`/room/${item.roomId}/about`}
           key={idx}
-          className="relative group  block p-2 h-full w-full"
+          className="group relative  block size-full p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                className="absolute inset-0 block size-full rounded-3xl bg-neutral-200 dark:bg-slate-800/[0.8]"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -47,10 +47,10 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle className="text-indigo-500 text-lg">
+            <CardTitle className="text-lg text-indigo-500">
               {item.project.title}
             </CardTitle>
-            <div className="flex gap-2 text-gray-500 my-2 text-sm">
+            <div className="my-2 flex gap-2 text-sm text-gray-500">
               <div className="flex items-center gap-1" title="language">
                 <IconPointFilled
                   size={25}

@@ -6,85 +6,85 @@ const Footer = () => {
     pathname.startsWith("/room") || pathname.startsWith("/user");
   return (
     <div
-      className={`min-h-[40vh] bg-black text-white flex flex-col ${isRoomPath && "hidden"}`}
+      className={`flex min-h-[40vh] flex-col bg-black text-white ${isRoomPath && "hidden"}`}
     >
-      <div className="flex justify-between p-10 max-md:flex-col flex-1">
+      <div className="flex flex-1 justify-between p-10 max-md:flex-col">
         <div>
           <div className="hover:text-neutral-300">
             <HashLink
               smooth
-              className="flex justify-start items-center"
+              className="flex items-center justify-start"
               to="/#hero"
             >
               <img src="/assets/logo.png" alt="logo" height={80} width={80} />
-              <h1 className="font-bold text-2xl underline">DevUnity</h1>
+              <h1 className="text-2xl font-bold underline">DevUnity</h1>
             </HashLink>
           </div>
           <div>
-            <p className="text-sm ml-6">
+            <p className="ml-6 text-sm">
               A platform to collaborate with your team and work together
             </p>
           </div>
         </div>
 
         <br />
-        <div className="md:hidden bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700 md:hidden" />
         <br />
-        <div className="flex space-x-4 gap-4">
+        <div className="flex gap-4 space-x-4">
           <div className="flex flex-col">
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#hero"
               smooth
             >
               Hero
             </HashLink>
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#features"
               smooth
             >
               Features
             </HashLink>
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#testimonials"
               smooth
             >
               Testimonials
             </HashLink>
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#brands"
               smooth
             >
               Brands
             </HashLink>
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#team"
               smooth
             >
               Team
             </HashLink>
             <HashLink
-              className="hover:text-neutral-300 line-clamp-1"
+              className="line-clamp-1 hover:text-neutral-300"
               to="/#room-promo"
               smooth
             >
               RoomPromo
             </HashLink>
           </div>
-          <div className="flex max-md:flex-col gap-5">
+          <div className="flex gap-5 max-md:flex-col">
             <div className="flex flex-col">
               <Link
-                className="hover:text-neutral-300 line-clamp-1"
+                className="line-clamp-1 hover:text-neutral-300"
                 to="/room/create"
               >
                 Create a Room
               </Link>
               <Link
-                className="hover:text-neutral-300 line-clamp-1"
+                className="line-clamp-1 hover:text-neutral-300"
                 to="/room/join"
               >
                 Join a Room
@@ -92,12 +92,12 @@ const Footer = () => {
             </div>
             <div className="flex flex-col ">
               <Link
-                className="hover:text-neutral-300 line-clamp-1"
+                className="line-clamp-1 hover:text-neutral-300"
                 to="/contact"
               >
                 Get in touch
               </Link>
-              <Link className="hover:text-neutral-300 line-clamp-1" to="/about">
+              <Link className="line-clamp-1 hover:text-neutral-300" to="/about">
                 Know about us
               </Link>
             </div>
@@ -105,18 +105,18 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] w-full" />
-      <div className="flex p-3 bottom-0 mx-6 justify-between">
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
+      <div className="bottom-0 mx-6 flex justify-between p-3">
         <div className="flex gap-3 max-sm:hidden">
           <Link
-            className="hover:text-neutral-300 line-clamp-1"
+            className="line-clamp-1 hover:text-neutral-300"
             to="/privacy-policy"
           >
             Privacy Policy
           </Link>
-          <p className="font-bold text-xl">•</p>
+          <p className="text-xl font-bold">•</p>
           <Link
-            className="hover:text-neutral-300 line-clamp-1"
+            className="line-clamp-1 hover:text-neutral-300"
             to="/terms-conditions"
           >
             Terms &amp; Conditions
@@ -124,14 +124,14 @@ const Footer = () => {
         </div>
         <div className="flex gap-3">
           <Link
-            className="hover:text-neutral-300 line-clamp-1"
+            className="line-clamp-1 hover:text-neutral-300"
             to="https://github.com/m4dd0c"
           >
             Github
           </Link>
-          <p className="font-bold text-xl">•</p>
+          <p className="text-xl font-bold">•</p>
           <Link
-            className="hover:text-neutral-300 line-clamp-1"
+            className="line-clamp-1 hover:text-neutral-300"
             to="https://linkedin.com/in/m4dd0c"
           >
             Linkedin

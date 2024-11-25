@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="min-h-screen" id="hero">
       <HeroHighlight>
-        <div className="flex flex-1 justify-between items-center max-lg:flex-col lg:h-[80vh]">
+        <div className="flex flex-1 items-center justify-between max-lg:flex-col lg:h-[80vh]">
           <motion.h1
             initial={{
               opacity: 0,
@@ -21,7 +21,7 @@ const Hero = () => {
               duration: 0.5,
               ease: [0.4, 0.0, 0.2, 1],
             }}
-            className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug mx-auto flex-1 select-none"
+            className="mx-auto max-w-4xl flex-1 select-none px-4 text-2xl font-bold leading-relaxed text-neutral-700 dark:text-white md:text-4xl lg:text-5xl lg:leading-snug"
           >
             In the realm of collective paranoia
             <br />

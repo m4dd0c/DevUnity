@@ -14,8 +14,8 @@ function JoinRoom({ user }: { user: IUser | null }) {
         twitterCard="summary"
       />
       <BackgroundGradientAnimation>
-        <div className="absolute z-50 top-[45%] -translate-y-1/2 inset-0 text-white font-bold px-4 pointer-events-none text-2xl text-center md:text-3xl lg:text-5xl">
-          <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-white/80 to-white/20">
+        <div className="pointer-events-none absolute inset-0 top-[45%] z-50 -translate-y-1/2 px-4 text-center text-2xl font-bold text-white md:text-3xl lg:text-5xl">
+          <p className="bg-gradient-to-b from-white/80 to-white/20 bg-clip-text text-transparent drop-shadow-2xl">
             Start Collaboration with DevUnity
           </p>
         </div>

@@ -13,24 +13,24 @@ const ProjectCard = ({ room }: { room: IRoom }) => {
   return (
     <div
       onClick={handleNavigation}
-      className="bg-slate-900 rounded-xl max-md:rounded-none mx-auto p-4 w-11/12 max-md:w-full gap-7 max-md:gap-4 items-center"
+      className="mx-auto w-11/12 items-center gap-7 rounded-xl bg-slate-900 p-4 max-md:w-full max-md:gap-4 max-md:rounded-none"
     >
       <div className="flex items-end gap-4">
-        <div className="min-w-6 min-h-6 max-md:min-h-[1.7rem] max-md:min-w-[1.7rem]">
+        <div className="min-h-6 min-w-6 max-md:min-h-[1.7rem] max-md:min-w-[1.7rem]">
           <img
             alt="logo"
-            className="h-6 w-6 max-md:h-[1.7rem] max-md:w-[1.7rem] rounded-md shadow-input shadow-gray-400 object-cover"
+            className="size-6 rounded-md object-cover shadow-input shadow-gray-400 max-md:size-[1.7rem]"
             src={room.admin.avatar.secure_url ?? fallback_pp}
           />
         </div>
-        <div className="flex gap-2 items-center cursor-pointer">
-          <h1 className="text-lg font-bold max-md:text-md line-clamp-1 text-indigo-500">
+        <div className="flex cursor-pointer items-center gap-2">
+          <h1 className="max-md:text-md line-clamp-1 text-lg font-bold text-indigo-500">
             {room.admin.username}/{room.project.title}
           </h1>
         </div>
       </div>
       <div>
-        <p className="dark:text-slate-400 line-clamp-2 my-2 max-md:text-sm">
+        <p className="my-2 line-clamp-2 dark:text-slate-400 max-md:text-sm">
           {room.project.explanation}
         </p>
         <div className="flex gap-4 text-sm text-gray-500">
