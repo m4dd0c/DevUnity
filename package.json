@@ -1,20 +1,16 @@
 {
-  "name": "devUnity",
+  "name": "dev-unity",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev-fe": "cd frontend; npm run dev",
-    "dev-be": "cd backend; npm run dev",
-    "dev": "concurrently \"npm run dev-fe\" \"npm run dev-be\""
+    "dev-fe": "cd frontend && npm run dev",
+    "dev-be": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run dev-fe\" \"npm run dev-be\"",
+    "lint-fe:check": "cd frontend && npm run lint:check",
+    "lint-fe:fix": "cd frontend && npm run lint:fix",
+    "pretty-fe:check": "cd frontend && npm run pretty:check",
+    "pretty-fe:fix": "cd frontend && npm run pretty:fix"
   },
   "author": "m4dd0c",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-tailwindcss": "^3.17.5"
-  },
-  "dependencies": {
-    "prettier": "^3.3.3"
-  }
+  "license": "ISC"
 }
