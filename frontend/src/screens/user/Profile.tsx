@@ -20,7 +20,7 @@ const Profile = ({ user_id }: { user_id?: string }) => {
   // requesting
   const { isLoading, refetch, data, isError, isSuccess } = useQuery({
     queryFn: async () => await getUserAction(userId || ""),
-    queryKey: [KEYS.GET_USER, user_id],
+    queryKey: [KEYS.GET_USER, userId],
   });
 
   // response processing

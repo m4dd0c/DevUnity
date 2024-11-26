@@ -29,7 +29,7 @@ function ContactForm() {
   });
 
   // submit function
-  // eslint-disable-next-line
+
   const onSubmit = (data: z.infer<typeof ContactMeSchema>) => {
     mutate(data);
   };

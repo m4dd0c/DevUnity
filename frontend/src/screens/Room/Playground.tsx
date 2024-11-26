@@ -23,7 +23,7 @@ const Playground = ({ user }: { user: null | IUser }) => {
     refetch,
   } = useQuery({
     queryFn: async () => await getRoomAction({ roomId, query }),
-    queryKey: [KEYS.GET_ROOM, roomId],
+    queryKey: [KEYS.GET_ROOM, roomId, query],
   });
 
   // only activeusers can have run and save code

@@ -30,7 +30,7 @@ function Describe({ user }: { user: IUser | null }) {
     refetch,
   } = useQuery({
     queryFn: async () => await getRoomAction({ roomId, query }),
-    queryKey: [KEYS.GET_ROOM, roomId],
+    queryKey: [KEYS.GET_ROOM, roomId, query],
   });
 
   // description tab

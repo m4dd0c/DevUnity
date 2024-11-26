@@ -30,7 +30,6 @@ const Search = () => {
     setPaginationState({ size: 10, page: 1 });
   };
 
-  // eslint-disable-next-line
   const onSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     if (!query.trim()) return;
@@ -54,7 +53,12 @@ const Search = () => {
         page: paginationState.page,
         size: paginationState.size,
       }),
-    queryKey: [KEYS.SEARCH_USERS],
+    queryKey: [
+      KEYS.SEARCH_USERS,
+      paginationState.page,
+      paginationState.size,
+      query,
+    ],
     enabled: false,
   });
 
@@ -70,7 +74,12 @@ const Search = () => {
         page: paginationState.page,
         size: paginationState.size,
       }),
-    queryKey: [KEYS.SEARCH_PROJECTS],
+    queryKey: [
+      KEYS.SEARCH_PROJECTS,
+      paginationState.page,
+      paginationState.size,
+      query,
+    ],
     enabled: false,
   });
   const [active, setActive] = useState(false);

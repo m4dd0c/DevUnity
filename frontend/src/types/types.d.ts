@@ -1,6 +1,30 @@
 type TFilters = "all" | "owned" | "contributions";
 type TLang = "js" | "c" | "cpp" | "java" | "py" | "php";
 
+interface SocketProviderProps {
+  children?: React.ReactNode;
+}
+interface ISocketContext {
+  socket?: Socket;
+  code: string;
+  setCode: React.Dispatch<React.SetStateAction<string>>;
+  joinEvent: ({ roomId, userId }: { roomId: string; userId: string }) => any;
+  changeCode: ({ roomId, code }: { roomId: string; code: string }) => any;
+  saveCode: ({ roomId }: { roomId: string }) => any;
+  discussionData: IDiscussion | null;
+  setDiscussionData: React.Dispatch<React.SetStateAction<IDiscussion | null>>;
+  isActiveUser: boolean;
+  setIsActiveUser: React.Dispatch<SetStateAction<boolean>>;
+  submittingCode: boolean;
+  submitCode: () => any;
+  codeOutput: IGetSubmission | null;
+  language: ILang;
+  setLanguage: React.Dispatch<SetStateAction<ILang>>;
+  setStdin: React.Dispatch<SetStateAction<null | string>>;
+  newMessageIndicator: boolean;
+  sendLanguage: ({ lang, roomId }: { lang: TLang; roomId?: string }) => any;
+  setNewMessageIndicator: React.Dispatch<SetStateAction<boolean>>;
+}
 interface ILang {
   id: number;
   label: string;

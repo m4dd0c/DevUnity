@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { useCallback, useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import ace from "ace-builds/src-noconflict/ace";
@@ -25,7 +24,6 @@ ace.config.set(
   "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/",
 );
 
-// eslint-disable-next-line
 const Dashboard = ({ room }: { room?: IRoom }) => {
   const [fullSizeTerminal, setFullSizeTerminal] = useState(false);
   const {
@@ -42,7 +40,7 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
   const { roomId } = useParams();
   const [aceLoaded, setAceLoaded] = useState(false);
 
-  const onChange = (e: any) => {
+  const onChange = (e: string) => {
     if (!roomId) return;
     setCode(e);
     changeCode({ roomId, code: e });
@@ -50,11 +48,8 @@ const Dashboard = ({ room }: { room?: IRoom }) => {
 
   // fix error: define is not defined
   useEffect(() => {
-    // @ts-expect-error 'ace' doesn't exist on window
     if (window.ace) {
-      // @ts-expect-error 'ace' doesn't exist on window
       window.define = window?.ace.define;
-      // @ts-expect-error 'ace' doesn't exist on window
       window.require = window?.ace.require;
       setAceLoaded(true);
     }

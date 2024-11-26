@@ -30,7 +30,7 @@ function Navbar({
 
   const { isPending, mutate } = useMutation({
     mutationFn: logoutAction,
-    // eslint-disable-next-line
+
     onSuccess: (res) => {
       if (res) {
         showToast({ message: res.message });

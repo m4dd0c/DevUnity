@@ -130,13 +130,12 @@ export const getElapsedTime = ({
 
 // copy roomId
 export const handleCopy = async () => {
-  window.location.pathname;
   const pathname = window.location.pathname;
   const id = pathname.split("/")[2];
   try {
     await navigator.clipboard.writeText(id);
     showToast({ message: "RoomId copied." });
-  } catch (err) {
+  } catch {
     showToast({ message: "Failed to copy RoomId", type: "error" });
   }
 };

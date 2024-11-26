@@ -1,6 +1,6 @@
 import { cn } from "../../utils/cn";
 import { Link } from "react-router-dom";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   IconCopy,
@@ -13,30 +13,13 @@ import RenderModal from "./renderModal";
 import { useSocket } from "../../context/useSocket";
 import { handleCopy } from "../../lib/utils";
 import MessageIndicator from "../layout/MessageIndicator";
+import { SidebarContext, useSidebar } from "./_exports";
 
 interface Links {
   label: string;
   href?: string;
   icon: React.JSX.Element | React.ReactNode;
 }
-
-interface SidebarContextProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  animate: boolean;
-}
-
-const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined,
-);
-
-export const useSidebar = () => {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider");
-  }
-  return context;
-};
 
 export const SidebarProvider = ({
   children,

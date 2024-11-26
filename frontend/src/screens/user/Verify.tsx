@@ -12,7 +12,7 @@ function Verify() {
   const token = searchParams.get("token");
 
   const { isPending, isError, data, error, refetch } = useQuery({
-    queryKey: [KEYS.VERIFY],
+    queryKey: [KEYS.VERIFY, token],
     queryFn: async () => {
       if (token) {
         return await verificationAction(token);

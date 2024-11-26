@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SEO = ({
+const SearchEngineOptimization = ({
   title,
   ogType,
   twitterCard,
@@ -45,4 +45,4 @@ const SEO = ({
     </Helmet>
   );
 };
-export default SEO;
+export default SearchEngineOptimization;
