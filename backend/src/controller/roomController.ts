@@ -322,19 +322,19 @@ export const searchRoom = catchAsync(
     // forming query
     const searchQuery = query
       ? {
-        admin: ownerId,
-        $or: [
-          {
-            "project.title": { $regex: new RegExp(query, "i") },
-          },
-          {
-            "project.explanation": { $regex: new RegExp(query, "i") },
-          },
-          {
-            "project.lang": { $regex: new RegExp(query, "i") },
-          },
-        ],
-      }
+          admin: ownerId,
+          $or: [
+            {
+              "project.title": { $regex: new RegExp(query, "i") },
+            },
+            {
+              "project.explanation": { $regex: new RegExp(query, "i") },
+            },
+            {
+              "project.lang": { $regex: new RegExp(query, "i") },
+            },
+          ],
+        }
       : { admin: ownerId };
 
     // if owner-id isnt there then deleting admin field from the searchQuery

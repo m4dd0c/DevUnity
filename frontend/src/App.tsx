@@ -15,7 +15,7 @@ import "./prism.css";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 
-import { SocketProvider } from "./context/useSocket";
+import { SocketProvider } from "./context/SocketContext";
 import Loader from "./components/layout/Loadings/Loader";
 
 // Lazy load components

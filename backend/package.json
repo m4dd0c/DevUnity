@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "type": "module",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -23,6 +24,7 @@
     "cors": "^2.8.5",
     "datauri": "^4.1.0",
     "dotenv": "^16.4.5",
+    "eslint": "^9.16.0",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -34,6 +36,7 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.16.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -45,12 +48,10 @@
     "@types/nodemailer": "^6.4.15",
     "@types/uuid": "^10.0.0",
     "@types/validator": "^13.12.0",
-    "@typescript-eslint/eslint-plugin": "^8.16.0",
-    "@typescript-eslint/parser": "^8.16.0",
-    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.3"
+    "prettier": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.16.0"
   }
 }
