@@ -19,7 +19,7 @@ const ProjectCard = ({ room }: { room: IRoom }) => {
         <div className="min-h-6 min-w-6 max-md:min-h-[1.7rem] max-md:min-w-[1.7rem]">
           <img
             alt="logo"
-            className="shadow-input size-6 rounded-md object-cover shadow-gray-400 max-md:size-[1.7rem]"
+            className="size-6 rounded-md object-cover shadow-input shadow-gray-400 max-md:size-[1.7rem]"
             src={room.admin.avatar.secure_url ?? fallback_pp}
           />
         </div>
@@ -30,7 +30,7 @@ const ProjectCard = ({ room }: { room: IRoom }) => {
         </div>
       </div>
       <div>
-        <p className="my-2 line-clamp-2 max-md:text-sm dark:text-slate-400">
+        <p className="my-2 line-clamp-2 dark:text-slate-400 max-md:text-sm">
           {room.project.explanation}
         </p>
         <div className="flex gap-4 text-sm text-gray-500">

@@ -1,4 +1,4 @@
-import { useModal } from "../../ui/animated-modal";
+import { useModal } from "../../ui/_exports";
 
 const CloseModalButton = () => {
   const { setOpen } = useModal();
