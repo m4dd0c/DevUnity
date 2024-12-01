@@ -1,0 +1,8 @@
+echo ""
+echo -e "\033[1;33mLinting Frontend...\033[0m"
+npx --prefix frontend lint-staged
+
+echo ""
+echo -e "\033[1;33mLinting Backend...\033[0m"
+cd ..\backend
+npx --prefix backend lint-staged

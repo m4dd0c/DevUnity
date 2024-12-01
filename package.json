@@ -23,6 +23,7 @@
   "author": "m4dd0c",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "husky": "^9.1.7"
   }
 }
