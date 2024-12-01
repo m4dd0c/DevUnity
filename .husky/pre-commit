@@ -1,7 +1,7 @@
 echo ""
-echo -e "\033[1;33mLinting Frontend...\033[0m"
+echo -e "\033[1;33mLinting & Formatting\033[1;34m:FRONTEND\033[0m...\033[0m"
 npx --prefix frontend lint-staged
 
 echo ""
-echo -e "\033[1;33mLinting Backend...\033[0m"
+echo -e "\033[1;33mLinting & Formatting\033[1;34m:BACKEND\033[0m...\033[0m"
 npx --prefix backend lint-staged
