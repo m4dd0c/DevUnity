@@ -1,0 +1,7 @@
+echo ""
+echo -e "\033[1;33mLinting...\033[0m"
+npx lint-staged
+echo ""
+echo -e "\033[1;Formatting...\033[0m"
+npm run pretty:fix
+
