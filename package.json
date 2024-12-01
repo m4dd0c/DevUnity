@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "prepare": "husky",
     "dev-fe": "cd frontend && npm run dev",
     "dev-be": "cd backend && npm run dev",
     "dev": "concurrently \"npm run dev-fe\" \"npm run dev-be\"",
@@ -22,8 +23,6 @@
   "author": "m4dd0c",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.1.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.2.10"
+    "concurrently": "^9.1.0"
   }
 }
