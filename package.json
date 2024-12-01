@@ -20,5 +20,8 @@
     "pretty:fix": "concurrently \"npm run pretty-be:fix\" \"npm run pretty-fe:fix\""
   },
   "author": "m4dd0c",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
 }
