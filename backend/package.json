@@ -9,7 +9,7 @@
     "dev": "nodemon server",
     "start": "node ./dist/server.js",
     "pretty:check": "prettier --check . --config ./.prettierrc",
-    "pretty:fix": "prettier --write . --config ./.prettierrc --log-level=log && echo Run `npm run lint:check` to check linting.",
+    "pretty:fix": "prettier --write . --config ./.prettierrc && echo Run `npm run lint:check` to check linting.",
     "lint:check": "eslint . --no-fix && echo Run `npm run lint:fix` to fix them.",
     "lint:fix": "eslint . --fix && echo Run `npm run pretty:check` to check formatting."
   },
