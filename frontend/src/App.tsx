@@ -1,3 +1,4 @@
+import "./lib/logger";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
   Navigate,
@@ -63,6 +64,7 @@ function App() {
     refetch();
   }, [refetch]);
 
+  console.log("Welcome to DevUnity");
   return (
     <Router>
       <Toaster
