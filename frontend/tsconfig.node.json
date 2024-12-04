@@ -2,6 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -9,5 +10,6 @@
     "strict": true,
     "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"],
+  "exclude": ["./node_module"]
 }

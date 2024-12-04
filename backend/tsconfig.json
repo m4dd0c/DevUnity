@@ -10,9 +10,9 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "typeRoots": [
       "./types",
-      "/node_modules/@types"
+      "./node_modules/@types"
     ] /* Specify multiple folders that act like './node_modules/@types'. */
   },
-  "include": ["/src/**/*.{ts}"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["./src"],
+  "exclude": ["./dist", "./node_modules"]
 }
