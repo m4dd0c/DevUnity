@@ -128,6 +128,7 @@ userSchema.pre(
       next();
     } catch (error) {
       console.log(error);
+      next(new DevUnityError(500, "Error deleting user-related data"));
     }
   },
 );

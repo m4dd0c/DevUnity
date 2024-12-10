@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+let mongoClient: typeof mongoose | null = null;
 export const connectDB = async () => {
   try {
-    if (!process.env.MONGO_URI) return false;
-    await mongoose.connect(process.env.MONGO_URI, {
+    const MONGO_URI = process.env.MONGO_URI ?? "mongodb://0.0.0.0:27017/";
+    mongoClient = await mongoose.connect(MONGO_URI, {
       dbName: "DevUnity",
     });
     console.log("Connected to DB!");
@@ -10,3 +11,4 @@ export const connectDB = async () => {
     console.log("Error connecting to DB", error);
   }
 };
+export { mongoClient };

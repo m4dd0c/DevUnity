@@ -19,6 +19,11 @@ interface IVerification {
   expiresAt: NativeDate;
   token: string;
 }
+interface IVerificationOmitted {
+  verification: {
+    verified: boolean;
+  };
+}
 interface IPopulatedUsersProject {
   _id: Types.ObjectId;
   roomId: string;
@@ -78,7 +83,7 @@ interface IMessage {
   message: string;
   sender: Types.ObjectId;
 }
-interface IDiscussion {
+interface IDiscussion extends Document {
   _id: Types.ObjectId;
   admin: Types.ObjectId;
   room: Types.ObjectId;
@@ -86,3 +91,13 @@ interface IDiscussion {
   createdAt: NativeDate;
   updatedAt: NativeDate;
 }
+type TTarget = "all" | "rooms" | "users" | "discussions";
+type TDestroy = boolean | undefined;
+type TForce = boolean | undefined;
+
+interface ISeed {
+  target: TTarget;
+  destroy: TDestroy;
+  force: TForce;
+}
+type ISeedFuncCall = Omit<ISeed, "target">;
