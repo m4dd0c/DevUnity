@@ -4,26 +4,23 @@ import { useNavigate } from "react-router-dom";
 const Protected = ({
   children,
   auth,
-  redirect,
+  redirect = "/auth/signin",
 }: {
   children: React.ReactNode;
   auth: boolean;
   redirect?: string;
 }) => {
-  const nav = useNavigate();
-
-  // appending / in the redirect string if not available
-  if (redirect && !redirect.startsWith("/")) redirect = `/${redirect}`;
-  if (!redirect) redirect = "/auth/signup";
+  const navigate = useNavigate();
 
   // if authenticated is false then navigating
   useEffect(() => {
     if (!auth) {
-      nav(redirect);
+      const redirectPath = redirect.startsWith("/") ? redirect : `/${redirect}`;
+      navigate(redirectPath);
     }
-  }, [redirect, nav, auth]);
-  // otherwise rendering the children
-  return children;
+  }, [redirect, navigate, auth]);
+
+  return auth ? children : null;
 };
 
 export default Protected;
