@@ -1,10 +1,12 @@
 import { IUser } from "../types/types";
 
+// use singleton pattern
 class UserDTO {
   private user: IUser;
   constructor(user: IUser) {
     this.user = user;
   }
+
   translate() {
     const user = {
       _id: this.user._id,
