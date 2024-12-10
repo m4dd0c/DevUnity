@@ -15,10 +15,10 @@
     "lint-be:fix": "cd backend && npm run lint:fix",
     "pretty-be:check": "cd backend && npm run pretty:check",
     "pretty-be:fix": "cd backend && npm run pretty:fix",
-    "lint:check": "concurrently \"npm run lint-be:check\" \"npm run lint-fe:check\"",
-    "lint:fix": "concurrently \"npm run lint-be:fix\" \"npm run lint-fe:fix\"",
-    "pretty:check": "concurrently \"npm run pretty-be:check\" \"npm run pretty-fe:check\"",
-    "pretty:fix": "concurrently \"npm run pretty-be:fix\" \"npm run pretty-fe:fix\""
+    "lint:check": "npm run lint-be:check && npm run lint-fe:check",
+    "lint:fix": "npm run lint-be:fix && npm run lint-fe:fix",
+    "pretty:check": "npm run pretty-be:check && npm run pretty-fe:check",
+    "pretty:fix": "npm run pretty-be:fix && npm run pretty-fe:fix"
   },
   "author": "m4dd0c",
   "license": "ISC",
