@@ -58,13 +58,12 @@ function App() {
       }
     }
   }, [data]);
-
+  console.log("Welcome to DevUnity");
   // Fetch user data on load
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  console.log("Welcome to DevUnity");
   return (
     <Router>
       <Toaster

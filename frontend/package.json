@@ -9,9 +9,8 @@
     "preview": "vite preview",
     "pretty:check": "prettier --check --config ./.prettierrc ./",
     "pretty:fix": "prettier --write --config ./.prettierrc ./ && echo Run `npm run lint:check` to check linting.",
-    "lint:check": "eslint ./ --no-fix && echo Run `npm run lint:fix` to fix them.",
-    "lint:fix": "eslint ./ --fix && echo Run `npm run pretty:check` to check formatting.",
-    "prepare": "husky"
+    "lint:check": "eslint ./ --no-fix && echo Run `npm run lint:fix` to fix linting.",
+    "lint:fix": "eslint ./ --fix && echo Run `npm run pretty:check` to check formatting."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
