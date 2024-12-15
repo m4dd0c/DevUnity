@@ -1,0 +1,67 @@
+name: "Linting and Formatting"
+
+on:
+  pull_request:
+    branches: ["**"]
+
+env:
+  NODE_VERSION: 20.x
+
+permissions:
+  contents: write # Required for modifying files and creating PRs
+  pull-requests: write # Required for creating PRs
+
+jobs:
+  lint:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: $NODE_VERSION
+
+      - name: Installation
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint:check
+
+  format:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Node setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: $NODE_VERSION
+
+      - name: Installation
+        run: npm ci
+
+      - name: Run formatter
+        run: npm run pretty:fix
+
+      - name: Commit changes
+        env:
+          ORIGINAL_PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config --global user.name 'DevUnityBot'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "refactor: applied code formatting for PR #${ORIGINAL_PR_NUMBER}"
+          git push origin HEAD:pretty-fix
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "refactor: applied code formatting for PR #${{ github.event.pull_request.number }}"
+          branch: pretty-fix
+          title: "refector: formatting fixed for PR #${{ github.event.pull_request.number }}"
+          body: |
+            Prettier fixes for the original PR #${{ github.event.pull_request.number }}.
