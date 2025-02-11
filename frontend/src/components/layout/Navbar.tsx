@@ -55,7 +55,7 @@ function Navbar({
             <HoveredLink href="/#features">Features</HoveredLink>
             <HoveredLink href="/#testimonials">Testimonials</HoveredLink>
             <HoveredLink href="/#brands">Brands</HoveredLink>
-            <HoveredLink href="/#team">team</HoveredLink>
+            <HoveredLink href="/#team">Team</HoveredLink>
             <HoveredLink href="/#room-promo">Room Promo</HoveredLink>
           </div>
         </MenuItem>

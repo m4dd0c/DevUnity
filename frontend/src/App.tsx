@@ -58,9 +58,10 @@ function App() {
       }
     }
   }, [data]);
-  console.log("Welcome to DevUnity");
+
   // Fetch user data on load
   useEffect(() => {
+    console.log("Welcome to DevUnity");
     refetch();
   }, [refetch]);
 
