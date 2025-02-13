@@ -39,7 +39,7 @@ https://github.com/user-attachments/assets/544e9db6-c54b-42d8-a041-d2a368797d66.
 
 ## About
 
-DevUnity is a Real-time code editing platform [DevUnity](https://www.devunity.netlify.app). It features collaborates chatting, an account system to save your rooms and collaborations, and room-configurable features such as edit description, title, language, password and more. DevUnity attempts to emulate a natural collaborative experience during a project creation and problem solving by providing real-time feedback on typing.
+DevUnity is a real-time code editing platform [DevUnity](https://www.devunity.netlify.app). It features collaborative chatting, an account system to save your rooms and collaborations, and room-configurable features such as edit description, title, language, password, and more. DevUnity attempts to emulate a natural collaborative experience during a project creation and problem-solving by providing real-time feedback on typing.
 
 ## Features
 
