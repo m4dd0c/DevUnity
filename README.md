@@ -15,7 +15,8 @@ A Collaboration focused coding platform.
 
 ## Preview
 
-[![Preview](./assets/DevUnity.mp4)](https://devunity.netlify.app/)
+https://github.com/user-attachments/assets/544e9db6-c54b-42d8-a041-d2a368797d66.mp4
+
 [![Home](./assets/home.png)](https://devunity.netlify.app/)
 [![Profile](./assets/profile.png)](https://devunity.netlify.app/)
 [![Description](./assets/desc.png)](https://devunity.netlify.app/)
