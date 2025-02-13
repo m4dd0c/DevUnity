@@ -5,6 +5,7 @@ A Collaboration focused coding platform.
 ## Table of content
 
 - [DevUnity](#devunity)
+  - [Table of content](#table-of-content)
   - [Preview](#preview)
   - [About](#about)
   - [Features](#features)
@@ -14,10 +15,11 @@ A Collaboration focused coding platform.
 
 ## Preview
 
-[![Home](./images/home.png)](https://devunity.netlify.app/)
-[![Profile](./images/profile.png)](https://devunity.netlify.app/)
-[![Description](./images/desc.png)](https://devunity.netlify.app/)
-[![Editor](./images/editor.png)](https://devunity.netlify.app/)
+[![Preview](./assets/DevUnity.mp4)](https://devunity.netlify.app/)
+[![Home](./assets/home.png)](https://devunity.netlify.app/)
+[![Profile](./assets/profile.png)](https://devunity.netlify.app/)
+[![Description](./assets/desc.png)](https://devunity.netlify.app/)
+[![Editor](./assets/editor.png)](https://devunity.netlify.app/)
 <br/>
 
 ![ReactJS](https://img.shields.io/badge/React.js-blue?style=for-the-badge&logo=react&logoColor=white)
