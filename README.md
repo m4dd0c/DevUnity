@@ -1,19 +1,23 @@
-# DevUnity
+# 🚀 DevUnity – The Ultimate Collaborative Coding Platform
 
-A Collaboration focused coding platform.
+A **real-time** collaborative **code editing** platform designed for seamless team-based development.  
 
-## Table of content
+🔗 **[Try it Live →](https://devunity.netlify.app/)**  
 
-- [DevUnity](#devunity)
-  - [Table of content](#table-of-content)
-  - [Preview](#preview)
-  - [About](#about)
-  - [Features](#features)
-  - [Bug report or Feature request](#bug-report-or-feature-request)
-  - [Want to Contribute?](#want-to-contribute)
-  - [Credits](#credits)
+---
 
-## Preview
+## 📌 Table of Contents
+
+- [Preview](#preview)
+- [About](#about)
+- [Features](#features)
+- [Bug Report or Feature Request](#bug-report-or-feature-request)
+- [Want to Contribute?](#want-to-contribute)
+- [Credits](#credits)
+
+---
+
+## 🎥 Preview
 
 https://github.com/user-attachments/assets/544e9db6-c54b-42d8-a041-d2a368797d66.mp4
 
@@ -23,13 +27,17 @@ https://github.com/user-attachments/assets/544e9db6-c54b-42d8-a041-d2a368797d66.
 [![Editor](./assets/editor.png)](https://devunity.netlify.app/)
 <br/>
 
+---
+
+## 💡 Built With
+
 ![ReactJS](https://img.shields.io/badge/React.js-blue?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-yellow?style=for-the-badge&logo=Vite&logoColor=white)
 ![ThreeJS](https://img.shields.io/badge/three-js?style=for-the-badge&logo=three.js&logoColor=white)
 ![Tailwindcss](https://img.shields.io/badge/tailwindcss-blue?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![SocketIO](https://img.shields.io/badge/SocketIO-black?style=for-the-badge&logo=socket.io&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/framer_motion-purple?style=for-the-badge&logo=framer&logoColor=white)
-![Ace Editor](https://img.shields.io/badge/ace_editor-u?style=for-the-badge&logo=aceeditor&logoColor=white)
+![Ace Editor](https://img.shields.io/badge/ace_editor-gray?style=for-the-badge&logo=aceeditor&logoColor=white)
 ![TinyMCE](https://img.shields.io/badge/tinyMCE-blue?style=for-the-badge&logo=tinymce&logoColor=white)
 ![Cloudinary](https://img.shields.io/badge/cloudinary-red?style=for-the-badge&logo=cloudinary&logoColor=white)
 ![React Query](https://img.shields.io/badge/React_Query-maroon?style=for-the-badge&logo=reactquery&logoColor=white)
@@ -37,38 +45,62 @@ https://github.com/user-attachments/assets/544e9db6-c54b-42d8-a041-d2a368797d66.
 ![Express](https://img.shields.io/badge/-Express-373737?style=for-the-badge&logo=Express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 
-## About
+---
 
-DevUnity is a real-time code editing platform [DevUnity](https://www.devunity.netlify.app). It features collaborative chatting, an account system to save your rooms and collaborations, and room-configurable features such as edit description, title, language, password, and more. DevUnity attempts to emulate a natural collaborative experience during a project creation and problem-solving by providing real-time feedback on typing.
+## 📖 About
 
-## Features
+**DevUnity** is a powerful **real-time collaborative coding platform** that makes working together effortless.  
+With **live coding, instant chat, and advanced editor features**, DevUnity enhances the way developers collaborate.  
 
-- Real-time Code Editing
-- Real-time Chatting with collaborators
-- Nice Animated UI
-- Abstracted room preview as well as password protections
-- Better Description with TinyMCE
-- Live diagnosis, syntax highlighting, and useful key-mappings
-- Ability to run code
-- Search users and rooms
-- and much more
+🔗 **Live Site:** [DevUnity](https://devunity.netlify.app/)  
 
-## Bug report or Feature request
+### 🎯 Why DevUnity?
+✅ **Collaborate in real-time** with other developers  
+✅ **Live chat support** inside coding rooms  
+✅ **Save rooms & projects** with user accounts  
+✅ **Password-protected rooms** for private sessions  
+✅ **Supports multiple languages** with customizable settings  
+✅ **Live syntax highlighting & code execution**  
 
-If you encounter a bug or have a feature request,
-[send me an email](mailto:m4dd0x078@gmail.com),
-[create an issue](https://github.com/m4dd0c/DevUnity/issues),
-[create a discussion thread](https://github.com/m4dd0c/DevUnity/discussions)
+---
 
-## Want to Contribute?
+## ✨ Features
 
-Refer to [CONTRIBUTING.md](./CONTRIBUTING.md).
+✅ **Real-time Code Editing** – Work together instantly  
+✅ **Real-time Chat** – Stay connected with collaborators  
+✅ **Smooth & Animated UI** – Designed for a seamless experience  
+✅ **Room Previews & Password Protection** – Secure and accessible coding  
+✅ **Rich Text Descriptions** – Powered by **TinyMCE**  
+✅ **Live Syntax Highlighting & Key Mappings** – Improve coding efficiency  
+✅ **Run Code Directly** – Execute code inside the editor  
+✅ **User & Room Search** – Find and join rooms instantly  
+✅ **And much more...!**  
 
-## Credits
+---
 
-[Aceternity](https://ui.aceternity.com) for amazing UI components.  
-[Nitesh Suthar](https://github.com/nitesh098suthar) for the name suggestion.
+## 🐞 Bug Report or Feature Request
+
+If you encounter a bug or have a feature request:  
+📧 [Email Me](mailto:m4dd0x078@gmail.com)  
+🐞 [Create an Issue](https://github.com/m4dd0c/DevUnity/issues)  
+💬 [Start a Discussion](https://github.com/m4dd0c/DevUnity/discussions)  
+
+---
+
+## 🤝 Want to Contribute?
+
+We’d love your contributions! 💡  
+Check out **[CONTRIBUTING.md](./CONTRIBUTING.md)** for details.  
+
+---
+
+## 🎖️ Credits
+
+🎨 **UI Components:** [Aceternity](https://ui.aceternity.com)  
+💡 **Name Suggestion:** [Nitesh Suthar](https://github.com/nitesh098suthar)  
 
 <!--
 All of the [contributors](https://github.com/m4dd0c/DevUnity/graphs/contributors) have helped implement various features, add themes, fix bugs, and more.
 -->
+
+🌟 **Star the repository** if you find it useful! ⭐  
