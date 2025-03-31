@@ -19,7 +19,7 @@ app.use(helmet());
 
 setupRoutes();
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Server is working...");
 });
 app.use(error);
