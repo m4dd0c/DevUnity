@@ -3,7 +3,7 @@ import DevUnityError from "../utils/DevUnityError";
 import DevUnityRes from "../utils/DevUnityRes";
 import ErrorLogs from "../model/ErrorLogs";
 
-const error = async (err: DevUnityError, req: Request, res: Response) => {
+const error = async (err: DevUnityError, _req: Request, res: Response) => {
   try {
     const development = process.env["Mode"] === "DEV";
     // response instance
