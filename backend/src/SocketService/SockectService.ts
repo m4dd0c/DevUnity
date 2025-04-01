@@ -183,6 +183,9 @@ class SocketService {
           `${user ? user.username : socket.id} left!`,
         );
       });
+      socket.on("disconnect", (reason) => {
+        console.log(reason, "is reason for disconnection");
+      });
     });
   }
 }
