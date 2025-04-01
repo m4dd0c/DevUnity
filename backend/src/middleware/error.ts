@@ -1,9 +1,14 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import DevUnityError from "../utils/DevUnityError";
 import DevUnityRes from "../utils/DevUnityRes";
 import ErrorLogs from "../model/ErrorLogs";
 
-const error = async (err: DevUnityError, _req: Request, res: Response) => {
+const error = async (
+  err: DevUnityError,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) => {
   try {
     const development = process.env["Mode"] === "DEV";
     // response instance
