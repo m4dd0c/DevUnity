@@ -37,7 +37,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   // Polling mechanism for fetching the submission result
   useEffect(() => {
-    let intervalId: number | null = null;
+    let intervalId: any = null;
 
     if (submissionToken) {
       intervalId = setInterval(async () => {
