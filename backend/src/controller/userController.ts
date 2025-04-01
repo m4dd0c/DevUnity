@@ -349,9 +349,10 @@ export const editMe = catchAsync(
     user.portfolio = portfolio;
     user.bio = bio;
     await user.save();
-    new DevUnityRes(res, 200, "Profile updated.", true).send();
+    new DevUnityRes(res, 200, "Profile updated Successfully.", true).send();
   },
 );
+
 export const usernameAvailability = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.query;
@@ -361,16 +362,16 @@ export const usernameAvailability = catchAsync(
       return next(new DevUnityError(400, "Username validation failed."));
     if (userId) {
       const user = await User.findById(userId);
-      if (!user)
-        return new DevUnityRes(res, 401, "url is manipulated.", false).send();
+      if (!user) return next(new DevUnityError(400, "URL is Manipulated."));
       if (user.username === username) {
-        new DevUnityRes(res, 200, undefined, true).send();
+        return new DevUnityRes(res, 200, undefined, true).send();
       }
     }
     const isAvailable = await validation.isAvailable();
-    new DevUnityRes(res, 200, undefined, isAvailable).send();
+    return new DevUnityRes(res, 200, undefined, isAvailable).send();
   },
 );
+
 export const contact = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { f_name, l_name, email, message } = req.body;
