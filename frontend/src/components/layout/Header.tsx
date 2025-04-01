@@ -1,7 +1,7 @@
-import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import { HashLink } from "react-router-hash-link";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { validateRoomPath } from "../../lib/utils";
 
 const Header = ({
   user_id,
@@ -12,15 +12,11 @@ const Header = ({
   user_id: string | null;
   setAuth: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { pathname } = useLocation();
-  // Regular expression to match /room/:id and /room/:id/<anything> but not /room/join or /room/create, with optional trailing slash
-  const roomIdPattern = /^\/room\/(?!join$)(?!create$)([\w-]+)(\/.*)?$/;
-  let isRoomPath = false;
-  if (roomIdPattern.test(pathname)) {
-    isRoomPath = true;
-  } else {
-    isRoomPath = false;
-  }
+  // If the current path is a room path, hide the header
+  const [isRoomPath, setIsRoomPath] = useState(false);
+  useEffect(() => {
+    setIsRoomPath(validateRoomPath(window.location.href));
+  }, []);
   return (
     <>
       <div

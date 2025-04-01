@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
-import { ev, getLang, showToast } from "../lib/utils";
+import { ev, getLang, showToast, validateRoomPath } from "../lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { saveCodeAction } from "../lib/actions/roomAction";
 import { updateDiscussionAction } from "../lib/actions/discussionAction";
@@ -169,15 +169,8 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   // Handle socket disconnection based on route
   useEffect(() => {
     if (!isActiveUser) return;
-    const currentPath = location.pathname;
-    const currentHash = location.hash;
-
-    const isRoomPath =
-      /^\/room\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}(\/about)?$/.test(currentPath);
-    const isPlayground = currentHash === "#playground";
-
     // if isRoomPath or isPlayground that means user is still joined
-    if (isRoomPath || isPlayground) {
+    if (validateRoomPath(window.location.href)) {
       if (!socket?.connected) {
         socket?.connect();
       }
