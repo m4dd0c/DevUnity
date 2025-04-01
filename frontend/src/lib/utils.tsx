@@ -1,6 +1,28 @@
 import toast from "react-hot-toast";
 import { langs } from "../constants";
 
+// ADD TEST CASES for this.
+// "https://devunity.netlify.app/room/2a11aa1d-df6c-4991-82c9-51aa352ef671/#playground", // TRUE
+// "https://devunity.netlify.app/room/2a11aa1d-df6c-4991-82c9-51aa352ef671#playground", //  TRUE
+// "https://devunity.netlify.app/room/my-room-id-123/#playground", // TRUE
+// "https://devunity.netlify.app/room/myroomid123/about", // TRUE
+// "https://devunity.netlify.app/room/2a11aa1d-df6c-4991-82c9-51aa352ef671/about", // TRUE
+// "https://devunity.netlify.app/room/my-room-id-123/#hela", //  FALSE
+// "https://devunity.netlify.app/room/my-room-id-123", // FALSE
+// "https://devunity.netlify.app/room/create/#playground", // FALSE
+// "https://devunity.netlify.app/room/join/about" // FALSE
+
+const isValidRoomPath = /^\/room\/([\w-]+)(\/about)?$/;
+const isValidFragment = /^#playground$/;
+
+export const validateRoomPath = (url: string) => {
+  const parsedUrl = new URL(url);
+  const pathMatch = isValidRoomPath.test(parsedUrl.pathname);
+  const hashMatch =
+    parsedUrl.hash === "" || isValidFragment.test(parsedUrl.hash);
+  return pathMatch && hashMatch;
+};
+
 export const isValidUsername = (username: string) => {
   // Check if the username length is between 3 and 32 characters
   if (username.length < 3 || username.length > 32) {
