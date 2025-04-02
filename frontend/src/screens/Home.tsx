@@ -1,13 +1,22 @@
+import React, { Suspense, useEffect } from "react";
 import { TracingBeam } from "../components/ui/tracing-beam.tsx";
 import Features from "../components/Home/Features";
 import Hero from "../components/Home/Hero";
 import Testimonials from "../components/Home/Testimonials";
 import Brands from "../components/Home/Brands.tsx";
-import Team from "../components/Home/Team.tsx";
+// import Team from "../components/Home/Team.tsx";
 import RoomPromo from "../components/Home/RoomPromo.tsx";
 import SEO from "../components/layout/SEO.tsx";
 
+const Team = React.lazy(
+  () => import(/* webpackPrefetch: true */ "../components/Home/Team.tsx"),
+);
+
 function Home() {
+  useEffect(() => {
+    // Preload the Team component
+    import("../components/Home/Team");
+  }, []);
   return (
     <>
       {/* SEO - INVISIBLE IN PAGE */}
@@ -26,7 +35,9 @@ function Home() {
           <Testimonials />
           <Brands />
         </TracingBeam>
-        <Team />
+        <Suspense fallback={<div>Loading Team...</div>}>
+          <Team />
+        </Suspense>
         <RoomPromo />
       </div>
     </>
