@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconLoader, IconLogout } from "@tabler/icons-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutAction } from "../../lib/actions/userAction";
-import { KEYS, showToast } from "../../lib/utils";
+import { showToast } from "../../lib/utils";
 
 function Navbar({
   className,
@@ -35,7 +35,7 @@ function Navbar({
       if (res) {
         showToast({ message: res.message });
         setAuth(false);
-        queryClient.invalidateQueries({ queryKey: [KEYS.GET_ME] });
+        queryClient.invalidateQueries();
         nav("/");
       }
     },
