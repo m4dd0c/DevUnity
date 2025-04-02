@@ -17,6 +17,7 @@ const Header = ({
   useEffect(() => {
     setIsRoomPath(validateRoomPath(window.location.href));
   }, []);
+
   return (
     <>
       <div
