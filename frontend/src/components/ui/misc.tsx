@@ -7,7 +7,7 @@ export const Logo = () => {
   return (
     <Link
       to="#"
-      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
+      className="relative z-20 flex w-fit items-center space-x-2 py-1 text-sm font-normal text-black"
     >
       <CustomLogo />
       <motion.span
