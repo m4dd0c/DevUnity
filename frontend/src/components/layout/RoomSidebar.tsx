@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fallback_pp from "/assets/fallback_pp.jpg";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import {
@@ -10,7 +10,7 @@ import { cn } from "../../utils/cn";
 import { Logo, LogoIcon } from "../ui/misc";
 import { links } from "../../constants";
 import { useSocket } from "../../context/useSocket";
-import { handleCopy } from "../../lib/utils";
+import { handleCopy, validatePlaygroundPath } from "../../lib/utils";
 
 function RoomSidebar({
   children,
@@ -23,6 +23,28 @@ function RoomSidebar({
 }) {
   const [open, setOpen] = useState(false);
   const { saveCode, submitCode } = useSocket();
+
+  // Adding Keyboard Shortcuts
+  useEffect(() => {
+    const keyboardFn = (evt: React.KeyboardEvent) => {
+      evt.preventDefault();
+      if (evt.ctrlKey && (evt.key === "s" || evt.key === "S")) {
+        saveCode({ roomId: room?.roomId || "" });
+      }
+      if (evt.ctrlKey && evt.key === "Enter") {
+        submitCode();
+      }
+    };
+    // Shortcut Keys will only work when socket is connected.
+    if (
+      isActiveUser &&
+      validatePlaygroundPath(location.pathname + location.hash)
+    )
+      document.addEventListener("keydown", keyboardFn as any);
+    return () => {
+      document.removeEventListener("keydown", keyboardFn as any);
+    };
+  }, []);
 
   return (
     <div
