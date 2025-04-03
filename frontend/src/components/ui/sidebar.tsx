@@ -186,12 +186,14 @@ export const SidebarLink = ({
   link,
   className,
   onClick,
+  onKeyDown,
   ...props
 }: {
   link: Links;
   room?: IRoom;
   className?: string;
   onClick?: () => any;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => any;
   props?: any;
 }) => {
   const { open, animate } = useSidebar();
@@ -200,19 +202,19 @@ export const SidebarLink = ({
   let path = null;
 
   // case 1:
-  // if link.href, and it ain't starting with / then thats an relative path
-  // eg: link.href = describe then converting to /room/roomId/describe
+  // if link.href key available and It ain't starting with `/` then thats a relative path
+  // eg: `link.href = describe` then converting to `/room/roomId/describe`
   if (link.href) {
     if (!link.href.startsWith("/")) path = `/room/${room?.roomId}/${link.href}`;
     // case 2:
-    // if link.href exists and starting with /, then its an absolute path
-    // eg: link.href = '/#hero' then http://localhost:5173/#hero
+    // if `link.href` key exists and starting with `/`, then its an absolute path
+    // eg: `link.href = '/#hero'` then `http://localhost:5173/#hero` would be evaluated.
     // since it is default behaviour we don't have to do anything for that.
     else path = link.href;
   }
   // case 3:
-  // if link.href doesnt exist that means we gonna render some modal instead
-  // also checking of onClick exists or not, if onClick exists that means it is some button eg: copy roomId, run code etc.
+  // if `link.href` key doesn't exist that means we gonna render some modal instead
+  // also checking if onClick exists or not, if onClick exists that means it is some button eg: copy roomId, run code etc.
   if (
     !onClick &&
     !link.href &&
@@ -232,6 +234,7 @@ export const SidebarLink = ({
       // buttons ie: copy roomId, runCode, saveCode
       <button
         onClick={onClick}
+        onKeyDown={onKeyDown}
         className={cn(
           "flex items-center justify-start gap-2  group/sidebar py-2",
           className,
