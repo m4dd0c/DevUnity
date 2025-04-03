@@ -157,7 +157,7 @@ export const getRoom = catchAsync(
 
 export const joinRoom = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    // INFO:  roomId is uuid4()
+    // INFO:  roomId is uuid()
     const { roomId } = req.params;
     if (!roomId) return next(new DevUnityError(400, "Please provide roomId."));
 
