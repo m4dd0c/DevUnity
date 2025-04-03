@@ -1,14 +1,15 @@
 import { z } from "zod";
+import { roomIdRegex } from "../utils";
 
 export const JoinRoomSchema = z.object({
-  // custom-id
-  roomId: z.string().min(8).max(100),
+  // must be a valid UUID
+  roomId: z.string().regex(roomIdRegex),
   password: z.string().max(100),
 });
 
 export const CreateRoomSchema = z.object({
-  // custom-id
-  roomId: z.string().min(8).max(100),
+  // must be a valid UUID
+  roomId: z.string().regex(roomIdRegex),
   title: z.string().min(3).max(50),
   password: z.string().min(6).max(100),
 });
@@ -25,11 +26,11 @@ export const UpdatePassAndLangSchema = z.object({
 
 export const UpdateRoomCodeSchema = z.object({
   // objectId
-  room_id: z.string().max(8).max(100),
+  room_id: z.string().regex(roomIdRegex),
   code: z.string().max(150000),
 });
 
 export const DeleteRoomSchema = z.object({
   // objectId
-  room_id: z.string().min(8).max(100),
+  room_id: z.string().regex(roomIdRegex),
 });
