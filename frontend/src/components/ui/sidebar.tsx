@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import RenderModal from "./renderModal";
 import { useSocket } from "../../context/useSocket";
-import { handleCopy } from "../../lib/utils";
+import { handleCopy, validatePlaygroundPath } from "../../lib/utils";
 import MessageIndicator from "../layout/MessageIndicator";
 import { SidebarContext, useSidebar } from "./_exports";
 
@@ -124,28 +124,29 @@ export const MobileSidebar = ({
         {...props}
       >
         <div className="z-20 flex w-full items-center justify-end gap-4">
-          {isActiveUser && (
-            <>
-              <IconPlayerPlayFilled
-                title="Run code"
-                className="size-5 shrink-0 text-indigo-500"
-                onClick={submitCode}
-              />
-              <IconDeviceFloppy
-                title="Save code"
-                className="size-5 shrink-0 text-indigo-500"
-                onClick={() => saveCode({ roomId: roomId || "" })}
-              />
-            </>
-          )}
+          {isActiveUser &&
+            validatePlaygroundPath(location.pathname + location.hash) && (
+              <>
+                <IconPlayerPlayFilled
+                  title="Run code"
+                  className="size-5 shrink-0 cursor-pointer text-indigo-500"
+                  onClick={submitCode}
+                />
+                <IconDeviceFloppy
+                  title="Save code"
+                  className="size-5 shrink-0 cursor-pointer text-indigo-500"
+                  onClick={() => saveCode({ roomId: roomId || "" })}
+                />
+              </>
+            )}
           <IconCopy
             title="copy roomId"
-            className="size-5 shrink-0 text-indigo-500"
+            className="size-5 shrink-0 cursor-pointer text-indigo-500"
             onClick={handleCopy}
           />
           <div className="relative">
             <IconMenu2
-              className="text-neutral-800 dark:text-neutral-200"
+              className="cursor-pointer text-neutral-800 dark:text-neutral-200"
               onClick={() => setOpen(!open)}
             />
             <MessageIndicator newMessageIndicator={newMessageIndicator} />
@@ -167,7 +168,7 @@ export const MobileSidebar = ({
               )}
             >
               <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
+                className="absolute right-10 top-10 z-50 cursor-pointer text-neutral-800 dark:text-neutral-200"
                 onClick={() => setOpen(!open)}
               >
                 <IconX />

@@ -69,28 +69,29 @@ function RoomSidebar({
             </div>
           </div>
           <div>
-            {isActiveUser && (
-              <>
-                <SidebarLink
-                  onClick={submitCode}
-                  link={{
-                    label: "Run (ctrl+r)",
-                    icon: (
-                      <IconPlayerPlayFilled className="size-5 shrink-0 text-indigo-500" />
-                    ),
-                  }}
-                />
-                <SidebarLink
-                  onClick={() => saveCode({ roomId: room?.roomId || "" })}
-                  link={{
-                    label: "Save code (ctrl+s)",
-                    icon: (
-                      <IconDeviceFloppy className="size-5 shrink-0 text-indigo-500" />
-                    ),
-                  }}
-                />
-              </>
-            )}
+            {isActiveUser &&
+              validatePlaygroundPath(location.pathname + location.hash) && (
+                <>
+                  <SidebarLink
+                    onClick={submitCode}
+                    link={{
+                      label: "Run (ctrl+enter)",
+                      icon: (
+                        <IconPlayerPlayFilled className="size-5 shrink-0 text-indigo-500" />
+                      ),
+                    }}
+                  />
+                  <SidebarLink
+                    onClick={() => saveCode({ roomId: room?.roomId || "" })}
+                    link={{
+                      label: "Save code (ctrl+s)",
+                      icon: (
+                        <IconDeviceFloppy className="size-5 shrink-0 text-indigo-500" />
+                      ),
+                    }}
+                  />
+                </>
+              )}
             <SidebarLink
               onClick={handleCopy}
               link={{
