@@ -130,10 +130,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   );
 
   // pathname
-  const roomIdMatch = location.pathname.match(
-    /\b\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\b/,
-  );
-  const roomId = roomIdMatch ? roomIdMatch[0] : null;
+  const roomIdPattern =
+    /\/room\/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/;
+  // Search for the UUID in the pathname
+  const match = location.pathname.match(roomIdPattern);
+  // Return the UUID if found, otherwise return null
+  const roomId = match ? match[1] : null;
   const roomIdRef = useRef(roomId);
 
   // roomId storing
@@ -169,8 +171,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   // Handle socket disconnection based on route
   useEffect(() => {
     if (!isActiveUser) return;
+    const href = location.pathname + location.hash;
     // if isRoomPath or isPlayground that means user is still joined
-    if (validateRoomPath(window.location.href)) {
+    if (validateRoomPath(href)) {
       if (!socket?.connected) {
         socket?.connect();
       }
