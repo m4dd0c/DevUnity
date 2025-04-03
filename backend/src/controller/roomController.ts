@@ -21,10 +21,12 @@ export const createRoom = catchAsync(
         ),
       );
 
-    // checking if room id contains space (blankcharacter)
-    const validation = roomId.split(" ").length > 1;
-    if (validation)
-      return next(new DevUnityError(400, "RoomId can not contain any space."));
+    // checking if room id is a valid uuid
+    const roomIdRegex =
+      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    if (!roomIdRegex.test(roomId))
+      return next(new DevUnityError(400, "RoomId is not valid."));
+
     // checking if provided id is unique or not
     const isExist = await Room.exists({ roomId });
     if (isExist)
