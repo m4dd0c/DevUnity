@@ -70,7 +70,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     setIsSubmittingCode(submissionToken !== null);
   }, [submissionToken]);
 
-  // submit code
+  // WARN: Should do this using backend including the polling mechanism.
   const submitCode: ISocketContext["submitCode"] = () => {
     if (!language)
       return showToast({
@@ -78,7 +78,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         icon: "ℹ ",
         type: "icon",
       });
-
+    // Submitting code
     submitCodeMutation({
       source_code: btoa(code),
       language_id: language.id,
