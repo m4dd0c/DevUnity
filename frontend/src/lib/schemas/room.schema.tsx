@@ -31,11 +31,11 @@ export const UpdatePassAndLangSchema = z.object({
 
 export const UpdateRoomCodeSchema = z.object({
   // objectId
-  room_id: z.string().regex(roomIdRegex, "Room ID must be a valid UUID."),
+  room_id: z.string().min(3).max(50),
   code: z.string().max(150000),
 });
 
 export const DeleteRoomSchema = z.object({
   // objectId
-  room_id: z.string().regex(roomIdRegex, "Room ID must be a valid UUID."),
+  room_id: z.string().min(3).max(50),
 });
