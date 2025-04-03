@@ -4,6 +4,15 @@ import { langs } from "../constants";
 export const roomIdRegex =
   /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
+export const validatePlaygroundPath = (pathname: string): boolean => {
+  const regex =
+    /^\/room\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}(\/?(#playground)?)$/;
+
+  const match = regex.test(pathname);
+
+  return match;
+};
+
 export const validateRoomPath = (pathname: string): boolean => {
   // Check if the room UUID part of the path matches the roomIdRegex
   const regex =
