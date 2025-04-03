@@ -44,7 +44,7 @@ function RoomSidebar({
     return () => {
       document.removeEventListener("keydown", keyboardFn as any);
     };
-  }, []);
+  }, [isActiveUser, room, saveCode, submitCode]);
 
   return (
     <div
