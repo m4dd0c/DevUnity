@@ -186,14 +186,12 @@ export const SidebarLink = ({
   link,
   className,
   onClick,
-  onKeyDown,
   ...props
 }: {
   link: Links;
   room?: IRoom;
   className?: string;
   onClick?: () => any;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => any;
   props?: any;
 }) => {
   const { open, animate } = useSidebar();
@@ -234,7 +232,6 @@ export const SidebarLink = ({
       // buttons ie: copy roomId, runCode, saveCode
       <button
         onClick={onClick}
-        onKeyDown={onKeyDown}
         className={cn(
           "flex items-center justify-start gap-2  group/sidebar py-2",
           className,
