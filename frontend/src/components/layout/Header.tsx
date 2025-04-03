@@ -1,7 +1,8 @@
 import Navbar from "./Navbar";
 import { HashLink } from "react-router-hash-link";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { validateRoomPath } from "../../lib/utils";
+import { useLocation } from "react-router-dom";
 
 const Header = ({
   user_id,
@@ -12,12 +13,8 @@ const Header = ({
   user_id: string | null;
   setAuth: Dispatch<SetStateAction<boolean>>;
 }) => {
-  // If the current path is a room path, hide the header
-  const [isRoomPath, setIsRoomPath] = useState(false);
-  useEffect(() => {
-    setIsRoomPath(validateRoomPath(window.location.href));
-  }, []);
-
+  const location = useLocation();
+  const isRoomPath = validateRoomPath(location.pathname + location.hash);
   return (
     <>
       <div
