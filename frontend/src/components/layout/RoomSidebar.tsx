@@ -27,8 +27,8 @@ function RoomSidebar({
   // Adding Keyboard Shortcuts
   useEffect(() => {
     const keyboardFn = (evt: React.KeyboardEvent) => {
-      evt.preventDefault();
       if (evt.ctrlKey && (evt.key === "s" || evt.key === "S")) {
+        evt.preventDefault();
         saveCode({ roomId: room?.roomId || "" });
       }
       if (evt.ctrlKey && evt.key === "Enter") {
