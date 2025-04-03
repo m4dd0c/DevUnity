@@ -56,7 +56,7 @@ function JoinRoomForm({ user }: { user: IUser | null }) {
   }, [data, nav, user, joinEvent]);
 
   return (
-    <div className="absolute inset-x-0 top-1/2 z-50 mx-auto w-full max-w-md -translate-y-1/4 rounded-none border border-neutral-900 bg-white p-4 shadow-input dark:bg-[rgba(0,0,0,0.5)] md:rounded-2xl md:p-8">
+    <div className="shadow-input absolute inset-x-0 top-1/2 z-50 mx-auto w-full max-w-md -translate-y-1/4 rounded-none border border-neutral-900 bg-white p-4 md:rounded-2xl md:p-8 dark:bg-[rgba(0,0,0,0.5)]">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Join A Room
       </h2>
