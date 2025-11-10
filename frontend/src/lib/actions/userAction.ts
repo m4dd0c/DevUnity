@@ -1,3 +1,4 @@
+import axios from "axios";
 import { z } from "zod";
 import {
   ContactMeSchema,
@@ -5,7 +6,7 @@ import {
   SigninSchema,
   SignupSchema,
 } from "../schemas/user.schema";
-import { axiosInstance } from "..";
+import { axiosInstance, server } from "..";
 
 export const checkAvailabilityAction = async ({
   username,
@@ -48,8 +49,20 @@ export const signinAction = async (input: z.infer<typeof SigninSchema>) => {
 };
 
 export const getMeAction = async () => {
-  const { data }: { data: IData<IUser> } = await axiosInstance.get("/user/me");
-  return data;
+  try {
+    const { data }: { data: IData<IUser> } = await axios.get(
+      `${server}/api/v1/user/me`,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    console.error(error, "from getMeAction");
+  }
 };
 
 export const getUserAction = async (userId: string) => {
