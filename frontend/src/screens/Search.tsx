@@ -12,16 +12,24 @@ import SearchLoading from "../components/layout/Loadings/SearchLoading";
 import Pagination from "../components/layout/Pagination";
 import SEO from "../components/layout/SEO";
 
-const Search = () => {
-  const placeholders = [
-    "Who's the next coding rockstar?",
-    "Find that hidden gem of a project",
-    "Looking for a mastermind? Start typing...",
-    "Uncover the next big thing in code",
-    "Type to reveal the future of development",
-    "Search project by language",
-  ];
+const usersPlaceholders = [
+  "Try searching 'm4dd0c'",
+  "Who's the next coding rockstar?",
+  "Find that hidden gem of a project",
+  "Looking for a mastermind? Start typing...",
+];
+const projectsPlaceholders = [
+  "Search project by language",
+  "Try searching for 'dsa'",
+  "Type to reveal the future of development",
+];
 
+const phs = {
+  Users: usersPlaceholders,
+  Projects: projectsPlaceholders,
+};
+
+const Search = () => {
   const [type, setType] = useState<"Users" | "Projects">("Users");
 
   // switch b/w projects and users data
@@ -111,7 +119,7 @@ const Search = () => {
             <IconArrowsExchange2 size={20} />
           </button>
           <PlaceholdersAndVanishInput
-            placeholders={placeholders}
+            placeholders={phs[type]}
             onChange={(e) => setQuery(e.target.value)}
             value={query}
             onFocus={() => setActive(true)}
