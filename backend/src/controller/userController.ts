@@ -181,6 +181,13 @@ export const changePassword = catchAsync(
           "Please Reset password. If you have no access to your account.",
         ),
       );
+
+    // user@test.com can't change password
+    if (user.email === "user@test.com")
+      return next(
+        new DevUnityError(400, "Demo account password can't be changed."),
+      );
+
     const isIdeal = await user.comparePassword(currentPassword);
     if (!isIdeal)
       return next(
@@ -201,6 +208,13 @@ export const forgetPassword = catchAsync(
     const user = await User.findOne({ email });
     if (!user)
       return next(new DevUnityError(500, "No user found with this Email."));
+
+    // user@test.com can't change password
+    if (user.email === "user@test.com")
+      return next(
+        new DevUnityError(400, "Demo account password can't be changed."),
+      );
+
     // reset password token
     const token = uuidv4();
     const resetTokenHTML = resetHTMLCreator({
@@ -251,6 +265,13 @@ export const resetPassword = catchAsync(
     }).select("+password");
     if (!user)
       return next(new DevUnityError(400, "The link is modified or expired."));
+
+    // user@test.com can't change password
+    if (user.email === "user@test.com")
+      return next(
+        new DevUnityError(400, "Demo account password can't be changed."),
+      );
+
     user.resetPassword.token = null;
     user.resetPassword.expiresAt = null;
     user.password = newPassword;
@@ -408,6 +429,11 @@ export const deleteMe = catchAsync(
           "User must be authorized to perform termination of account.",
         ),
       );
+
+    // user@test.com can't change password
+    if (user.email === "user@test.com")
+      return next(new DevUnityError(400, "Demo account can't be deleted."));
+
     // delete user and his rooms
     const deletedUser = await user.deleteOne();
     if (!deletedUser)

@@ -27,8 +27,8 @@ function SigninForm({
   } = useForm({
     resolver: zodResolver(SigninSchema),
     defaultValues: {
-      input: "",
-      password: "",
+      input: "user@test.com",
+      password: "password",
     },
   });
 
