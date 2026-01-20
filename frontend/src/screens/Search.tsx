@@ -19,8 +19,8 @@ const usersPlaceholders = [
   "Looking for a mastermind? Start typing...",
 ];
 const projectsPlaceholders = [
-  "Search project by language",
   "Try searching for 'dsa'",
+  "Search project by language",
   "Type to reveal the future of development",
 ];
 
