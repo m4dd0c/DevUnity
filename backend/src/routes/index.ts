@@ -13,7 +13,7 @@ export const setupRoutes = () => {
   for (const key in routers) {
     app.use(`/api/v1/${key}`, routers[key as keyof typeof routers]);
   }
-  app.get("/check-health", (_req, res) => {
+  app.get("/api/v1/check-health", (_req, res) => {
     res.send("Server is working...");
   });
 };
