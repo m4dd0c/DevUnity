@@ -19,7 +19,7 @@ app.use(helmet());
 
 setupRoutes();
 
-app.get("/", (_req, res) => {
+app.get("/check-health", (_req, res) => {
   res.send("Server is working...");
 });
 
